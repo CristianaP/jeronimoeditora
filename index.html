@@ -4,13 +4,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Protótipo V2 - Jerónimo Editora (Melhorado)</title>
     
-    <!-- Google Fonts: Playfair Display (Serif) & Roboto (Sans) --><link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Roboto:wght@300;400;500;700;900&display=swap" rel="stylesheet">
     
-    <!-- Tailwind CSS --><script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
     
-    <!-- Tailwind Config with Bordeaux Color Palette and Custom Fonts --><script>
+    <script>
         tailwind.config = {
             theme: {
                 extend: {
@@ -68,11 +68,11 @@
 </head>
 <body class="bg-brand-bg text-brand-text font-sans antialiased flex flex-col min-h-screen">
 
-    <!-- Navigation (Simulado) --><nav class="w-full bg-white shadow-md border-b border-gray-100 py-4 px-6 fixed top-0 z-50">
+    <nav class="w-full bg-white shadow-md border-b border-gray-100 py-4 px-6 fixed top-0 z-50">
         <div class="max-w-6xl mx-auto flex justify-between items-center">
             
-            <!-- LOGÓTIPO + TEXTO (INTEGRADO) --><a href="#" class="flex items-center space-x-2">
-                <!-- Imagem do Logo J.png. Deve ser carregada a partir do mesmo diretório. --><img 
+            <a href="#" class="flex items-center space-x-2">
+                <img 
                     src="Logo J.png" 
                     alt="Logótipo Jerónimo Editora (Logo J.png)" 
                     class="h-9 w-auto"
@@ -81,20 +81,20 @@
                 <span class="font-serif text-2xl font-extrabold text-brand-text hover:text-brand-accent-red transition-colors duration-200">Jerónimo Editora</span>
             </a>
             
-            <!-- Desktop Menu --><div class="hidden md:flex space-x-8 text-sm font-medium text-gray-700 tracking-wide">
+            <div class="hidden md:flex space-x-8 text-sm font-medium text-gray-700 tracking-wide">
                 <a href="#hero" class="hover:text-brand-accent-red transition-colors duration-200">INÍCIO</a>
                 <a href="catalogo-completo.html" class="hover:text-brand-accent-red transition-colors duration-200">CATÁLOGO</a> 
                 <a href="#sobre" class="hover:text-brand-accent-red transition-colors duration-200">SOBRE</a>
                 <a href="#footer" class="hover:text-brand-accent-red transition-colors duration-200">CONTATO</a>
             </div>
             
-            <!-- Mobile Menu Button --><button id="menu-button" class="md:hidden text-2xl text-brand-text focus:outline-none hover:text-brand-accent-red">
+            <button id="menu-button" class="md:hidden text-2xl text-brand-text focus:outline-none hover:text-brand-accent-red">
                 &#9776;
             </button>
         </div>
     </nav>
 
-    <!-- Mobile Menu Dropdown --><div id="mobile-menu" class="hidden fixed top-20 left-0 w-full bg-white shadow-xl z-40 md:hidden">
+    <div id="mobile-menu" class="hidden fixed top-20 left-0 w-full bg-white shadow-xl z-40 md:hidden">
         <div class="flex flex-col p-4 text-center space-y-3">
             <a href="#hero" class="py-2 text-gray-700 hover:bg-gray-100 hover:text-brand-accent-red transition-colors" onclick="toggleMenu()">INÍCIO</a>
             <a href="catalogo-completo.html" class="py-2 text-gray-700 hover:bg-gray-100 hover:text-brand-accent-red transition-colors" onclick="toggleMenu()">CATÁLOGO</a>
@@ -103,9 +103,9 @@
         </div>
     </div>
 
-    <!-- Main Content Wrapper --><main class="flex-grow pt-20">
+    <main class="flex-grow pt-20">
 
-        <!-- DYNAMIC HERO SECTION - O Livro em Foco --><section id="hero" class="w-full min-h-[60vh] flex items-center justify-center bg-white border-b-8 border-gray-100/50">
+        <section id="hero" class="w-full min-h-[60vh] flex items-center justify-center bg-white border-b-8 border-gray-100/50">
             <div class="max-w-6xl mx-auto w-full grid grid-cols-1 md:grid-cols-2 gap-12 items-center px-6 py-16 fade-in">
                 
                 <div class="order-2 md:order-1 flex flex-col items-start text-left">
@@ -117,205 +117,242 @@
                     <p class="font-sans text-lg text-gray-600 mb-8 leading-relaxed max-w-lg">
                         A edição definitiva da obra magna do Doutor Angélico. Um pilar do pensamento clássico e da fé cristã, essencial para qualquer biblioteca.
                     </p>
-                    <!-- LINK CORRIGIDO para detalhes.html -->
-                    <a href="detalhes.html" class="inline-block bg-brand-accent-red text-white px-8 py-4 font-extrabold text-sm tracking-widest shadow-xl hover:bg-red-900 transition-all duration-300 transform hover:scale-[1.02] rounded-lg">
-                        VER DETALHES & ADQUIRIR
-                    </a>
-                    <a href="catalogo-completo.html" class="text-gray-500 mt-4 text-sm font-medium hover:text-brand-accent-blue transition-colors duration-200">
-                        → Explorar Outras Obras Clássicas
+                    <a href="detalhes.html" class="bg-brand-accent-blue text-white px-8 py-4 font-extrabold text-sm tracking-widest shadow-xl hover:bg-blue-900 transition-all duration-300 transform hover:scale-[1.02] rounded-lg">
+                        VER DETALHES
                     </a>
                 </div>
                 
-                <div class="order-1 md:order-2 flex justify-center items-center relative">
-                    <!-- Imagem para Suma Teológica. Caminho genérico assumido. --><img 
-                        src="suma_teologica.png" 
-                        alt="Capa do livro Suma Teológica" 
-                        class="w-72 h-[450px] book-shadow rounded-lg object-cover" 
-                        onerror="this.onerror=null;this.src='https://placehold.co/288x450/002147/cfaf5c?text=SUMA+TEOL%C3%93GICA';"
-                    />
-                    <!-- Elemento Decorativo: Cruz Simples --><div class="absolute bottom-5 right-5 text-4xl text-white/10 font-bold -rotate-12 select-none pointer-events-none font-serif">†</div>
+                <div class="order-1 md:order-2 flex justify-center">
+                    <a href="detalhes.html">
+                        <img 
+                            src="suma_teologica.png" 
+                            alt="Capa do livro Suma Teológica" 
+                            class="w-56 md:w-72 h-auto object-contain book-shadow"
+                            onerror="this.onerror=null;this.src='https://placehold.co/288x432/800000/cfaf5c?text=SUMA+TEOLÓGICA';"
+                        />
+                    </a>
+                </div>
+
+            </div>
+        </section>
+
+        <section id="novidades" class="w-full bg-brand-bg py-16 border-b-8 border-gray-100/50">
+            <div class="max-w-6xl mx-auto px-6 fade-in">
+                <h2 class="font-serif text-3xl text-center text-gray-900 mb-12 border-b-2 border-brand-accent-red/30 pb-3">Novidades na Coleção</h2>
+                
+                <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-6">
+
+                    <div class="text-center group cursor-pointer book-shadow bg-white rounded-lg transition-all duration-300 hover:shadow-xl">
+                        <a href="detalhes.html">
+                            <img 
+                                src="Bergsma.png" 
+                                alt="Capa do livro Jesus e o Jubileu" 
+                                class="mx-auto w-48 h-72 object-contain mb-3 rounded-sm pt-4"
+                                onerror="this.onerror=null;this.src='https://placehold.co/192x288/002147/cfaf5c?text=JUBILEU';"
+                            />
+                            <div class="px-3 pb-4">
+                                <h4 class="font-serif text-xl text-gray-900 group-hover:text-brand-accent-red transition-colors duration-200">Jesus e o Jubileu</h4>
+                                <p class="text-sm text-gray-500 italic font-medium mt-2">John S. Bergsma</p>
+                                <p class="text-sm text-gray-400 mt-4">Uma visão surpreendente da missão de Cristo na perspetiva judaica.</p>
+                            </div>
+                        </a>
+                    </div>
+
+                    <div class="text-center group cursor-pointer book-shadow bg-white rounded-lg transition-all duration-300 hover:shadow-xl">
+                        <a href="detalhes.html">
+                            <img 
+                                src="Kreeft.png" 
+                                alt="Capa do livro Tu podes entender a Bíblia" 
+                                class="mx-auto w-48 h-72 object-contain mb-3 rounded-sm pt-4"
+                                onerror="this.onerror=null;this.src='https://placehold.co/192x288/002147/cfaf5c?text=BÍBLIA';"
+                            />
+                            <div class="px-3 pb-4">
+                                <h4 class="font-serif text-xl text-gray-900 group-hover:text-brand-accent-red transition-colors duration-200">Tu podes entender a Bíblia</h4>
+                                <p class="text-sm text-gray-500 italic font-medium mt-2">Peter Kreeft</p>
+                                <p class="text-sm text-gray-400 mt-4">Um guia prático e iluminador para cada livro da Bíblia.</p>
+                            </div>
+                        </a>
+                    </div>
+
+                    <div class="text-center group cursor-pointer book-shadow bg-white rounded-lg transition-all duration-300 hover:shadow-xl">
+                        <a href="detalhes.html">
+                            <img 
+                                src="Jacobson.png" 
+                                alt="Capa do livro Convite aos Salmos" 
+                                class="mx-auto w-48 h-72 object-contain mb-3 rounded-sm pt-4"
+                                onerror="this.onerror=null;this.src='https://placehold.co/192x288/002147/cfaf5c?text=SALMOS';"
+                            />
+                            <div class="px-3 pb-4">
+                                <h4 class="font-serif text-xl text-gray-900 group-hover:text-brand-accent-red transition-colors duration-200">Convite aos Salmos</h4>
+                                <p class="text-sm text-gray-500 italic font-medium mt-2">Rolf A. Jacobson & Karl N. Jacobson</p>
+                                <p class="text-sm text-gray-400 mt-4">Uma leitura devocional para a oração mais antiga da Igreja.</p>
+                            </div>
+                        </a>
+                    </div>
+                    
+                    <div class="text-center group cursor-pointer book-shadow bg-white rounded-lg transition-all duration-300 hover:shadow-xl hidden sm:block">
+                        <a href="detalhes.html">
+                            <img 
+                                src="Therese.png" 
+                                alt="Capa do livro As mãos vazias" 
+                                class="mx-auto w-48 h-72 object-contain mb-3 rounded-sm pt-4"
+                                onerror="this.onerror=null;this.src='https://placehold.co/192x288/800000/cfaf5c?text=TERESA';"
+                            />
+                            <div class="px-3 pb-4">
+                                <h4 class="font-serif text-xl text-gray-900 group-hover:text-brand-accent-red transition-colors duration-200">As mãos vazias</h4>
+                                <p class="text-sm text-gray-500 italic font-medium mt-2">Santa Teresinha</p>
+                                <p class="text-sm text-gray-400 mt-4">A mensagem de Santa Teresinha de Lisieux sobre a confiança.</p>
+                            </div>
+                        </a>
+                    </div>
+
+                </div>
+                
+                <div class="text-center mt-12">
+                    <a href="catalogo-completo.html" class="inline-block bg-brand-accent-red text-white px-10 py-3 font-bold text-base tracking-wider shadow-md hover:bg-red-900 transition-colors duration-200 rounded-lg">
+                        VER CATÁLOGO COMPLETO
+                    </a>
+                </div>
+
+            </div>
+        </section>
+
+        <section id="testemunhos" class="w-full bg-gray-100 py-16 border-b-8 border-white/50">
+            <div class="max-w-6xl mx-auto px-6 fade-in">
+                <h2 class="font-serif text-3xl text-center text-gray-900 mb-12 border-b-2 border-brand-accent-red/30 pb-3">O Que Dizem os Nossos Leitores</h2>
+                
+                <div class="grid md:grid-cols-3 gap-8">
+                    
+                    <div class="bg-white p-6 rounded-xl shadow-lg border border-gray-100 fade-in">
+                        <blockquote class="italic text-gray-600 mb-4">
+                            "Qualidade de impressão excecional e traduções de grande rigor. A Jerónimo Editora é agora a minha editora de eleição para os Clássicos."
+                        </blockquote>
+                        <p class="font-bold text-sm text-brand-accent-blue">- João R., Professor Universitário</p>
+                    </div>
+
+                    <div class="bg-white p-6 rounded-xl shadow-lg border border-gray-100 fade-in delay-150" style="animation-delay: 0.15s;">
+                        <blockquote class="italic text-gray-600 mb-4">
+                            "A 'Suma Teológica' é uma obra-prima. O cuidado na apresentação torna o estudo dos Clássicos. Recomendo."
+                        </blockquote>
+                        <p class="font-bold text-sm text-brand-accent-blue">- Sofia P., Estudante</p>
+                    </div>
+
+                    <div class="bg-white p-6 rounded-xl shadow-lg border border-gray-100 fade-in delay-300" style="animation-delay: 0.3s;">
+                        <blockquote class="italic text-gray-600 mb-4">
+                            "O papel é de uma qualidade superior. A leitura é fluida e o livro dura gerações. Excelente trabalho da Jerónimo."
+                        </blockquote>
+                        <p class="font-bold text-sm text-brand-accent-blue">- Pe. Ricardo, Pároco</p>
+                    </div>
                 </div>
             </div>
         </section>
 
-        <!-- SECÇÃO DE TESTEMUNHOS/PROVA SOCIAL (NOVA) --><section class="max-w-6xl mx-auto px-6 py-16 bg-brand-bg/80">
-            <h2 class="font-serif text-3xl text-center text-gray-900 mb-12 border-b-2 border-brand-accent-red/30 pb-3">A Opinião dos Leitores</h2>
-            
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-                
-                <!-- Testemunho 1 --><div class="bg-white p-6 rounded-xl shadow-lg border border-gray-100 fade-in delay-100" style="animation-delay: 0.1s;">
-                    <blockquote class="italic text-gray-600 mb-4">
-                        "A qualidade da encadernação e o design tipográfico são impecáveis. Uma verdadeira peça de colecionador."
-                    </blockquote>
-                    <p class="font-bold text-sm text-brand-accent-blue">- Dr. Almeida, Historiador</p>
-                </div>
-                
-                <!-- Testemunho 2 --><div class="bg-white p-6 rounded-xl shadow-lg border border-gray-100 fade-in delay-200" style="animation-delay: 0.2s;">
-                    <blockquote class="italic text-gray-600 mb-4">
-                        "Finalmente, uma editora que entende a importância da apresentação para o estudo dos Clássicos. Recomendo."
-                    </blockquote>
-                    <p class="font-bold text-sm text-brand-accent-blue">- Sofia P., Estudante</p>
-                </div>
-
-                <!-- Testemunho 3 --><div class="bg-white p-6 rounded-xl shadow-lg border border-gray-100 fade-in delay-300" style="animation-delay: 0.3s;">
-                    <blockquote class="italic text-gray-600 mb-4">
-                        "O papel é de uma qualidade superior. A leitura é fluida e o livro dura gerações. Excelente trabalho da Jerónimo."
-                    </blockquote>
-                    <p class="font-bold text-sm text-brand-accent-blue">- Pe. Ricardo, Pároco</p>
-                </div>
-            </div>
-        </section>
-
-        <!-- SECÇÃO SOBRE NÓS (NOVA) --><section id="sobre" class="w-full bg-white border-b-8 border-gray-100/50 py-16">
+        <section id="sobre" class="w-full bg-white border-b-8 border-gray-100/50 py-16">
             <div class="max-w-6xl mx-auto px-6 fade-in">
                 <h2 class="font-serif text-3xl text-center text-gray-900 mb-12 border-b-2 border-brand-accent-blue/30 pb-3">Sobre a Jerónimo Editora</h2>
+                
                 <div class="grid md:grid-cols-3 gap-10 items-center">
                     <div class="md:col-span-2 text-lg text-gray-700 space-y-4 leading-relaxed">
                         <p>Fundada com a missão de preservar e divulgar os pilares do pensamento ocidental e da tradição católica, a Jerónimo Editora dedica-se à publicação de obras clássicas em edições de rigor e qualidade excecionais.</p>
-                        <p>Acreditamos que a forma como o livro é apresentado é tão importante quanto o seu conteúdo. Por isso, cada volume é um artefato cuidadosamente desenhado para durar, oferecendo uma experiência de leitura digna da importância das obras que publicamos.</p>
+                        <p>Acreditamos que a forma como o livro é apresentado é tão importante quanto o seu conteúdo. Por isso, cada volume é um artefato cuidadosamente desenhado para durar, oferecendo uma experiência de leitura digna dos maiores autores da História.</p>
+                        
+                        <div class="mt-6 p-4 border-l-4 border-brand-accent-red bg-red-50 italic">
+                            O nosso compromisso é com a Verdade, a Beleza e a Tradição.
+                        </div>
                     </div>
+                    
                     <div class="md:col-span-1 flex justify-center">
-                        <!-- Imagem do Logo J.png dentro do círculo na secção "Sobre Nós" --><img 
-                            src="Logo J.png" 
-                            alt="Logótipo Jerónimo Editora - Visão da Editora" 
-                            class="w-40 h-40 rounded-full object-contain border-4 border-brand-accent-red/50 shadow-xl p-4 bg-gray-50"
-                            onerror="this.onerror=null;this.src='https://placehold.co/160x160/cfaf5c/800000?text=J';"
+                        <img 
+                            src="Pena.png" 
+                            alt="Desenho de uma pena de escrever"
+                            class="w-32 h-32 object-contain opacity-70"
+                            onerror="this.onerror=null;this.src='https://placehold.co/128x128/cfaf5c/800000?text=Pena';"
                         />
                     </div>
                 </div>
-            </div>
-        </section>
-
-        <!-- SECÇÃO DE CATÁLOGO (Revisitada) --><section id="catalogo" class="max-w-6xl mx-auto px-6 py-16">
-            <h2 class="font-serif text-3xl text-center text-gray-900 mb-12 border-b-2 border-brand-accent-red/30 pb-3">Outras Obras Clássicas</h2>
-            
-            <!-- Grid com 3 colunas para ecrãs grandes --><div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-3 gap-6">
-                
-                <!-- Livro 1: Jesus e o Jubileu (ESTRUTURA AJUSTADA) --><div class="text-center group cursor-pointer book-shadow bg-white rounded-lg transition-all duration-300 hover:shadow-xl">
-                    <!-- Imagem maior (w-48 h-72) e ajustada ao topo da caixa --><img 
-                        src="Bergsma.png" 
-                        alt="Capa do livro Jesus e o Jubileu" 
-                        class="mx-auto w-48 h-72 object-contain mb-3 rounded-sm pt-4"
-                        onerror="this.onerror=null;this.src='https://placehold.co/192x288/002147/cfaf5c?text=JESUS';"
-                    />
-                    <div class="px-3 pb-4">
-                        <!-- Título aumentado (text-xl) --><h4 class="font-serif text-xl text-gray-900 group-hover:text-brand-accent-red transition-colors duration-200">Jesus e o Jubileu</h4>
-                        <!-- Autor aumentado (text-sm) e agora em itálico - ADICIONADO mt-2 --><p class="text-sm text-gray-500 italic font-medium mt-2">John S. Bergsma</p>
-                        <!-- Mini-resumo aumentado (text-sm) e alterado para mt-4 --><p class="text-sm text-gray-400 mt-4">As Raízes Bíblicas do Ano da Graça de Deus.</p>
-                    </div>
-                </div>
-
-                <!-- Livro 2: Tu podes entender a Bíblia (ESTRUTURA AJUSTADA) --><div class="text-center group cursor-pointer book-shadow bg-white rounded-lg transition-all duration-300 hover:shadow-xl">
-                    <img 
-                        src="Kreeft.png" 
-                        alt="Capa do livro Tu podes entender a Bíblia" 
-                        class="mx-auto w-48 h-72 object-contain mb-3 rounded-sm pt-4"
-                        onerror="this.onerror=null;this.src='https://placehold.co/192x288/002147/cfaf5c?text=B%C3%8BLIA';"
-                    />
-                    <div class="px-3 pb-4">
-                        <h4 class="font-serif text-xl text-gray-900 group-hover:text-brand-accent-red transition-colors duration-200">Tu podes entender a Bíblia</h4>
-                        <!-- Autor aumentado (text-sm) e agora em itálico - ADICIONADO mt-2 --><p class="text-sm text-gray-500 italic font-medium mt-2">Peter Kreeft</p>
-                        <!-- Mini-resumo aumentado (text-sm) e alterado para mt-4 --><p class="text-sm text-gray-400 mt-4">Um guia prático e iluminador para cada livro da Bíblia.</p>
-                    </div>
-                </div>
-
-                <!-- Livro 3: Convite aos Salmos (ESTRUTURA AJUSTADA) --><div class="text-center group cursor-pointer book-shadow bg-white rounded-lg transition-all duration-300 hover:shadow-xl">
-                    <img 
-                        src="Jacobson.png" 
-                        alt="Capa do livro Convite aos Salmos" 
-                        class="mx-auto w-48 h-72 object-contain mb-3 rounded-sm pt-4" 
-                        onerror="this.onerror=null;this.src='https://placehold.co/192x288/002147/cfaf5c?text=SALMOS';"
-                    />
-                    <div class="px-3 pb-4">
-                        <h4 class="font-serif text-xl text-gray-900 group-hover:text-brand-accent-red transition-colors duration-200">Convite aos Salmos</h4>
-                        <!-- Autor aumentado (text-sm) e agora em itálico - ADICIONADO mt-2 --><p class="text-sm text-gray-500 italic font-medium mt-2">Rolf A. Jacobson & Karl N. Jacobson</p>
-                        <!-- Mini-resumo aumentado (text-sm) e alterado para mt-4 --><p class="text-sm text-gray-400 mt-4">Um guia de leitura para descoberta e envolvimento com o Livro dos Salmos.</p>
-                    </div>
-                </div>
-            </div>
-            
-            <div class="text-center mt-12">
-                <!-- LINK CORRIGIDO para catalogo-completo.html -->
-                <a href="catalogo-completo.html" class="inline-block border-2 border-brand-accent-blue text-brand-accent-blue px-6 py-3 font-bold text-sm tracking-wider hover:bg-brand-accent-blue hover:text-white transition duration-300 rounded-lg">
-                    VER CATÁLOGO COMPLETO
-                </a>
             </div>
         </section>
 
     </main>
 
-    <!-- FOOTER (MELHORADO) --><footer id="footer" class="bg-gray-900 text-gray-300 py-12 px-6 border-t-8 border-brand-accent-red">
-        <div class="max-w-6xl mx-auto">
-            <div class="grid grid-cols-2 md:grid-cols-4 gap-10">
-                
-                <!-- Coluna 1: Logo e Descrição --><div class="col-span-2 md:col-span-1 space-y-4">
-                    <a href="#" class="flex items-center space-x-2 text-white">
-                        <!-- Imagem do Logo J Dourado.png --><img 
-                            src="Logo J Dourado.png" 
-                            alt="Logótipo Jerónimo Editora Dourado (Logo J Dourado.png)" 
-                            class="h-8 w-auto"
-                            onerror="this.onerror=null;this.src='https://placehold.co/32x32/cfaf5c/800000?text=J';"
-                        />
-                        <span class="font-serif text-2xl font-bold">Jerónimo Editora</span>
-                    </a>
-                    <p class="text-sm text-gray-400">
-                        Publicamos obras fundamentais do pensamento clássico e da tradição católica.
-                    </p>
-                </div>
-                
-                <!-- Coluna 2: Links Rápidos (Dourado Elegante) --><div class="space-y-3">
-                    <!-- Título Dourado Elegante --><h4 class="font-bold text-lg text-brand-gold uppercase tracking-wider">Ligações Rápidas</h4>
-                    <ul class="space-y-2 text-sm">
-                        <li><a href="#hero" class="hover:text-white transition">Início</a></li>
-                        <li><a href="catalogo-completo.html" class="hover:text-white transition">Catálogo</a></li>
-                        <li><a href="#sobre" class="hover:text-white transition">Sobre</a></li>
-                        <li><a href="#" class="hover:text-white transition">Termos de Serviço</a></li>
-                    </ul>
-                </div>
+    <footer id="footer" class="bg-gray-900 text-gray-300 py-16 px-6 border-t-8 border-brand-accent-red">
+        <div class="max-w-6xl mx-auto grid grid-cols-2 md:grid-cols-4 gap-10">
 
-                <!-- Coluna 3: Contacto e Sede (Dourado Elegante) --><div class="space-y-3">
-                    <!-- Título Dourado Elegante --><h4 class="font-bold text-lg text-brand-gold uppercase tracking-wider">Sede & Contacto</h4>
-                    <ul class="space-y-2 text-sm">
-                        <li><a href="mailto:info@jeronimoeditora.pt" class="hover:text-white transition">info@jeronimoeditora.pt</a></li>
-                        <li class="text-gray-400">Porto, Portugal</li>
-                        <li><a href="#" class="hover:text-white transition">Política de Privacidade</a></li>
-                    </ul>
+            <div class="col-span-2 md:col-span-1 space-y-4">
+                <div class="flex items-center space-x-2">
+                    <img 
+                        src="Logo J.png" 
+                        alt="Logótipo Jerónimo Editora (Logo J.png)" 
+                        class="h-7 w-auto"
+                        onerror="this.onerror=null;this.src='https://placehold.co/40x40/cfaf5c/800000?text=J';"
+                    />
+                    <span class="font-serif text-xl font-bold text-brand-gold">Jerónimo Editora</span>
                 </div>
-
-                <!-- Coluna 4: Newsletter (Dourado Elegante) --><div class="col-span-2 md:col-span-1 space-y-4">
-                    <!-- Título Dourado Elegante --><h4 class="font-bold text-lg text-brand-gold uppercase tracking-wider">Subscrever Newsletter</h4>
-                    <p class="text-sm text-gray-400">Receba as novidades sobre os clássicos e pré-vendas exclusivas.</p>
-                    <div class="flex flex-col space-y-2">
-                        <!-- Adicionado ID ao input para demonstração, mas sem uso na lógica simples -->
-                        <input type="email" id="newsletter-email" placeholder="Seu email..." class="p-3 rounded-lg border-2 border-gray-700 focus:border-brand-accent-red outline-none text-gray-900" />
-                        
-                        <!-- ADICIONADA LÓGICA: id e onclick para desativar temporariamente o botão -->
-                        <button id="subscribe-button" class="bg-brand-accent-red text-white py-3 rounded-lg font-bold text-sm tracking-wider hover:bg-red-900 transition-colors duration-200" onclick="handleSubscribe(event)">
-                            SUBSCREVER
-                        </button>
-                        
-                        <!-- Mensagem de feedback (inicialmente oculta) -->
-                        <p id="subscribe-message" class="text-sm text-brand-gold font-medium hidden">Subscrição confirmada! Obrigado.</p>
-                    </div>
+                <p class="text-sm text-gray-400">Edições de rigor dos pilares do pensamento ocidental e da tradição católica.</p>
+                
+                <div class="flex space-x-4 mt-4">
+                    <a href="#" class="text-gray-400 hover:text-white transition"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg></a>
+                    <a href="#" class="text-gray-400 hover:text-white transition"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="20" x="2" y="2" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" x2="17.51" y1="6.5" y2="6.5"/></svg></a>
+                    <a href="#" class="text-gray-400 hover:text-white transition"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22.54 6.42a10.42 10.42 0 0 0-.8-3.92 4.14 4.14 0 0 0-2.88-2.88 10.42 10.42 0 0 0-3.92-.8C11.66.5 12 11.66 12 12c0 1.25-.09 2.5-.24 3.75-.15 1.25-.42 2.47-.83 3.65a4.14 4.14 0 0 0 2.88 2.88 10.42 10.42 0 0 0 3.92.8c1.25 0 2.5-.09 3.75-.24 1.25-.15 2.47-.42 3.65-.83a4.14 4.14 0 0 0 2.88-2.88 10.42 10.42 0 0 0 .8-3.92z"/></svg></a>
                 </div>
             </div>
 
-            <!-- Direitos de Autor --><div class="text-center border-t border-gray-700 mt-10 pt-6">
-                <p class="text-xs text-gray-500">© 2024 Jerónimo Editora. Todos os direitos reservados.</p>
+            <div class="space-y-4">
+                <h4 class="font-bold text-lg text-white uppercase tracking-wider">Navegação</h4>
+                <ul class="space-y-2 text-sm">
+                    <li><a href="#hero" class="hover:text-white transition">Início</a></li>
+                    <li><a href="catalogo-completo.html" class="hover:text-white transition">Catálogo</a></li>
+                    <li><a href="#sobre" class="hover:text-white transition">Sobre Nós</a></li>
+                    <li><a href="#footer" class="hover:text-white transition">Contato</a></li>
+                </ul>
             </div>
+
+            <div class="space-y-4">
+                <h4 class="font-bold text-lg text-white uppercase tracking-wider">Sede & Contacto</h4>
+                <ul class="space-y-2 text-sm">
+                    <li><a href="mailto:editorajeronimo@gmail.com" class="hover:text-white transition">editorajeronimo@gmail.com</a></li>
+                    <li class="text-gray-400">Braga, Portugal</li>
+                    <li><a href="#" class="hover:text-white transition">Política de Privacidade</a></li>
+                </ul>
+            </div>
+
+            <div class="col-span-2 md:col-span-1 space-y-4">
+                <h4 class="font-bold text-lg text-brand-gold uppercase tracking-wider">Subscrever Newsletter</h4>
+                <p class="text-sm text-gray-400">Receba as últimas novidades e ofertas exclusivas diretamente no seu email.</p>
+                
+                <form onsubmit="handleSubscribe(event)" class="flex flex-col space-y-3">
+                    <input 
+                        type="email" 
+                        id="newsletter-email"
+                        placeholder="O seu email" 
+                        required 
+                        class="p-2 rounded-md bg-gray-800 border border-gray-700 text-white focus:border-brand-gold focus:ring-1 focus:ring-brand-gold"
+                    >
+                    <button 
+                        type="submit" 
+                        id="subscribe-button"
+                        class="bg-brand-gold text-brand-accent-blue font-bold py-2 rounded-md shadow-lg hover:bg-yellow-600 transition-colors"
+                    >
+                        SUBSCREVER
+                    </button>
+                    <p id="subscribe-message" class="text-xs text-green-400 font-bold hidden"></p>
+                </form>
+            </div>
+
+        </div>
+
+        <div class="max-w-6xl mx-auto text-center pt-8 mt-10 border-t border-gray-800">
+            <p class="text-xs text-gray-500">© 2024 Jerónimo Editora. Edições de Clássicos. Design por Gemini.</p>
         </div>
     </footer>
 
+
     <script>
-        // Função para alternar o menu móvel
+        // Lógica do Menu Mobile
         function toggleMenu() {
-            const menu = document.getElementById('mobile-menu');
-            menu.classList.toggle('hidden');
+            document.getElementById('mobile-menu').classList.toggle('hidden');
         }
-
-        // Adicionar listener ao botão do menu
         document.getElementById('menu-button').addEventListener('click', toggleMenu);
-
 
         // NOVO: Lógica para desativar e reativar o botão de subscrição
         function handleSubscribe(event) {
