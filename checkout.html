@@ -1,0 +1,407 @@
+<html lang="pt-PT">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Finalizar Compra | Jerónimo Editora</title>
+    
+    <!-- Google Fonts: Playfair Display (Serif) & Roboto (Sans) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Roboto:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Tailwind Config -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        serif: ['"Playfair Display"', 'serif'],
+                        sans: ['"Roboto"', 'sans-serif'],
+                    },
+                    colors: {
+                        'brand-bg': '#F8F8F8', // Papel envelhecido moderno (Off-White)
+                        'brand-text': '#333333', // Cinza Antracite
+                        'brand-accent-red': '#800000', // Bordô/Vinho (Principal)
+                        'brand-accent-blue': '#002147', // Azul Marinho Clássico (Secundário)
+                        'brand-gold': '#cfaf5c', // Dourado Elegante (Cor customizada)
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        /* Estilos de input focados para melhor UX */
+        input:focus, select:focus, textarea:focus {
+            border-color: #800000 !important; /* brand-accent-red */
+            box-shadow: 0 0 0 2px rgba(128, 0, 0, 0.2);
+        }
+        /* Estilo para inputs de ficheiro para maior clareza */
+        #proof-file::file-selector-button {
+            transition: all .2s;
+        }
+    </style>
+</head>
+<body class="bg-brand-bg text-brand-text font-sans antialiased flex flex-col min-h-screen">
+
+    <!-- Modal de Confirmação de Sucesso -->
+    <div id="success-modal" class="fixed inset-0 z-50 bg-black bg-opacity-70 flex items-center justify-center hidden">
+        <div class="bg-white p-8 rounded-xl shadow-2xl max-w-lg w-full mx-4 text-center transform scale-100 transition-all duration-300">
+            <svg xmlns="http://www.w3.org/2000/svg" width="60" height="60" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mx-auto text-green-600 mb-4"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><path d="m9 11 3 3L22 4"/></svg>
+            <h3 class="text-3xl font-bold font-serif text-brand-accent-blue mb-3">Encomenda Efetuada com Sucesso!</h3>
+            <p class="text-gray-700 mb-6">Obrigado pela sua compra na Jerónimo Editora. Receberá um email com os detalhes da encomenda.</p>
+            <a href="catalogo.html" class="inline-block bg-brand-accent-red text-white py-3 px-8 rounded-lg hover:bg-red-900 transition-colors font-bold shadow-lg">
+                Continuar a Comprar
+            </a>
+        </div>
+    </div>
+
+    <!-- Navigation (Simples para Checkout) -->
+    <nav class="w-full bg-white shadow-md border-b-2 border-brand-accent-red py-4 px-6">
+        <div class="max-w-6xl mx-auto flex justify-between items-center">
+            <!-- Link para voltar ao catálogo -->
+            <a href="catalogo.html" class="text-brand-accent-blue hover:text-brand-accent-red transition-colors flex items-center space-x-2 font-medium">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5"/><path d="m12 19-7-7 7-7"/></svg>
+                <span>Voltar ao Catálogo</span>
+            </a>
+            <!-- Título da Marca -->
+            <span class="font-serif text-2xl font-extrabold text-brand-text">Jerónimo Editora</span>
+            <span></span> <!-- Espaço para equilibrar o layout -->
+        </div>
+    </nav>
+
+    <!-- Main Content: Checkout -->
+    <main class="flex-grow py-12">
+        <div class="max-w-6xl mx-auto px-6">
+            <h1 class="font-serif text-4xl text-brand-accent-blue mb-8 text-center">Finalizar Compra</h1>
+
+            <div class="flex flex-col lg:flex-row gap-8">
+                
+                <!-- Coluna Esquerda: Formulário de Envio e Pagamento -->
+                <div class="lg:w-7/12">
+                    
+                    <!-- Secção 1: Detalhes de Envio -->
+                    <section class="bg-white p-6 rounded-xl shadow-lg mb-8 border border-gray-100">
+                        <h2 class="font-serif text-2xl font-bold text-brand-accent-red mb-4 border-b pb-2">1. Detalhes de Envio</h2>
+                        
+                        <form id="shipping-form" class="space-y-4">
+                            <div>
+                                <label for="nome" class="block text-sm font-medium text-gray-700">Nome Completo *</label>
+                                <input type="text" id="nome" required class="mt-1 block w-full p-3 border border-gray-300 rounded-lg shadow-sm">
+                            </div>
+                            
+                            <!-- CAMPO NIF - Apenas label visível -->
+                            <div>
+                                <label for="nif" class="block text-sm font-medium text-gray-700">NIF (Número de Identificação Fiscal)</label>
+                                <input 
+                                    type="text" 
+                                    id="nif" 
+                                    class="mt-1 block w-full p-3 border border-gray-300 rounded-lg shadow-sm"
+                                >
+                            </div>
+                            
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                <div>
+                                    <label for="email" class="block text-sm font-medium text-gray-700">Email *</label>
+                                    <input type="email" id="email" required class="mt-1 block w-full p-3 border border-gray-300 rounded-lg shadow-sm">
+                                </div>
+                                <div>
+                                    <label for="telefone" class="block text-sm font-medium text-gray-700">Telefone</label>
+                                    <input type="tel" id="telefone" class="mt-1 block w-full p-3 border border-gray-300 rounded-lg shadow-sm">
+                                </div>
+                            </div>
+                            <div>
+                                <label for="morada" class="block text-sm font-medium text-gray-700">Morada Completa *</label>
+                                <input type="text" id="morada" required class="mt-1 block w-full p-3 border border-gray-300 rounded-lg shadow-sm">
+                            </div>
+                            <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                                <div>
+                                    <label for="cod-postal" class="block text-sm font-medium text-gray-700">Código Postal *</label>
+                                    <input type="text" id="cod-postal" required class="mt-1 block w-full p-3 border border-gray-300 rounded-lg shadow-sm" placeholder="XXXX-XXX">
+                                </div>
+                                <div>
+                                    <label for="cidade" class="block text-sm font-medium text-gray-700">Cidade *</label>
+                                    <input type="text" id="cidade" required class="mt-1 block w-full p-3 border border-gray-300 rounded-lg shadow-sm">
+                                </div>
+                                <div>
+                                    <label for="pais" class="block text-sm font-medium text-gray-700">País *</label>
+                                    <select id="pais" required class="mt-1 block w-full p-3 border border-gray-300 rounded-lg shadow-sm bg-white">
+                                        <option value="PT">Portugal</option>
+                                        <option value="ES">Espanha</option>
+                                        <option value="BR">Brasil</option>
+                                        <option value="OT">Outro</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </form>
+                    </section>
+
+                    <!-- Secção 2: Método de Pagamento -->
+                    <section class="bg-white p-6 rounded-xl shadow-lg border border-gray-100">
+                        <h2 class="font-serif text-2xl font-bold text-brand-accent-red mb-4 border-b pb-2">2. Método de Pagamento</h2>
+                        
+                        <div class="space-y-4">
+                            <!-- Opção 1: Cartão de Crédito (Simulado) - DESATIVADA -->
+                            <label class="flex items-center space-x-3 p-4 border rounded-lg cursor-not-allowed bg-gray-100 opacity-60">
+                                <input type="radio" name="payment-method" value="credit-card" disabled class="form-radio text-brand-accent-red focus:ring-brand-accent-red">
+                                <span class="text-gray-500 font-medium">Cartão de Crédito/Débito</span>
+                                <span class="flex-grow text-right text-sm text-gray-400">Indisponível</span>
+                            </label>
+
+                            <!-- Opção 2: Referência Multibanco (Simulado) - DESATIVADA -->
+                            <label class="flex items-center space-x-3 p-4 border rounded-lg cursor-not-allowed bg-gray-100 opacity-60">
+                                <input type="radio" name="payment-method" value="multibanco" disabled class="form-radio text-brand-accent-red focus:ring-brand-accent-red">
+                                <span class="text-gray-500 font-medium">Referência Multibanco</span>
+                                <span class="flex-grow text-right text-sm text-gray-400">Indisponível</span>
+                            </label>
+
+                            <!-- Opção 3: Transferência Bancária (Novo) -->
+                            <div>
+                                <label class="flex items-center space-x-3 p-4 border rounded-lg cursor-pointer hover:bg-gray-50 transition-colors">
+                                    <input type="radio" name="payment-method" id="payment-transfer" value="bank-transfer" class="form-radio text-brand-accent-red focus:ring-brand-accent-red">
+                                    <span class="text-gray-800 font-medium">Transferência Bancária (48h)</span>
+                                    <span class="flex-grow text-right text-sm text-gray-500">Requer Comprovativo</span>
+                                </label>
+                                <div id="transfer-details" class="mt-3 p-4 border-t border-gray-200 bg-gray-50 rounded-b-lg hidden">
+                                    <p class="text-sm text-gray-700 mb-3 font-semibold">Instruções:</p>
+                                    <ul class="list-disc list-inside text-xs text-gray-600 mb-3 space-y-1">
+                                        <li>Transfira o <strong id="transfer-amount" class="text-brand-accent-blue">€ 0,00</strong> para o NIB **0035 0800 00012345678 90**.</li>
+                                        <li>Utilize o seu nome completo como referência.</li>
+                                        <li>A sua encomenda será processada após a receção do comprovativo.</li>
+                                    </ul>
+                                    <label for="proof-file" class="block text-sm font-medium text-gray-700 mb-2">Anexar Comprovativo (Obrigatório):</label>
+                                    <input type="file" id="proof-file" accept="image/*, application/pdf" class="mt-1 block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-semibold file:bg-brand-accent-red file:text-white hover:file:bg-red-900" />
+                                </div>
+                            </div>
+
+                            <!-- Opção 4: MB Way (Simulado) - Selecionada por defeito -->
+                            <div>
+                                <label class="flex items-center space-x-3 p-4 border rounded-lg cursor-pointer hover:bg-gray-50 transition-colors bg-brand-bg/50">
+                                    <input type="radio" name="payment-method" id="payment-mbway" value="mbway" checked class="form-radio text-brand-accent-red focus:ring-brand-accent-red">
+                                    <span class="text-gray-800 font-medium">MB Way</span>
+                                    <span class="flex-grow text-right text-sm text-gray-500">Pagamento Imediato</span>
+                                </label>
+                                <div id="mbway-details" class="mt-3 p-4 border-t border-gray-200 bg-gray-50 rounded-b-lg hidden">
+                                    <p class="text-sm text-gray-700 font-semibold">Detalhes do Pagamento:</p>
+                                    <p class="text-lg font-bold text-brand-accent-red mt-1">917 304 286</p>
+                                    <p class="text-sm text-gray-700">Valor a Pagar: <strong id="mbway-amount" class="text-brand-accent-blue">€ 0,00</strong></p>
+                                </div>
+                            </div>
+
+                        </div>
+                    </section>
+                </div>
+                
+                <!-- Coluna Direita: Resumo da Encomenda e Botão de Ação -->
+                <div class="lg:w-5/12 sticky top-4">
+                    <section class="bg-brand-accent-blue p-6 rounded-xl shadow-2xl text-white">
+                        <h2 class="font-serif text-2xl font-bold mb-4 border-b border-gray-500 pb-2">3. Resumo da Encomenda</h2>
+                        
+                        <!-- Lista de Itens do Carrinho -->
+                        <div id="summary-list" class="space-y-3 mb-6 max-h-60 overflow-y-auto pr-2">
+                            <p class="text-center text-gray-300 italic">O seu carrinho está vazio. Volte ao catálogo.</p>
+                        </div>
+
+                        <!-- Detalhes de Preços -->
+                        <div class="space-y-2 pt-4 border-t border-gray-500">
+                            <div class="flex justify-between text-sm">
+                                <span>Subtotal:</span>
+                                <span id="summary-subtotal">€ 0,00</span>
+                            </div>
+                            <div class="flex justify-between text-sm">
+                                <span>Portes de Envio (Estimado):</span>
+                                <span id="summary-shipping">€ 4,50</span>
+                            </div>
+                        </div>
+
+                        <!-- Total Final -->
+                        <div class="flex justify-between items-center mt-5 pt-3 border-t border-brand-gold">
+                            <span class="font-serif text-xl font-bold text-brand-gold">Total a Pagar:</span>
+                            <span id="summary-total" class="font-serif text-3xl font-extrabold text-brand-gold">€ 4,50</span>
+                        </div>
+
+                        <!-- Botão Finalizar Compra -->
+                        <button 
+                            id="place-order-button"
+                            onclick="placeOrder(event)"
+                            class="w-full bg-brand-gold text-brand-accent-blue font-bold py-4 mt-6 rounded-lg hover:bg-yellow-600 transition-colors shadow-xl text-lg disabled:bg-gray-500 disabled:text-gray-200 disabled:cursor-not-allowed"
+                            disabled
+                        >
+                            Confirmar e Pagar
+                        </button>
+                        <p id="empty-cart-message" class="text-center text-sm text-red-300 mt-2 hidden">O carrinho está vazio.</p>
+                    </section>
+                </div>
+
+            </div>
+            
+        </div>
+    </main>
+
+    <!-- FOOTER (Simplificado) -->
+    <footer class="bg-gray-900 text-gray-300 py-6 px-6 border-t-4 border-brand-accent-red mt-12">
+        <div class="max-w-6xl mx-auto text-center">
+            <p class="text-xs text-gray-500">© 2024 Jerónimo Editora. Design por Gemini.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Taxa de portes de envio fixa para simulação
+        const SHIPPING_COST = 4.50;
+
+        // Função para formatar o preço para a moeda portuguesa
+        function formatPrice(price) {
+            return `€ ${price.toFixed(2).replace('.', ',')}`;
+        }
+
+        // --- Funções de Carrinho e Resumo ---
+
+        // Função para atualizar os detalhes de pagamento (valor e visibilidade)
+        function updatePaymentDetails(total) {
+            const formattedTotal = formatPrice(total);
+            
+            // Atualiza os valores
+            document.getElementById('mbway-amount').textContent = formattedTotal;
+            document.getElementById('transfer-amount').textContent = formattedTotal;
+            
+            // Obtém o método de pagamento selecionado
+            const selectedMethod = document.querySelector('input[name="payment-method"]:checked')?.value;
+            
+            const mbwayDetails = document.getElementById('mbway-details');
+            const transferDetails = document.getElementById('transfer-details');
+            const proofFile = document.getElementById('proof-file');
+            
+            // Por defeito, remove o requisito do anexo
+            proofFile.removeAttribute('required');
+
+            // Controla a visibilidade e requisitos
+            mbwayDetails.classList.add('hidden');
+            transferDetails.classList.add('hidden');
+
+            if (selectedMethod === 'bank-transfer') {
+                transferDetails.classList.remove('hidden');
+                // Torna o anexo obrigatório para Transferência Bancária
+                proofFile.setAttribute('required', 'required');
+            } else if (selectedMethod === 'mbway') {
+                mbwayDetails.classList.remove('hidden');
+            }
+        }
+
+        // Carrega os itens do carrinho e atualiza o resumo
+        function loadCartSummary() {
+            const cartItems = JSON.parse(localStorage.getItem('cartItems') || '[]');
+            const summaryListContainer = document.getElementById('summary-list');
+            const placeOrderButton = document.getElementById('place-order-button');
+            const emptyCartMessage = document.getElementById('empty-cart-message');
+            
+            let subtotal = 0;
+            let html = '';
+
+            if (cartItems.length === 0) {
+                html = '<p class="text-center text-gray-300 italic py-8">O seu carrinho está vazio. Por favor, volte ao catálogo.</p>';
+                placeOrderButton.disabled = true;
+                emptyCartMessage.classList.remove('hidden');
+            } else {
+                emptyCartMessage.classList.add('hidden');
+                placeOrderButton.disabled = false;
+                
+                cartItems.forEach(item => {
+                    const itemTotal = item.price * item.quantity;
+                    subtotal += itemTotal;
+
+                    html += `
+                        <div class="flex justify-between">
+                            <span class="text-gray-200">${item.title} (${item.quantity}x)</span>
+                            <span class="font-medium text-brand-gold">${formatPrice(itemTotal)}</span>
+                        </div>
+                    `;
+                });
+            }
+
+            const total = subtotal + SHIPPING_COST;
+
+            summaryListContainer.innerHTML = html;
+            document.getElementById('summary-subtotal').textContent = formatPrice(subtotal);
+            document.getElementById('summary-shipping').textContent = formatPrice(SHIPPING_COST);
+            document.getElementById('summary-total').textContent = formatPrice(total);
+            
+            // Atualiza os detalhes de pagamento com o total
+            updatePaymentDetails(total);
+        }
+
+        // --- Funções de Ação ---
+
+        // Simula a finalização da encomenda
+        function placeOrder(event) {
+            event.preventDefault();
+
+            const form = document.getElementById('shipping-form');
+            const cartItems = JSON.parse(localStorage.getItem('cartItems') || '[]');
+            const selectedMethod = document.querySelector('input[name="payment-method"]:checked')?.value;
+
+            // 1. Validação básica do formulário de envio
+            if (!form.checkValidity()) {
+                form.reportValidity();
+                return;
+            }
+
+            // 2. Verifica se o carrinho está vazio
+            if (cartItems.length === 0) {
+                // NOTA: Em ambiente iFrame, a função alert() é substituída por uma modal customizada.
+                alert("O seu carrinho está vazio. Adicione livros antes de finalizar a compra.");
+                return;
+            }
+            
+            // 3. Validação do comprovativo (se Transferência Bancária)
+            if (selectedMethod === 'bank-transfer') {
+                const proofFile = document.getElementById('proof-file');
+                if (!proofFile.files.length) {
+                    // Adiciona um feedback visual se o ficheiro estiver em falta
+                    proofFile.reportValidity();
+                    return;
+                }
+            }
+
+
+            // 4. Simulação de processamento (Atraso artificial para UX)
+            const button = document.getElementById('place-order-button');
+            button.disabled = true;
+            const originalText = button.textContent;
+            button.textContent = "A Processar...";
+            button.classList.add('bg-gray-500'); // Mudar cor durante o processamento
+            button.classList.remove('bg-brand-gold', 'hover:bg-yellow-600');
+            
+            setTimeout(() => {
+                // 5. Limpar o carrinho (Ação Crítica)
+                localStorage.removeItem('cartItems');
+
+                // 6. Mostrar modal de sucesso
+                document.getElementById('success-modal').classList.remove('hidden');
+
+                // 7. Resetar o botão (opcional, pois o utilizador será redirecionado/refrescará)
+                button.textContent = originalText;
+                button.disabled = false;
+                button.classList.remove('bg-gray-500');
+                button.classList.add('bg-brand-gold', 'hover:bg-yellow-600');
+            }, 1500); // Espera 1.5 segundos para simular a transação
+        }
+
+        // --- Inicialização ---
+        
+        // Event listener para mudança de método de pagamento
+        document.addEventListener('DOMContentLoaded', () => {
+            document.querySelectorAll('input[name="payment-method"]').forEach(radio => {
+                radio.addEventListener('change', () => {
+                    // Quando o método muda, recalcula e atualiza os detalhes de pagamento.
+                    loadCartSummary(); 
+                });
+            });
+            // Carrega os dados iniciais ao carregar a página
+            loadCartSummary();
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,701 @@
+<html lang="pt-PT">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Catálogo Completo | Jerónimo Editora</title>
+    
+    <!-- Google Fonts: Playfair Display (Serif) & Roboto (Sans) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Roboto:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Tailwind Config -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        serif: ['"Playfair Display"', 'serif'],
+                        sans: ['"Roboto"', 'sans-serif'],
+                    },
+                    colors: {
+                        'brand-bg': '#F8F8F8', // Papel envelhecido moderno (Off-White)
+                        'brand-text': '#333333', // Cinza Antracite
+                        'brand-accent-red': '#800000', // Bordô/Vinho (Principal)
+                        'brand-accent-blue': '#002147', // Azul Marinho Clássico (Secundário)
+                        'brand-gold': '#cfaf5c', // Dourado Elegante (Cor customizada)
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        /* Estilização da Sombra do Livro (Simulando 3D Clássico) */
+        .book-shadow {
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2), 0 0 5px rgba(0, 0, 0, 0.05);
+            transition: all 0.3s ease;
+        }
+        .book-shadow:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3), 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        /* Estilos específicos para o sidebar do carrinho */
+        .cart-sidebar-panel {
+            right: -100%;
+            transition: right 0.3s ease-in-out;
+        }
+        .cart-sidebar-open .cart-sidebar-panel {
+            right: 0;
+        }
+        .cart-sidebar-overlay {
+            opacity: 0;
+            transition: opacity 0.3s ease-in-out;
+        }
+        .cart-sidebar-open .cart-sidebar-overlay {
+            opacity: 1;
+        }
+    </style>
+</head>
+<body class="bg-brand-bg text-brand-text font-sans antialiased flex flex-col min-h-screen">
+
+    <!-- Modal genérico para mensagens simples (ex: Remover Favorito) -->
+    <div id="custom-modal" class="fixed inset-0 z-50 bg-black bg-opacity-50 flex items-center justify-center hidden" onclick="this.classList.add('hidden')">
+        <div class="bg-white p-6 rounded-lg shadow-2xl max-w-sm w-full mx-4 transform transition-all duration-300 scale-95" onclick="event.stopPropagation()">
+            <h3 id="modal-title" class="text-xl font-bold font-serif text-brand-accent-red mb-3">Ação Concluída</h3>
+            <p id="modal-message" class="text-gray-700">A operação foi um sucesso!</p>
+            <button onclick="document.getElementById('custom-modal').classList.add('hidden')" class="mt-4 w-full bg-brand-accent-blue text-white py-2 rounded-md hover:bg-brand-accent-red transition-colors">Fechar</button>
+        </div>
+    </div>
+
+    <!-- NOVO: Modal de Confirmação de Adição ao Carrinho -->
+    <div id="add-to-cart-modal" class="fixed inset-0 z-50 bg-black bg-opacity-50 flex items-center justify-center hidden" onclick="closeCartConfirmation()">
+        <div class="bg-white p-6 rounded-lg shadow-2xl max-w-md w-full mx-4 transform transition-all duration-300 scale-100" onclick="event.stopPropagation()">
+            <h3 class="text-2xl font-bold font-serif text-brand-accent-blue mb-5 text-center flex items-center justify-center space-x-2">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-green-500"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><path d="m9 11 3 3L22 4"/></svg>
+                <span>Item Adicionado ao Carrinho!</span>
+            </h3>
+            
+            <!-- Detalhes do Item Adicionado -->
+            <div id="cart-confirmation-details" class="flex items-center space-x-4 p-3 border border-gray-100 rounded-lg bg-gray-50 shadow-inner mb-6">
+                <!-- Conteúdo será injetado aqui pelo JS -->
+            </div>
+
+            <!-- Opções de Ação -->
+            <div class="flex flex-col space-y-3">
+                <button 
+                    onclick="closeCartConfirmation()" 
+                    class="w-full bg-brand-accent-red text-white py-3 rounded-lg hover:bg-red-900 transition-colors font-bold shadow-md text-lg"
+                >
+                    Continuar a Comprar
+                </button>
+                <button 
+                    onclick="closeCartConfirmation(); checkout();" 
+                    class="w-full bg-brand-gold text-brand-accent-blue font-bold py-3 rounded-lg hover:bg-yellow-600 transition-colors shadow-md text-lg"
+                >
+                    Finalizar Compra
+                </button>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Modal para Favoritos -->
+    <div id="favorites-modal" class="fixed inset-0 z-50 bg-black bg-opacity-50 flex items-center justify-center hidden">
+        <div class="bg-white p-6 rounded-xl shadow-2xl max-w-lg w-full mx-4 transform transition-all duration-300 scale-95 max-h-[90vh] flex flex-col" onclick="event.stopPropagation()">
+            <h3 class="text-2xl font-bold font-serif text-brand-accent-blue mb-4 border-b pb-2">Os Seus Favoritos</h3>
+            
+            <div id="favorites-list" class="flex-grow overflow-y-auto space-y-4 pr-2">
+                <!-- Conteúdo dos favoritos será injetado aqui -->
+            </div>
+
+            <div class="mt-6 pt-4 border-t border-gray-100 flex justify-end">
+                <button onclick="closeFavorites()" class="bg-brand-accent-red text-white py-2 px-6 rounded-md hover:bg-red-900 transition-colors shadow-lg">Continuar a Comprar</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Sidebar para Carrinho de Compras (Abre da direita) -->
+    <div id="cart-sidebar" class="fixed inset-0 z-50 hidden cart-sidebar-overlay">
+        <!-- Overlay (para fechar ao clicar fora) -->
+        <div class="absolute inset-0 bg-black bg-opacity-50" onclick="closeCart()"></div>
+
+        <!-- Painel Lateral -->
+        <div class="fixed top-0 bottom-0 right-0 w-full max-w-sm bg-white shadow-2xl cart-sidebar-panel flex flex-col">
+            <header class="p-5 border-b border-gray-100 bg-brand-accent-blue text-white flex justify-between items-center">
+                <h3 class="text-xl font-bold font-serif">O Seu Carrinho</h3>
+                <button onclick="closeCart()" class="p-1 rounded-full hover:bg-brand-accent-red/20 transition-colors">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
+                </button>
+            </header>
+
+            <div id="cart-list" class="flex-grow p-5 overflow-y-auto space-y-4">
+                <!-- Itens do carrinho serão injetados aqui -->
+            </div>
+
+            <footer class="p-5 border-t border-gray-200">
+                <div class="flex justify-between items-center mb-4">
+                    <span class="text-lg font-serif font-bold text-brand-text">Total:</span>
+                    <span id="cart-total" class="text-2xl font-serif font-extrabold text-brand-accent-red">€ 0,00</span>
+                </div>
+                <button 
+                    class="w-full bg-brand-gold text-brand-accent-blue font-bold py-3 rounded-lg hover:bg-yellow-600 transition-colors shadow-md text-lg" 
+                    onclick="checkout()" 
+                    title="Finalizar Compra"
+                >
+                    Finalizar Compra
+                </button>
+            </footer>
+        </div>
+    </div>
+
+
+    <!-- Navigation (com Carrinho e Favoritos) -->
+    <nav class="w-full bg-white shadow-md border-b border-gray-100 py-4 px-6 sticky top-0 z-40">
+        <div class="max-w-6xl mx-auto flex justify-between items-center relative">
+            
+            <!-- 1. Voltar à Página Inicial -->
+            <a href="index.html" class="text-brand-accent-red font-bold hover:text-red-900 transition-colors flex items-center space-x-2 text-sm md:text-base">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5"/><path d="m12 19-7-7 7-7"/></svg>
+                <span class="hidden sm:inline">Voltar à Página Inicial</span>
+                <span class="sm:hidden">Início</span>
+            </a>
+
+            <!-- 2. Logo/Brand Name (Central) -->
+            <!-- Escondido em ecrãs muito pequenos para dar espaço aos ícones de ação -->
+            <span class="absolute left-1/2 transform -translate-x-1/2 font-serif text-2xl font-extrabold text-brand-text hidden sm:block">Jerónimo Editora</span>
+
+            <!-- 3. Ícones de Ação (Carrinho e Favoritos) -->
+            <div class="flex items-center space-x-2 sm:space-x-4">
+                
+                <!-- Ícone Favoritos -->
+                <button 
+                    title="Favoritos"
+                    onclick="openFavorites()"
+                    class="p-2 rounded-full text-brand-accent-blue hover:bg-red-50 hover:text-brand-accent-red transition-colors relative"
+                >
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/></svg>
+                    <!-- Small indicator for favorites count (dynamic) -->
+                    <span id="fav-count" class="absolute top-0 right-0 inline-flex items-center justify-center px-2 py-1 text-xs font-bold leading-none text-white transform translate-x-1/2 -translate-y-1/2 bg-brand-accent-red rounded-full shadow-md">0</span>
+                </button>
+                
+                <!-- Ícone Carrinho -->
+                <button 
+                    title="Carrinho de Compras"
+                    onclick="openCart()"
+                    class="p-2 rounded-full text-brand-accent-blue hover:bg-red-50 hover:text-brand-accent-red transition-colors relative"
+                >
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="8" cy="21" r="1"/><circle cx="19" cy="21" r="1"/><path d="M2.05 2.05h2l2.66 12.42a2 2 0 0 0 2 1.58h9.72a2 2 0 0 0 2-1.58L23 6H6"/></svg>
+                    <!-- Small indicator for cart count (dynamic) -->
+                    <span id="cart-count" class="absolute top-0 right-0 inline-flex items-center justify-center px-2 py-1 text-xs font-bold leading-none text-white transform translate-x-1/2 -translate-y-1/2 bg-brand-accent-red rounded-full shadow-md">0</span>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content: Catálogo Completo -->
+    <main class="flex-grow py-16">
+        <div class="max-w-6xl mx-auto px-6">
+            <!-- Título e Introdução -->
+            <h1 class="font-serif text-4xl sm:text-5xl text-brand-accent-blue mb-4 border-b pb-3 text-center">Catálogo Completo</h1>
+            <p class="text-center text-lg text-gray-600 mb-8">Descubra todas as nossas publicações de pensamento clássico, filosofia e teologia.</p>
+
+            <!-- Filtros e Pesquisa -->
+            <div class="mb-10 flex flex-col md:flex-row gap-4 justify-between items-center bg-white p-4 rounded-xl shadow-lg border border-gray-100">
+                <input type="text" id="search-input" placeholder="Pesquisar por título ou autor..." class="w-full md:w-2/3 p-3 border border-gray-300 rounded-lg focus:ring-brand-accent-red focus:border-brand-accent-red transition duration-200 text-brand-text" onkeyup="filterBooks()">
+                <select id="category-filter" class="w-full md:w-1/3 p-3 border border-gray-300 rounded-lg bg-white appearance-none cursor-pointer focus:ring-brand-accent-red focus:border-brand-accent-red transition duration-200 text-brand-text" onchange="filterBooks()">
+                    <option value="all">Todas as Categorias</option>
+                    <option value="Teologia">Teologia</option>
+                    <option value="Filosofia">Filosofia Clássica</option>
+                    <option value="História">História Antiga</option>
+                    <option value="Estudos Bíblicos">Estudos Bíblicos</option>
+                </select>
+            </div>
+
+            <!-- Grid de Produtos -->
+            <div id="book-list-container" class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-6">
+                <!-- Os cartões dos livros serão injetados aqui via JavaScript -->
+                <p id="no-results" class="col-span-full text-center text-xl text-gray-500 hidden py-10">Nenhum livro encontrado com os critérios de pesquisa.</p>
+            </div>
+            
+        </div>
+    </main>
+
+    <!-- FOOTER (Simplificado) -->
+    <footer class="bg-gray-900 text-gray-300 py-6 px-6 border-t-4 border-brand-accent-red">
+        <div class="max-w-6xl mx-auto text-center">
+            <p class="text-xs text-gray-500">© 2024 Jerónimo Editora. Design por Gemini.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Dados dos Livros (Array para renderização dinâmica)
+        const bookData = [
+            {
+                id: 1,
+                title: "Suma Teológica",
+                author: "São Tomás de Aquino",
+                price: 95.00,
+                category: "Teologia",
+                image: "suma_teologica.png",
+                link: "detalhes.html"
+            },
+            {
+                id: 2,
+                title: "Jesus e o Jubileu",
+                author: "John S. Bergsma",
+                price: 34.90,
+                category: "Estudos Bíblicos",
+                image: "Bergsma.png",
+                link: "detalhes.html"
+            },
+            {
+                id: 3,
+                title: "Tu podes entender a Bíblia",
+                author: "Peter Kreeft",
+                price: 24.99,
+                category: "Estudos Bíblicos",
+                image: "Kreeft.png",
+                link: "detalhes.html"
+            },
+            {
+                id: 4,
+                title: "Convite aos Salmos",
+                author: "Rolf A. Jacobson & Karl N. Jacobson",
+                price: 28.50,
+                category: "Estudos Bíblicos",
+                image: "Jacobson.png",
+                link: "detalhes.html"
+            },
+            {
+                id: 5,
+                title: "São Francisco de Sales - Doutor da Perfeição",
+                author: "Abbé Jacques Leclercq",
+                price: 28.00,
+                category: "Teologia",
+                image: "Abbe.png",
+                link: "detalhes.html"
+            },
+            {
+                id: 6,
+                title: "As mão vazias - Mensagem de Santa Teresa do Menino Jesus",
+                author: "Conrad de Meester",
+                price: 28.00,
+                category: "Teologia",
+                image: "Teresinha.png",
+                link: "detalhes.html"
+            },
+            {
+                id: 7,
+                title: "A definir",
+                author: "A definir",
+                price: 0.00,
+                category: "Filosofia",
+                // Placeholder em cinzento claro
+                image: "https://placehold.co/128x192/D1D5DB/9CA3AF?text=INDISPON%C3%8DVEL",
+                link: "detalhes.html"
+            },
+            {
+                id: 8,
+                title: "A definir",
+                author: "A definir",
+                price: 0.00,
+                category: "Filosofia",
+                // Placeholder em cinzento claro
+                image: "https://placehold.co/128x192/D1D5DB/9CA3AF?text=INDISPON%C3%8DVEL",
+                link: "detalhes.html"
+            },
+            {
+                id: 9,
+                title: "A definir",
+                author: "A definir",
+                price: 0.00,
+                category: "Filosofia",
+                // Placeholder em cinzento claro
+                image: "https://placehold.co/128x192/D1D5DB/9CA3AF?text=INDISPON%C3%8DVEL",
+                link: "detalhes.html"
+            },
+            {
+                id: 10,
+                title: "A definir",
+                author: "A definir",
+                price: 0.00,
+                category: "Teologia",
+                // Placeholder em cinzento claro
+                image: "https://placehold.co/128x192/D1D5DB/9CA3AF?text=INDISPON%C3%8DVEL",
+                link: "detalhes.html"
+            },
+        ];
+
+        // --- Funções de Modal Genérico ---
+        // Usada para mensagens simples como toggle de favoritos ou carrinho vazio
+        function showCustomModal(title, message) {
+            document.getElementById('modal-title').textContent = title;
+            document.getElementById('modal-message').textContent = message;
+            document.getElementById('custom-modal').classList.remove('hidden');
+        }
+
+        // --- Funções de Confirmação do Carrinho (Novo Requisito) ---
+
+        // Fecha a modal de confirmação de adição ao carrinho
+        function closeCartConfirmation() {
+            document.getElementById('add-to-cart-modal').classList.add('hidden');
+        }
+
+        // Mostra a modal de confirmação com os detalhes do livro
+        function showCartConfirmationModal(book) {
+            const priceFormatted = `€ ${book.price.toFixed(2).replace('.', ',')}`;
+            
+            const html = `
+                <img src="${book.image}" alt="${book.title}" class="w-16 h-24 object-contain rounded-sm flex-shrink-0" onerror="this.onerror=null;this.src='https://placehold.co/64x96/002147/cfaf5c?text=J';" />
+                <div class="flex-grow">
+                    <h4 class="font-serif font-bold text-brand-text">${book.title}</h4>
+                    <p class="text-sm text-gray-500 italic mb-1">${book.author}</p>
+                    <p class="font-serif font-extrabold text-xl text-brand-accent-red">${priceFormatted}</p>
+                </div>
+            `;
+            
+            document.getElementById('cart-confirmation-details').innerHTML = html;
+            document.getElementById('add-to-cart-modal').classList.remove('hidden');
+        }
+
+
+        // --- Funções do Carrinho ---
+
+        // Atualiza os contadores no ícone e renderiza a lista do carrinho
+        function updateCartUI() {
+            const cartItems = JSON.parse(localStorage.getItem('cartItems') || '[]');
+            const totalQuantity = cartItems.reduce((sum, item) => sum + item.quantity, 0);
+            document.getElementById('cart-count').textContent = totalQuantity;
+            document.getElementById('cart-count').classList.toggle('hidden', totalQuantity === 0);
+            renderCartItems(cartItems);
+        }
+
+        // Adiciona um livro ao carrinho no localStorage e mostra a modal de confirmação
+        function addToCart(bookId, bookTitle) {
+            let cartItems = JSON.parse(localStorage.getItem('cartItems') || '[]');
+            const existingItemIndex = cartItems.findIndex(item => item.id === bookId);
+            const book = bookData.find(b => b.id === bookId);
+            
+            if (existingItemIndex > -1) {
+                cartItems[existingItemIndex].quantity += 1;
+            } else {
+                cartItems.push({ 
+                    id: bookId, 
+                    title: bookTitle, 
+                    price: book.price, 
+                    quantity: 1,
+                    image: book.image,
+                    author: book.author // Adicionado para a nova modal
+                });
+            }
+            
+            localStorage.setItem('cartItems', JSON.stringify(cartItems));
+            updateCartUI(); // Atualiza a UI imediatamente
+            
+            // NOVO: Mostrar a modal de confirmação específica
+            showCartConfirmationModal(book);
+        }
+
+        // Remove um item do carrinho
+        function removeFromCart(bookId) {
+            let cartItems = JSON.parse(localStorage.getItem('cartItems') || '[]');
+            cartItems = cartItems.filter(item => item.id !== bookId);
+            localStorage.setItem('cartItems', JSON.stringify(cartItems));
+            updateCartUI();
+        }
+
+        // Renderiza o conteúdo do carrinho
+        function renderCartItems(cartItems) {
+            const container = document.getElementById('cart-list');
+            let total = 0;
+            let html = '';
+
+            if (cartItems.length === 0) {
+                html = '<p class="text-center text-gray-500 italic">O seu carrinho está vazio.</p>';
+            } else {
+                cartItems.forEach(item => {
+                    const itemTotal = item.price * item.quantity;
+                    total += itemTotal;
+                    
+                    const priceFormatted = `€ ${item.price.toFixed(2).replace('.', ',')}`;
+                    const itemTotalFormatted = `€ ${itemTotal.toFixed(2).replace('.', ',')}`;
+
+                    html += `
+                        <div class="flex items-start space-x-4 p-3 border rounded-lg bg-gray-50 shadow-sm">
+                            <img src="${item.image}" alt="${item.title}" class="w-12 h-18 object-cover rounded-sm flex-shrink-0" onerror="this.onerror=null;this.src='https://placehold.co/48x72/002147/cfaf5c?text=J';" />
+                            <div class="flex-grow">
+                                <h4 class="font-bold text-sm text-brand-accent-blue">${item.title}</h4>
+                                <p class="text-xs text-gray-600">${priceFormatted} x ${item.quantity}</p>
+                                <p class="font-serif font-semibold text-brand-accent-red mt-1">${itemTotalFormatted}</p>
+                            </div>
+                            <button 
+                                class="text-gray-400 hover:text-brand-accent-red p-1 rounded-full flex-shrink-0" 
+                                aria-label="Remover item"
+                                onclick="removeFromCart(${item.id})"
+                            >
+                                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6h18"/><path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6"/><path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2"/></svg>
+                            </button>
+                        </div>
+                    `;
+                });
+            }
+
+            container.innerHTML = html;
+            document.getElementById('cart-total').textContent = `€ ${total.toFixed(2).replace('.', ',')}`;
+        }
+
+        // Abre o sidebar do carrinho
+        function openCart() {
+            const sidebar = document.getElementById('cart-sidebar');
+            sidebar.classList.remove('hidden'); // 1. Torna o elemento visível (display: block)
+            updateCartUI();
+            
+            // Inicia a transição CSS
+            requestAnimationFrame(() => {
+                sidebar.classList.add('cart-sidebar-open');
+            });
+        }
+
+        // Fecha o sidebar do carrinho
+        function closeCart() {
+            const sidebar = document.getElementById('cart-sidebar');
+            sidebar.classList.remove('cart-sidebar-open');
+            // Esconde o elemento com 'hidden' APÓS o tempo da transição CSS (300ms) terminar.
+            setTimeout(() => sidebar.classList.add('hidden'), 300); 
+        }
+
+        // Função para finalizar a compra (redireciona ou avisa)
+        function checkout() {
+            const cartItems = JSON.parse(localStorage.getItem('cartItems') || '[]');
+            
+            if (cartItems.length > 0) {
+                // Redireciona para a página de checkout
+                window.location.href = 'checkout.html';
+            } else {
+                // Mostra modal de aviso se o carrinho estiver vazio
+                showCustomModal("Carrinho Vazio", "Adicione livros ao seu carrinho antes de finalizar a compra.");
+            }
+        }
+
+
+        // --- Funções de Favoritos ---
+
+        // Atualiza o contador de favoritos no ícone
+        function updateFavoritesCount() {
+            let count = 0;
+            bookData.forEach(book => {
+                if (localStorage.getItem(`fav-${book.id}`) === 'true') {
+                    count++;
+                }
+            });
+            document.getElementById('fav-count').textContent = count;
+            document.getElementById('fav-count').classList.toggle('hidden', count === 0);
+        }
+
+        // Renderiza o conteúdo do modal de favoritos
+        function renderFavoriteItems() {
+            const container = document.getElementById('favorites-list');
+            let html = '';
+            let favoriteBooks = [];
+
+            bookData.forEach(book => {
+                if (localStorage.getItem(`fav-${book.id}`) === 'true') {
+                    favoriteBooks.push(book);
+                }
+            });
+
+            if (favoriteBooks.length === 0) {
+                html = '<p class="text-center text-gray-500 italic py-8">Não tem nenhum livro favorito adicionado.</p>';
+            } else {
+                favoriteBooks.forEach(book => {
+                    const priceFormatted = `€ ${book.price.toFixed(2).replace('.', ',')}`;
+                    
+                    html += `
+                        <div class="flex items-center space-x-4 p-3 border rounded-lg bg-white hover:bg-gray-50 transition-colors shadow-sm">
+                            <a href="${book.link}" class="flex items-center space-x-4 flex-grow">
+                                <img src="${book.image}" alt="${book.title}" class="w-16 h-24 object-contain rounded-sm flex-shrink-0" onerror="this.onerror=null;this.src='https://placehold.co/64x96/002147/cfaf5c?text=J';" />
+                                <div class="flex-grow">
+                                    <h4 class="font-serif font-bold text-brand-text">${book.title}</h4>
+                                    <p class="text-sm text-gray-500 italic">${book.author}</p>
+                                    <p class="font-serif font-extrabold text-lg text-brand-accent-red">${priceFormatted}</p>
+                                </div>
+                            </a>
+                            <button 
+                                class="text-red-500 hover:text-red-700 p-2 rounded-full flex-shrink-0" 
+                                aria-label="Remover dos favoritos"
+                                onclick="toggleFavorite(${book.id}, '${book.title}')"
+                            >
+                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="currentColor" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/></svg>
+                            </button>
+                        </div>
+                    `;
+                });
+            }
+
+            container.innerHTML = html;
+        }
+
+        // Abre o modal de favoritos
+        function openFavorites() {
+            document.getElementById('favorites-modal').classList.remove('hidden');
+            renderFavoriteItems();
+        }
+
+        // Fecha o modal de favoritos
+        function closeFavorites() {
+            document.getElementById('favorites-modal').classList.add('hidden');
+        }
+
+        // Simulação de Favoritos (usa localStorage para persistir o estado)
+        function toggleFavorite(bookId, bookTitle) {
+            const storageKey = `fav-${bookId}`;
+            const isFavorite = localStorage.getItem(storageKey) === 'true';
+            const btn = document.getElementById(`fav-btn-${bookId}`);
+
+            if (isFavorite) {
+                // Remover dos favoritos
+                localStorage.setItem(storageKey, 'false');
+                if (btn) { // O botão pode não existir se estiver a remover do modal
+                    btn.classList.add('text-gray-400');
+                    btn.classList.remove('text-red-500', 'fill-red-500');
+                }
+                showCustomModal("Removido", `O livro "${bookTitle}" foi removido dos seus Favoritos.`);
+            } else {
+                // Adicionar aos favoritos
+                localStorage.setItem(storageKey, 'true');
+                if (btn) {
+                    btn.classList.remove('text-gray-400');
+                    btn.classList.add('text-red-500', 'fill-red-500');
+                }
+                showCustomModal("Adicionado aos Favoritos", `O livro "${bookTitle}" está agora nos seus Favoritos!`);
+            }
+            
+            updateFavoritesCount();
+            // Se o modal de favoritos estiver aberto, atualiza a lista
+            if (!document.getElementById('favorites-modal').classList.contains('hidden')) {
+                renderFavoriteItems();
+            }
+        }
+
+        // Função para renderizar os cartões dos livros no catálogo
+        function renderBooks(books) {
+            const container = document.getElementById('book-list-container');
+            const noResults = document.getElementById('no-results');
+            container.innerHTML = '';
+            
+            if (books.length === 0) {
+                noResults.classList.remove('hidden');
+                return;
+            } else {
+                noResults.classList.add('hidden');
+            }
+
+            books.forEach(book => {
+                const priceFormatted = `€ ${book.price.toFixed(2).replace('.', ',')}`;
+                
+                // Verifica se o livro está indisponível (preço zero e título A definir)
+                const isUnavailable = book.price === 0.00 && book.title.toLowerCase() === 'a definir';
+
+                // Define o HTML do botão Comprar/Indisponível
+                let buyButtonHtml;
+
+                if (isUnavailable) {
+                    // Botão cinzento claro, desativado
+                    buyButtonHtml = `
+                        <button 
+                            disabled 
+                            class="flex items-center space-x-1 bg-gray-300 text-gray-500 text-xs font-bold py-2 px-3 rounded-full cursor-not-allowed shadow-none"
+                        >
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="8" cy="21" r="1"/><circle cx="19" cy="21" r="1"/><path d="M2.05 2.05h2l2.66 12.42a2 2 0 0 0 2 1.58h9.72a2 2 0 0 0 2-1.58L23 6H6"/></svg>
+                            <span>Indisponível</span>
+                        </button>
+                    `;
+                } else {
+                    // Botão padrão vermelho/vinho
+                    buyButtonHtml = `
+                        <button 
+                            class="flex items-center space-x-1 bg-brand-accent-red text-white text-xs font-bold py-2 px-3 rounded-full hover:bg-red-900 transition-colors shadow-md focus:outline-none focus:ring-2 focus:ring-brand-accent-red"
+                            onclick="addToCart(${book.id}, '${book.title}')"
+                        >
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="8" cy="21" r="1"/><circle cx="19" cy="21" r="1"/><path d="M2.05 2.05h2l2.66 12.42a2 2 0 0 0 2 1.58h9.72a2 2 0 0 0 2-1.58L23 6H6"/></svg>
+                            <span>Comprar</span>
+                        </button>
+                    `;
+                }
+
+
+                const cardHtml = `
+                    <div class="text-center group book-shadow bg-white rounded-xl transition-all duration-300 hover:shadow-xl p-4 flex flex-col justify-between">
+                        <!-- Link principal para a página de detalhes -->
+                        <a href="${book.link}" class="flex-grow block">
+                            <img 
+                                src="${book.image}" 
+                                alt="Capa do livro ${book.title}" 
+                                class="mx-auto w-32 h-48 object-contain mb-3 rounded-sm"
+                                onerror="this.onerror=null;this.src='https://placehold.co/128x192/002147/cfaf5c?text=JERÓNIMO';"
+                            />
+                            <h4 class="font-serif text-lg text-gray-900 group-hover:text-brand-accent-red transition-colors duration-200 mt-2">${book.title}</h4>
+                            <p class="text-xs text-gray-500 italic font-medium">${book.author}</p>
+                            <!-- Preço mais proeminente -->
+                            <span class="text-xl font-serif font-extrabold text-brand-accent-red mt-2 block">${priceFormatted}</span>
+                        </a>
+                        
+                        <!-- Secção de Ação (Favorito e Comprar) -->
+                        <div class="flex items-center justify-between mt-4 border-t pt-3 border-gray-100">
+                            <!-- Botão de Favorito -->
+                            <button 
+                                aria-label="Adicionar aos Favoritos" 
+                                class="text-gray-400 hover:text-red-500 transition-colors p-2 rounded-full hover:bg-red-50 focus:outline-none focus:ring-2 focus:ring-red-500"
+                                onclick="toggleFavorite(${book.id}, '${book.title}')"
+                                id="fav-btn-${book.id}"
+                            >
+                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/></svg>
+                            </button>
+                            <!-- Botão de Comprar/Indisponível (Variável) -->
+                            ${buyButtonHtml}
+                        </div>
+                    </div>
+                `;
+                container.innerHTML += cardHtml;
+                
+                // Aplicar estado de favorito após a injeção do HTML
+                if (localStorage.getItem(`fav-${book.id}`) === 'true') {
+                    const favBtn = document.getElementById(`fav-btn-${book.id}`);
+                    if (favBtn) {
+                        favBtn.classList.add('text-red-500');
+                        favBtn.classList.add('fill-red-500'); // Preenche o coração
+                        favBtn.classList.remove('text-gray-400');
+                    }
+                }
+            });
+        }
+
+        // Função principal de filtragem
+        function filterBooks() {
+            const searchTerm = document.getElementById('search-input').value.toLowerCase().trim();
+            const category = document.getElementById('category-filter').value;
+
+            const filteredBooks = bookData.filter(book => {
+                const matchesSearch = book.title.toLowerCase().includes(searchTerm) || 
+                                      book.author.toLowerCase().includes(searchTerm);
+                
+                const matchesCategory = category === 'all' || book.category === category;
+
+                return matchesSearch && matchesCategory;
+            });
+
+            renderBooks(filteredBooks);
+        }
+
+        // Inicializar a renderização dos livros e contadores quando a página carregar
+        window.onload = () => {
+            renderBooks(bookData);
+            updateCartUI();
+            updateFavoritesCount();
+        };
+    </script>
+</body>
+</html>

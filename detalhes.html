@@ -1,0 +1,112 @@
+<html lang="pt-PT">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Suma Teológica | Detalhes do Produto</title>
+    
+    <!-- Google Fonts: Playfair Display (Serif) & Roboto (Sans) --><link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Roboto:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+    
+    <!-- Tailwind CSS --><script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Tailwind Config --><script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        serif: ['"Playfair Display"', 'serif'],
+                        sans: ['"Roboto"', 'sans-serif'],
+                    },
+                    colors: {
+                        'brand-bg': '#F8F8F8', // Papel envelhecido moderno (Off-White)
+                        'brand-text': '#333333', // Cinza Antracite
+                        'brand-accent-red': '#800000', // Bordô/Vinho (Principal)
+                        'brand-accent-blue': '#002147', // Azul Marinho Clássico (Secundário)
+                        'brand-gold': '#cfaf5c', // Dourado Elegante (Cor customizada)
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        /* Estilização da Sombra do Livro (Simulando 3D Clássico) */
+        .book-shadow {
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2), 0 0 5px rgba(0, 0, 0, 0.05);
+        }
+    </style>
+</head>
+<body class="bg-brand-bg text-brand-text font-sans antialiased flex flex-col min-h-screen">
+
+    <!-- Navigation (simples) --><nav class="w-full bg-white shadow-md border-b border-gray-100 py-4 px-6">
+        <div class="max-w-6xl mx-auto flex justify-between items-center">
+            <a href="index.html" class="text-brand-accent-red font-bold hover:text-red-900 transition-colors flex items-center">
+                &larr; Voltar à Página Inicial
+            </a>
+            <span class="font-serif text-2xl font-extrabold text-brand-text">Jerónimo Editora</span>
+        </div>
+    </nav>
+
+    <!-- Main Content: Detalhes do Produto --><main class="flex-grow py-16">
+        <div class="max-w-6xl mx-auto px-6">
+            <h1 class="font-serif text-4xl text-brand-accent-blue mb-10 border-b pb-3">Suma Teológica</h1>
+            
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-10">
+                
+                <!-- Coluna da Capa --><div class="md:col-span-1 flex justify-center">
+                    <img 
+                        src="suma_teologica.png" 
+                        alt="Capa do livro Suma Teológica" 
+                        class="w-72 h-[450px] book-shadow rounded-lg object-cover" 
+                        onerror="this.onerror=null;this.src='https://placehold.co/288x450/002147/cfaf5c?text=SUMA+TEOL%C3%93GICA';"
+                    />
+                </div>
+                
+                <!-- Coluna dos Detalhes --><div class="md:col-span-2 space-y-6">
+                    <p class="text-xl text-gray-700 italic">São Tomás de Aquino</p>
+                    
+                    <div class="space-y-4 text-gray-600">
+                        <h2 class="font-serif text-2xl text-gray-900 border-b pb-1">Descrição Completa</h2>
+                        <p>A "Suma Teológica" é, sem dúvida, o monumento da teologia e da filosofia ocidental. Nesta edição de luxo, procuramos honrar a profundidade do texto com uma apresentação física à altura. Essencial para teólogos, filósofos e todos aqueles que procuram compreender as grandes questões da existência, da fé e da razão.</p>
+                        <p>O texto está integralmente revisto, com notas de rodapé ampliadas e introduções que contextualizam a obra para o leitor moderno.</p>
+                    </div>
+
+                    <div class="grid grid-cols-2 gap-4 text-sm font-medium">
+                        <div class="p-3 bg-white rounded-lg shadow-sm">
+                            <span class="text-brand-accent-red font-bold block">ISBN:</span>
+                            978-1234567890
+                        </div>
+                        <div class="p-3 bg-white rounded-lg shadow-sm">
+                            <span class="text-brand-accent-red font-bold block">Edição:</span>
+                            2ª Edição (2024)
+                        </div>
+                        <div class="p-3 bg-white rounded-lg shadow-sm">
+                            <span class="text-brand-accent-red font-bold block">Encadernação:</span>
+                            Capa Dura, costura à linha
+                        </div>
+                        <div class="p-3 bg-white rounded-lg shadow-sm">
+                            <span class="text-brand-accent-red font-bold block">Páginas:</span>
+                            ~1.500 (3 Volumes)
+                        </div>
+                    </div>
+                    
+                    <div class="pt-4">
+                        <span class="text-4xl font-serif font-extrabold text-brand-accent-red block mb-4">€ 95,00</span>
+                        <button class="bg-brand-accent-blue text-white px-8 py-4 font-extrabold text-sm tracking-widest shadow-xl hover:bg-blue-900 transition-all duration-300 transform hover:scale-[1.02] rounded-lg">
+                            ADICIONAR AO CARRINHO
+                        </button>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- FOOTER (Simplificado) --><footer class="bg-gray-900 text-gray-300 py-6 px-6 border-t-4 border-brand-accent-red">
+        <div class="max-w-6xl mx-auto text-center">
+            <p class="text-xs text-gray-500">© 2024 Jerónimo Editora. Design por Gemini.</p>
+        </div>
+    </footer>
+</body>
+</html>
