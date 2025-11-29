@@ -6,7 +6,8 @@
     
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Roboto:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+    <!-- Adicionada a fonte Crimson Text para uso nos preços, mantendo as restantes -->
+    <link href="https://fonts.googleapis.com/css2?family=Crimson+Text:ital,wght@0,400;0,600;0,700;1,400;1,600;1,700&family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Roboto:wght@300;400;500;700;900&display=swap" rel="stylesheet">
     
     <script src="https://cdn.tailwindcss.com"></script>
     
@@ -17,13 +18,17 @@
                     fontFamily: {
                         serif: ['"Playfair Display"', 'serif'],
                         sans: ['"Roboto"', 'sans-serif'],
+                        // Nova fonte específica para preços
+                        price: ['"Crimson Text"', 'serif'],
                     },
                     colors: {
                         'brand-bg': '#F8F8F8', // Papel envelhecido moderno (Off-White)
                         'brand-text': '#333333', // Cinza Antracite
                         'brand-accent-red': '#800000', // Bordô/Vinho (Principal)
                         'brand-accent-blue': '#002147', // Azul Marinho Clássico (Secundário)
-                        'brand-gold': '#cfaf5c', // Dourado Elegante (Cor customizada)
+                        'brand-gold': '#cfaf5c', // Dourado Elegante (Principal)
+                        'brand-gold-light': '#fcf7e8', // Fundo Dourado Muito Claro (o tom mais claro)
+                        'brand-gold-dark': '#b38e4a', // Traço Dourado Escuro (o tom mais escuro)
                     }
                 }
             }
@@ -142,6 +147,7 @@
                 
                 <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-6">
 
+                    <!-- Livro 1: Jesus e o Jubileu -->
                     <div class="text-center group cursor-pointer book-shadow bg-white rounded-lg transition-all duration-300 hover:shadow-xl">
                         <a href="detalhes.html">
                             <img 
@@ -154,10 +160,13 @@
                                 <h4 class="font-serif text-xl text-gray-900 group-hover:text-brand-accent-red transition-colors duration-200">Jesus e o Jubileu</h4>
                                 <p class="text-sm text-gray-500 italic font-medium mt-2">John S. Bergsma</p>
                                 <p class="text-sm text-gray-400 mt-4">Uma visão surpreendente da missão de Cristo na perspetiva judaica.</p>
+                                <!-- Preço com fonte Crimson Text (font-price) e destaque -->
+                                <p class="font-price text-2xl font-bold text-brand-accent-red mt-4">35,00€</p>
                             </div>
                         </a>
                     </div>
 
+                    <!-- Livro 2: Tu podes entender a Bíblia -->
                     <div class="text-center group cursor-pointer book-shadow bg-white rounded-lg transition-all duration-300 hover:shadow-xl">
                         <a href="detalhes.html">
                             <img 
@@ -170,10 +179,13 @@
                                 <h4 class="font-serif text-xl text-gray-900 group-hover:text-brand-accent-red transition-colors duration-200">Tu podes entender a Bíblia</h4>
                                 <p class="text-sm text-gray-500 italic font-medium mt-2">Peter Kreeft</p>
                                 <p class="text-sm text-gray-400 mt-4">Um guia prático e iluminador para cada livro da Bíblia.</p>
+                                <!-- Preço com fonte Crimson Text (font-price) e destaque -->
+                                <p class="font-price text-2xl font-bold text-brand-accent-red mt-4">29,90€</p>
                             </div>
                         </a>
                     </div>
 
+                    <!-- Livro 3: Convite aos Salmos -->
                     <div class="text-center group cursor-pointer book-shadow bg-white rounded-lg transition-all duration-300 hover:shadow-xl">
                         <a href="detalhes.html">
                             <img 
@@ -186,10 +198,13 @@
                                 <h4 class="font-serif text-xl text-gray-900 group-hover:text-brand-accent-red transition-colors duration-200">Convite aos Salmos</h4>
                                 <p class="text-sm text-gray-500 italic font-medium mt-2">Rolf A. Jacobson & Karl N. Jacobson</p>
                                 <p class="text-sm text-gray-400 mt-4">Uma leitura devocional para a oração mais antiga da Igreja.</p>
+                                <!-- Preço com fonte Crimson Text (font-price) e destaque -->
+                                <p class="font-price text-2xl font-bold text-brand-accent-red mt-4">22,50€</p>
                             </div>
                         </a>
                     </div>
                     
+                    <!-- Livro 4: As mãos vazias -->
                     <div class="text-center group cursor-pointer book-shadow bg-white rounded-lg transition-all duration-300 hover:shadow-xl hidden sm:block">
                         <a href="detalhes.html">
                             <img 
@@ -202,6 +217,8 @@
                                 <h4 class="font-serif text-xl text-gray-900 group-hover:text-brand-accent-red transition-colors duration-200">As mãos vazias</h4>
                                 <p class="text-sm text-gray-500 italic font-medium mt-2">Santa Teresinha</p>
                                 <p class="text-sm text-gray-400 mt-4">A mensagem de Santa Teresinha de Lisieux sobre a confiança.</p>
+                                <!-- Preço com fonte Crimson Text (font-price) e destaque -->
+                                <p class="font-price text-2xl font-bold text-brand-accent-red mt-4">15,00€</p>
                             </div>
                         </a>
                     </div>
@@ -256,17 +273,17 @@
                         <p>Fundada com a missão de preservar e divulgar os pilares do pensamento ocidental e da tradição católica, a Jerónimo Editora dedica-se à publicação de obras clássicas em edições de rigor e qualidade excecionais.</p>
                         <p>Acreditamos que a forma como o livro é apresentado é tão importante quanto o seu conteúdo. Por isso, cada volume é um artefato cuidadosamente desenhado para durar, oferecendo uma experiência de leitura digna dos maiores autores da História.</p>
                         
-                        <div class="mt-6 p-4 border-l-4 border-brand-accent-red bg-red-50 italic">
+                        <div class="mt-6 p-4 border-l-4 border-brand-gold-dark bg-brand-gold-light italic">
                             O nosso compromisso é com a Verdade, a Beleza e a Tradição.
                         </div>
                     </div>
                     
                     <div class="md:col-span-1 flex justify-center">
                         <img 
-                            src="Pena.png" 
-                            alt="Desenho de uma pena de escrever"
+			            src="Logo J.png" 
+                        alt="Logótipo da Jerónimo Editora" 
                             class="w-32 h-32 object-contain opacity-70"
-                            onerror="this.onerror=null;this.src='https://placehold.co/128x128/cfaf5c/800000?text=Pena';"
+                            onerror="this.onerror=null;this.src='https://placehold.co/128x128/cfaf5c/800000?text=LOGO';"
                         />
                     </div>
                 </div>
@@ -281,24 +298,20 @@
             <div class="col-span-2 md:col-span-1 space-y-4">
                 <div class="flex items-center space-x-2">
                     <img 
-                        src="Logo J.png" 
-                        alt="Logótipo Jerónimo Editora (Logo J.png)" 
+                        src="Logo J Dourado.png" 
+                        alt="Logótipo Jerónimo Editora (Logo J Dourado.png)" 
                         class="h-7 w-auto"
                         onerror="this.onerror=null;this.src='https://placehold.co/40x40/cfaf5c/800000?text=J';"
                     />
-                    <span class="font-serif text-xl font-bold text-brand-gold">Jerónimo Editora</span>
+                    <span class="font-serif text-xl font-bold text-white">Jerónimo Editora</span>
                 </div>
                 <p class="text-sm text-gray-400">Edições de rigor dos pilares do pensamento ocidental e da tradição católica.</p>
                 
-                <div class="flex space-x-4 mt-4">
-                    <a href="#" class="text-gray-400 hover:text-white transition"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg></a>
-                    <a href="#" class="text-gray-400 hover:text-white transition"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="20" x="2" y="2" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" x2="17.51" y1="6.5" y2="6.5"/></svg></a>
-                    <a href="#" class="text-gray-400 hover:text-white transition"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22.54 6.42a10.42 10.42 0 0 0-.8-3.92 4.14 4.14 0 0 0-2.88-2.88 10.42 10.42 0 0 0-3.92-.8C11.66.5 12 11.66 12 12c0 1.25-.09 2.5-.24 3.75-.15 1.25-.42 2.47-.83 3.65a4.14 4.14 0 0 0 2.88 2.88 10.42 10.42 0 0 0 3.92.8c1.25 0 2.5-.09 3.75-.24 1.25-.15 2.47-.42 3.65-.83a4.14 4.14 0 0 0 2.88-2.88 10.42 10.42 0 0 0 .8-3.92z"/></svg></a>
-                </div>
+                <!-- REMOVIDO: Bloco de ícones das redes sociais daqui -->
             </div>
 
             <div class="space-y-4">
-                <h4 class="font-bold text-lg text-white uppercase tracking-wider">Navegação</h4>
+                <h4 class="font-bold text-lg text-brand-gold uppercase tracking-wider">Navegação</h4>
                 <ul class="space-y-2 text-sm">
                     <li><a href="#hero" class="hover:text-white transition">Início</a></li>
                     <li><a href="catalogo-completo.html" class="hover:text-white transition">Catálogo</a></li>
@@ -308,12 +321,24 @@
             </div>
 
             <div class="space-y-4">
-                <h4 class="font-bold text-lg text-white uppercase tracking-wider">Sede & Contacto</h4>
-                <ul class="space-y-2 text-sm">
+                <h4 class="font-bold text-lg text-brand-gold uppercase tracking-wider">Sede & Contacto</h4>
+                <ul class="space-y-2 text-sm mb-4">
                     <li><a href="mailto:editorajeronimo@gmail.com" class="hover:text-white transition">editorajeronimo@gmail.com</a></li>
                     <li class="text-gray-400">Braga, Portugal</li>
                     <li><a href="#" class="hover:text-white transition">Política de Privacidade</a></li>
                 </ul>
+                
+                <!-- ADICIONADO: Bloco de ícones de redes sociais aqui (Facebook e Instagram) -->
+                <div class="flex space-x-4">
+                    <!-- Facebook -->
+                    <a href="#" class="text-gray-400 hover:text-white transition" aria-label="Facebook Jerónimo Editora">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg>
+                    </a>
+                    <!-- Instagram -->
+                    <a href="#" class="text-gray-400 hover:text-white transition" aria-label="Instagram Jerónimo Editora">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="20" x="2" y="2" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" x2="17.51" y1="6.5" y2="6.5"/></svg>
+                    </a>
+                </div>
             </div>
 
             <div class="col-span-2 md:col-span-1 space-y-4">
@@ -354,7 +379,7 @@
         }
         document.getElementById('menu-button').addEventListener('click', toggleMenu);
 
-        // NOVO: Lógica para desativar e reativar o botão de subscrição
+        // Lógica para desativar e reativar o botão de subscrição
         function handleSubscribe(event) {
             // Evita a submissão de um formulário real (se o botão estivesse num <form>)
             event.preventDefault(); 
