@@ -4,10 +4,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Catálogo Completo | Jerónimo Editora</title>
     
-    <!-- Google Fonts: Playfair Display (Serif) & Roboto (Sans) -->
+    <!-- Google Fonts: Playfair Display (Serif), Roboto (Sans) & Crimson Text (Classic) -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Roboto:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400;1,900&family=Roboto:wght@300;400;500;700;900&family=Crimson+Text:ital,wght@0,400;0,700;1,400;1,900&display=swap" rel="stylesheet">
     
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
@@ -20,6 +20,8 @@
                     fontFamily: {
                         serif: ['"Playfair Display"', 'serif'],
                         sans: ['"Roboto"', 'sans-serif'],
+                        // CLASSE ADICIONADA: Crimson Text para os preços
+                        classic: ['"Crimson Text"', 'serif'], 
                     },
                     colors: {
                         'brand-bg': '#F8F8F8', // Papel envelhecido moderno (Off-White)
@@ -51,6 +53,7 @@
         .cart-sidebar-open .cart-sidebar-panel {
             right: 0;
         }
+        /* Usado para garantir que o overlay some antes do painel */
         .cart-sidebar-overlay {
             opacity: 0;
             transition: opacity 0.3s ease-in-out;
@@ -71,7 +74,7 @@
         </div>
     </div>
 
-    <!-- NOVO: Modal de Confirmação de Adição ao Carrinho -->
+    <!-- Modal de Confirmação de Adição ao Carrinho -->
     <div id="add-to-cart-modal" class="fixed inset-0 z-50 bg-black bg-opacity-50 flex items-center justify-center hidden" onclick="closeCartConfirmation()">
         <div class="bg-white p-6 rounded-lg shadow-2xl max-w-md w-full mx-4 transform transition-all duration-300 scale-100" onclick="event.stopPropagation()">
             <h3 class="text-2xl font-bold font-serif text-brand-accent-blue mb-5 text-center flex items-center justify-center space-x-2">
@@ -93,7 +96,7 @@
                     Continuar a Comprar
                 </button>
                 <button 
-                    onclick="closeCartConfirmation(); checkout();" 
+                    onclick="checkoutFromModal();" 
                     class="w-full bg-brand-gold text-brand-accent-blue font-bold py-3 rounded-lg hover:bg-yellow-600 transition-colors shadow-md text-lg"
                 >
                     Finalizar Compra
@@ -138,8 +141,18 @@
             <footer class="p-5 border-t border-gray-200">
                 <div class="flex justify-between items-center mb-4">
                     <span class="text-lg font-serif font-bold text-brand-text">Total:</span>
-                    <span id="cart-total" class="text-2xl font-serif font-extrabold text-brand-accent-red">€ 0,00</span>
+                    <!-- Preço Total com font-classic (Crimson Text) -->
+                    <span id="cart-total" class="text-2xl font-classic font-extrabold text-brand-accent-red">€ 0,00</span>
                 </div>
+                <!-- Botão Continuar a Comprar (Fecha o sidebar) -->
+                <button 
+                    class="w-full bg-brand-accent-red text-white font-bold py-3 rounded-lg hover:bg-red-900 transition-colors shadow-md text-lg mb-3" 
+                    onclick="closeCart()" 
+                    title="Continuar a Comprar"
+                >
+                    Continuar a Comprar
+                </button>
+                <!-- Botão Finalizar Compra -->
                 <button 
                     class="w-full bg-brand-gold text-brand-accent-blue font-bold py-3 rounded-lg hover:bg-yellow-600 transition-colors shadow-md text-lg" 
                     onclick="checkout()" 
@@ -337,7 +350,7 @@
             document.getElementById('custom-modal').classList.remove('hidden');
         }
 
-        // --- Funções de Confirmação do Carrinho (Novo Requisito) ---
+        // --- Funções de Confirmação do Carrinho ---
 
         // Fecha a modal de confirmação de adição ao carrinho
         function closeCartConfirmation() {
@@ -353,7 +366,8 @@
                 <div class="flex-grow">
                     <h4 class="font-serif font-bold text-brand-text">${book.title}</h4>
                     <p class="text-sm text-gray-500 italic mb-1">${book.author}</p>
-                    <p class="font-serif font-extrabold text-xl text-brand-accent-red">${priceFormatted}</p>
+                    <!-- Aplicado font-classic (Crimson Text) -->
+                    <p class="font-classic font-extrabold text-xl text-brand-accent-red">${priceFormatted}</p>
                 </div>
             `;
             
@@ -361,6 +375,27 @@
             document.getElementById('add-to-cart-modal').classList.remove('hidden');
         }
 
+        // --- NOVO: Funções de Checkout ---
+
+        // Função para finalizar a compra (redireciona ou avisa se carrinho vazio)
+        function checkout() {
+            const cartItems = JSON.parse(localStorage.getItem('cartItems') || '[]');
+            closeCart(); // Fecha o carrinho se estiver aberto
+
+            if (cartItems.length > 0) {
+                // Redireciona diretamente para a página de checkout.html
+                window.location.href = 'checkout.html';
+            } else {
+                // Mostra modal de aviso se o carrinho estiver vazio
+                showCustomModal("Carrinho Vazio", "Adicione livros ao seu carrinho antes de finalizar a compra.");
+            }
+        }
+        
+        // Chamado a partir da modal de confirmação para finalizar a compra
+        function checkoutFromModal() {
+            closeCartConfirmation();
+            checkout();
+        }
 
         // --- Funções do Carrinho ---
 
@@ -370,7 +405,7 @@
             const totalQuantity = cartItems.reduce((sum, item) => sum + item.quantity, 0);
             document.getElementById('cart-count').textContent = totalQuantity;
             document.getElementById('cart-count').classList.toggle('hidden', totalQuantity === 0);
-            renderCartItems(cartItems);
+            renderCartItems(cartItems); // Garante que o sidebar é atualizado
         }
 
         // Adiciona um livro ao carrinho no localStorage e mostra a modal de confirmação
@@ -395,7 +430,7 @@
             localStorage.setItem('cartItems', JSON.stringify(cartItems));
             updateCartUI(); // Atualiza a UI imediatamente
             
-            // NOVO: Mostrar a modal de confirmação específica
+            // Mostrar a modal de confirmação específica
             showCartConfirmationModal(book);
         }
 
@@ -407,14 +442,18 @@
             updateCartUI();
         }
 
-        // Renderiza o conteúdo do carrinho
+        // Renderiza o conteúdo do carrinho (Lista de livros e total)
         function renderCartItems(cartItems) {
             const container = document.getElementById('cart-list');
             let total = 0;
             let html = '';
 
             if (cartItems.length === 0) {
-                html = '<p class="text-center text-gray-500 italic">O seu carrinho está vazio.</p>';
+                html = '<p class="text-center text-gray-500 italic py-8">O seu carrinho está vazio. Adicione livros para começar a comprar!</p>';
+                // Desativa os botões do footer se o carrinho estiver vazio
+                document.querySelector('footer button[onclick="checkout()"]').disabled = true;
+                document.querySelector('footer button[onclick="checkout()"]').classList.replace('bg-brand-gold', 'bg-gray-300');
+                document.querySelector('footer button[onclick="checkout()"]').classList.replace('text-brand-accent-blue', 'text-gray-500');
             } else {
                 cartItems.forEach(item => {
                     const itemTotal = item.price * item.quantity;
@@ -428,8 +467,10 @@
                             <img src="${item.image}" alt="${item.title}" class="w-12 h-18 object-cover rounded-sm flex-shrink-0" onerror="this.onerror=null;this.src='https://placehold.co/48x72/002147/cfaf5c?text=J';" />
                             <div class="flex-grow">
                                 <h4 class="font-bold text-sm text-brand-accent-blue">${item.title}</h4>
-                                <p class="text-xs text-gray-600">${priceFormatted} x ${item.quantity}</p>
-                                <p class="font-serif font-semibold text-brand-accent-red mt-1">${itemTotalFormatted}</p>
+                                <!-- Aplicado font-classic (Crimson Text) -->
+                                <p class="text-xs text-gray-600 font-classic">${priceFormatted} x ${item.quantity}</p>
+                                <!-- Aplicado font-classic (Crimson Text) -->
+                                <p class="font-classic font-semibold text-brand-accent-red mt-1">${itemTotalFormatted}</p>
                             </div>
                             <button 
                                 class="text-gray-400 hover:text-brand-accent-red p-1 rounded-full flex-shrink-0" 
@@ -441,6 +482,10 @@
                         </div>
                     `;
                 });
+                 // Reativa os botões do footer se houver itens
+                document.querySelector('footer button[onclick="checkout()"]').disabled = false;
+                document.querySelector('footer button[onclick="checkout()"]').classList.replace('bg-gray-300', 'bg-brand-gold');
+                document.querySelector('footer button[onclick="checkout()"]').classList.replace('text-gray-500', 'text-brand-accent-blue');
             }
 
             container.innerHTML = html;
@@ -450,8 +495,9 @@
         // Abre o sidebar do carrinho
         function openCart() {
             const sidebar = document.getElementById('cart-sidebar');
-            sidebar.classList.remove('hidden'); // 1. Torna o elemento visível (display: block)
-            updateCartUI();
+            // FIX: Removido 'hidden' para garantir que o elemento está no DOM e é visível
+            sidebar.classList.remove('hidden'); 
+            updateCartUI(); // Garante que a lista e o total estão frescos
             
             // Inicia a transição CSS
             requestAnimationFrame(() => {
@@ -459,25 +505,12 @@
             });
         }
 
-        // Fecha o sidebar do carrinho
+        // Fecha o sidebar do carrinho (equivalente ao "Continuar a Comprar")
         function closeCart() {
             const sidebar = document.getElementById('cart-sidebar');
             sidebar.classList.remove('cart-sidebar-open');
             // Esconde o elemento com 'hidden' APÓS o tempo da transição CSS (300ms) terminar.
             setTimeout(() => sidebar.classList.add('hidden'), 300); 
-        }
-
-        // Função para finalizar a compra (redireciona ou avisa)
-        function checkout() {
-            const cartItems = JSON.parse(localStorage.getItem('cartItems') || '[]');
-            
-            if (cartItems.length > 0) {
-                // Redireciona para a página de checkout
-                window.location.href = 'checkout.html';
-            } else {
-                // Mostra modal de aviso se o carrinho estiver vazio
-                showCustomModal("Carrinho Vazio", "Adicione livros ao seu carrinho antes de finalizar a compra.");
-            }
         }
 
 
@@ -520,7 +553,8 @@
                                 <div class="flex-grow">
                                     <h4 class="font-serif font-bold text-brand-text">${book.title}</h4>
                                     <p class="text-sm text-gray-500 italic">${book.author}</p>
-                                    <p class="font-serif font-extrabold text-lg text-brand-accent-red">${priceFormatted}</p>
+                                    <!-- Aplicado font-classic (Crimson Text) -->
+                                    <p class="font-classic font-extrabold text-lg text-brand-accent-red">${priceFormatted}</p>
                                 </div>
                             </a>
                             <button 
@@ -639,8 +673,8 @@
                             />
                             <h4 class="font-serif text-lg text-gray-900 group-hover:text-brand-accent-red transition-colors duration-200 mt-2">${book.title}</h4>
                             <p class="text-xs text-gray-500 italic font-medium">${book.author}</p>
-                            <!-- Preço mais proeminente -->
-                            <span class="text-xl font-serif font-extrabold text-brand-accent-red mt-2 block">${priceFormatted}</span>
+                            <!-- Preço mais proeminente - Aplicado font-classic (Crimson Text) -->
+                            <span class="text-xl font-classic font-extrabold text-brand-accent-red mt-2 block">${priceFormatted}</span>
                         </a>
                         
                         <!-- Secção de Ação (Favorito e Comprar) -->
