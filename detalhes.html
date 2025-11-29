@@ -4,9 +4,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Suma Teológica | Detalhes do Produto</title>
     
-    <!-- Google Fonts: Playfair Display (Serif) & Roboto (Sans) --><link rel="preconnect" href="https://fonts.googleapis.com">
+    <!-- Google Fonts: Playfair Display (Serif) & Roboto (Sans) -->
+    <!-- NOVO: Adicionado Crimson Text (para o preço) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Roboto:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400;1,900&family=Roboto:wght@300;400;500;700;900&family=Crimson+Text:ital,wght@0,400;0,700;1,400;1,900&display=swap" rel="stylesheet">
     
     <!-- Tailwind CSS --><script src="https://cdn.tailwindcss.com"></script>
     
@@ -17,6 +19,8 @@
                     fontFamily: {
                         serif: ['"Playfair Display"', 'serif'],
                         sans: ['"Roboto"', 'sans-serif'],
+                        // NOVA CLASSE: Para o preço ou elementos clássicos de destaque
+                        classic: ['"Crimson Text"', 'serif'], 
                     },
                     colors: {
                         'brand-bg': '#F8F8F8', // Papel envelhecido moderno (Off-White)
@@ -24,6 +28,7 @@
                         'brand-accent-red': '#800000', // Bordô/Vinho (Principal)
                         'brand-accent-blue': '#002147', // Azul Marinho Clássico (Secundário)
                         'brand-gold': '#cfaf5c', // Dourado Elegante (Cor customizada)
+                        'brand-gold-dark': '#b38e4a', // Traço Dourado Escuro (o tom mais escuro)
                     }
                 }
             }
@@ -34,27 +39,61 @@
         /* Estilização da Sombra do Livro (Simulando 3D Clássico) */
         .book-shadow {
             box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2), 0 0 5px rgba(0, 0, 0, 0.05);
+            transition: transform 0.3s ease;
+        }
+        .book-shadow:hover {
+            transform: translateY(-2px);
         }
     </style>
 </head>
 <body class="bg-brand-bg text-brand-text font-sans antialiased flex flex-col min-h-screen">
 
-    <!-- Navigation (simples) --><nav class="w-full bg-white shadow-md border-b border-gray-100 py-4 px-6">
+    <!-- Navigation (com ícones de Favoritos e Carrinho) -->
+    <nav class="w-full bg-white shadow-md border-b border-gray-100 py-4 px-6">
         <div class="max-w-6xl mx-auto flex justify-between items-center">
+            
+            <!-- Logo ou Voltar à Inicial -->
             <a href="index.html" class="text-brand-accent-red font-bold hover:text-red-900 transition-colors flex items-center">
                 &larr; Voltar à Página Inicial
             </a>
+            
+            <!-- Título da Editora -->
             <span class="font-serif text-2xl font-extrabold text-brand-text">Jerónimo Editora</span>
+
+            <!-- Ícones de Ação (Carrinho e Favoritos) -->
+            <div class="flex items-center space-x-4">
+                <!-- Favoritos/Lista de Desejos -->
+                <a href="#" class="text-brand-text hover:text-brand-accent-red transition-colors relative" aria-label="Lista de Desejos">
+                    <!-- Ícone de Coração -->
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-heart"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path></svg>
+                    <!-- Badge de Contagem (Simulado) -->
+                    <span class="absolute top-0 right-0 transform translate-x-1/2 -translate-y-1/2 bg-brand-gold text-brand-accent-blue text-xs font-bold rounded-full w-5 h-5 flex items-center justify-center border-2 border-white">
+                        2
+                    </span>
+                </a>
+                
+                <!-- Carrinho de Compras -->
+                <a href="#" class="text-brand-text hover:text-brand-accent-red transition-colors relative" aria-label="Carrinho de Compras">
+                    <!-- Ícone de Saco de Compras -->
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-shopping-bag"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path><line x1="3" y1="6" x2="21" y2="6"></line><path d="M16 10a4 4 0 0 1-8 0"></path></svg>
+                    <!-- Badge de Contagem (Simulado) -->
+                    <span class="absolute top-0 right-0 transform translate-x-1/2 -translate-y-1/2 bg-brand-accent-red text-white text-xs font-bold rounded-full w-5 h-5 flex items-center justify-center border-2 border-white">
+                        1
+                    </span>
+                </a>
+            </div>
         </div>
     </nav>
 
-    <!-- Main Content: Detalhes do Produto --><main class="flex-grow py-16">
+    <!-- Main Content: Detalhes do Produto -->
+    <main class="flex-grow py-16">
         <div class="max-w-6xl mx-auto px-6">
             <h1 class="font-serif text-4xl text-brand-accent-blue mb-10 border-b pb-3">Suma Teológica</h1>
             
             <div class="grid grid-cols-1 md:grid-cols-3 gap-10">
                 
-                <!-- Coluna da Capa --><div class="md:col-span-1 flex justify-center">
+                <!-- Coluna da Capa -->
+                <div class="md:col-span-1 flex justify-center">
                     <img 
                         src="suma_teologica.png" 
                         alt="Capa do livro Suma Teológica" 
@@ -63,15 +102,18 @@
                     />
                 </div>
                 
-                <!-- Coluna dos Detalhes --><div class="md:col-span-2 space-y-6">
+                <!-- Coluna dos Detalhes -->
+                <div class="md:col-span-2 space-y-6">
                     <p class="text-xl text-gray-700 italic">São Tomás de Aquino</p>
                     
-                    <div class="space-y-4 text-gray-600">
+                    <!-- Descrição Completa -->
+                    <div class="space-y-4 text-gray-600 pt-4">
                         <h2 class="font-serif text-2xl text-gray-900 border-b pb-1">Descrição Completa</h2>
                         <p>A "Suma Teológica" é, sem dúvida, o monumento da teologia e da filosofia ocidental. Nesta edição de luxo, procuramos honrar a profundidade do texto com uma apresentação física à altura. Essencial para teólogos, filósofos e todos aqueles que procuram compreender as grandes questões da existência, da fé e da razão.</p>
                         <p>O texto está integralmente revisto, com notas de rodapé ampliadas e introduções que contextualizam a obra para o leitor moderno.</p>
                     </div>
-
+                    
+                    <!-- Ficha Técnica (Detalhes) -->
                     <div class="grid grid-cols-2 gap-4 text-sm font-medium">
                         <div class="p-3 bg-white rounded-lg shadow-sm">
                             <span class="text-brand-accent-red font-bold block">ISBN:</span>
@@ -90,23 +132,72 @@
                             ~1.500 (3 Volumes)
                         </div>
                     </div>
-                    
-                    <div class="pt-4">
-                        <span class="text-4xl font-serif font-extrabold text-brand-accent-red block mb-4">€ 95,00</span>
-                        <button class="bg-brand-accent-blue text-white px-8 py-4 font-extrabold text-sm tracking-widest shadow-xl hover:bg-blue-900 transition-all duration-300 transform hover:scale-[1.02] rounded-lg">
+
+                    <!-- Bloco de Ação (Preço, Carrinho e Favoritos) - NO FINAL -->
+                    <div class="pt-8 flex items-center space-x-6 border-t border-gray-200">
+                        <!-- APLICAÇÃO DA NOVA FONTE CLASSIC -->
+                        <span class="text-5xl font-classic font-black text-brand-accent-red">€ 95,00</span>
+                        
+                        <button onclick="addToCart()" class="bg-brand-gold text-brand-accent-blue px-8 py-4 font-extrabold text-sm tracking-widest shadow-xl hover:bg-brand-gold-dark transition-all duration-300 transform hover:scale-[1.02] rounded-lg">
                             ADICIONAR AO CARRINHO
                         </button>
-                    </div>
 
+                        <button onclick="toggleWishlist()" class="text-gray-400 hover:text-brand-accent-red transition-colors duration-200 p-2 rounded-full border border-gray-300 hover:border-brand-accent-red" aria-label="Adicionar à Lista de Desejos">
+                            <!-- Ícone de Coração (Vazio) -->
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-heart"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path></svg>
+                        </button>
+                    </div>
                 </div>
             </div>
         </div>
     </main>
 
-    <!-- FOOTER (Simplificado) --><footer class="bg-gray-900 text-gray-300 py-6 px-6 border-t-4 border-brand-accent-red">
+    <!-- FOOTER (Simplificado) -->
+    <footer class="bg-gray-900 text-gray-300 py-6 px-6 border-t-4 border-brand-accent-red">
         <div class="max-w-6xl mx-auto text-center">
             <p class="text-xs text-gray-500">© 2024 Jerónimo Editora. Design por Gemini.</p>
         </div>
     </footer>
+
+    <script>
+        // Lógica de simulação de adição ao carrinho
+        function addToCart() {
+            const button = document.querySelector('.bg-brand-gold');
+            const originalText = button.textContent;
+            
+            button.disabled = true;
+            button.textContent = 'ADICIONADO (✓)';
+            button.classList.add('bg-green-600', 'hover:bg-green-700', 'text-white');
+            button.classList.remove('bg-brand-gold', 'hover:bg-brand-gold-dark', 'text-brand-accent-blue');
+            
+            setTimeout(() => {
+                button.disabled = false;
+                button.textContent = originalText;
+                button.classList.remove('bg-green-600', 'hover:bg-green-700', 'text-white');
+                button.classList.add('bg-brand-gold', 'hover:bg-brand-gold-dark', 'text-brand-accent-blue');
+            }, 2000); // 2 segundos para mostrar o sucesso
+        }
+
+        // Lógica de simulação de favoritos
+        function toggleWishlist() {
+            const wishlistButton = document.querySelector('[aria-label="Adicionar à Lista de Desejos"]');
+            
+            // Alterna a classe de cor/estado
+            const isAdded = wishlistButton.classList.toggle('text-brand-accent-red');
+            wishlistButton.classList.toggle('border-brand-accent-red');
+            
+            const svg = wishlistButton.querySelector('svg');
+
+            if (isAdded) {
+                // Preenche o coração quando adicionado (simula o estado "favorito")
+                svg.setAttribute('fill', 'currentColor');
+                console.log("Livro adicionado à Lista de Desejos!");
+            } else {
+                // Remove o preenchimento quando removido
+                svg.setAttribute('fill', 'none');
+                console.log("Livro removido da Lista de Desejos!");
+            }
+        }
+    </script>
 </body>
 </html>
