@@ -4,15 +4,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Suma Teológica | Detalhes do Produto</title>
     
-    <!-- Google Fonts: Playfair Display (Serif) & Roboto (Sans) -->
-    <!-- NOVO: Adicionado Crimson Text (para o preço) -->
+    <!-- Google Fonts: Playfair Display (Serif) & Roboto (Sans) & Crimson Text (Price) -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400;1,900&family=Roboto:wght@300;400;500;700;900&family=Crimson+Text:ital,wght@0,400;0,700;1,400;1,900&display=swap" rel="stylesheet">
     
-    <!-- Tailwind CSS --><script src="https://cdn.tailwindcss.com"></script>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
     
-    <!-- Tailwind Config --><script>
+    <!-- Tailwind Config -->
+    <script>
         tailwind.config = {
             theme: {
                 extend: {
@@ -27,7 +28,8 @@
                         'brand-text': '#333333', // Cinza Antracite
                         'brand-accent-red': '#800000', // Bordô/Vinho (Principal)
                         'brand-accent-blue': '#002147', // Azul Marinho Clássico (Secundário)
-                        'brand-gold': '#cfaf5c', // Dourado Elegante (Cor customizada)
+                        'brand-gold': '#cfaf5c', // Dourado Elegante (Principal)
+                        'brand-gold-light': '#fcf7e8', // Fundo Dourado Muito Claro (o tom mais claro)
                         'brand-gold-dark': '#b38e4a', // Traço Dourado Escuro (o tom mais escuro)
                     }
                 }
@@ -38,166 +40,857 @@
     <style>
         /* Estilização da Sombra do Livro (Simulando 3D Clássico) */
         .book-shadow {
-            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2), 0 0 5px rgba(0, 0, 0, 0.05);
-            transition: transform 0.3s ease;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3), 0 0 10px rgba(0, 0, 0, 0.1);
         }
-        .book-shadow:hover {
-            transform: translateY(-2px);
+
+        /* Animação de Fade-in (usada na página inicial, mantida por consistência) */
+        .fade-in {
+            animation: fadeIn 0.8s ease-out;
         }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(15px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        /* Estilos para as Estrelas Clicáveis */
+        .rating-star {
+            cursor: pointer;
+            transition: color 0.2s;
+        }
+
     </style>
 </head>
 <body class="bg-brand-bg text-brand-text font-sans antialiased flex flex-col min-h-screen">
 
-    <!-- Navigation (com ícones de Favoritos e Carrinho) -->
-    <nav class="w-full bg-white shadow-md border-b border-gray-100 py-4 px-6">
+    <!-- Navbar Fixa -->
+    <nav class="w-full bg-white shadow-md border-b border-gray-100 py-4 px-6 fixed top-0 z-50">
         <div class="max-w-6xl mx-auto flex justify-between items-center">
             
-            <!-- Logo ou Voltar à Inicial -->
-            <a href="index.html" class="text-brand-accent-red font-bold hover:text-red-900 transition-colors flex items-center">
-                &larr; Voltar à Página Inicial
+            <!-- Logótipo e Nome da Editora -->
+            <a href="index.html" class="flex items-center space-x-2">
+                <img 
+                    src="Logo J.png" 
+                    alt="Logótipo Jerónimo Editora" 
+                    class="h-9 w-auto"
+                    onerror="this.onerror=null;this.src='https://placehold.co/40x40/cfaf5c/800000?text=J';"
+                />
+                <span class="font-serif text-2xl font-extrabold text-brand-text hover:text-brand-accent-red transition-colors duration-200">Jerónimo Editora</span>
             </a>
             
-            <!-- Título da Editora -->
-            <span class="font-serif text-2xl font-extrabold text-brand-text">Jerónimo Editora</span>
+            <!-- Menu Desktop -->
+            <div class="hidden md:flex items-center space-x-8 text-sm font-medium text-gray-700 tracking-wide">
+                <a href="index.html#hero" class="hover:text-brand-accent-red transition-colors duration-200">INÍCIO</a>
+                <a href="catalogo-completo.html" class="hover:text-brand-accent-red transition-colors duration-200">CATÁLOGO</a> 
+                <a href="index.html#sobre" class="hover:text-brand-accent-red transition-colors duration-200">SOBRE</a>
+                <a href="index.html#footer" class="hover:text-brand-accent-red transition-colors duration-200">CONTATO</a>
 
-            <!-- Ícones de Ação (Carrinho e Favoritos) -->
-            <div class="flex items-center space-x-4">
-                <!-- Favoritos/Lista de Desejos -->
-                <a href="#" class="text-brand-text hover:text-brand-accent-red transition-colors relative" aria-label="Lista de Desejos">
-                    <!-- Ícone de Coração -->
-                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-heart"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path></svg>
-                    <!-- Badge de Contagem (Simulado) -->
-                    <span class="absolute top-0 right-0 transform translate-x-1/2 -translate-y-1/2 bg-brand-gold text-brand-accent-blue text-xs font-bold rounded-full w-5 h-5 flex items-center justify-center border-2 border-white">
-                        2
-                    </span>
-                </a>
-                
-                <!-- Carrinho de Compras -->
-                <a href="#" class="text-brand-text hover:text-brand-accent-red transition-colors relative" aria-label="Carrinho de Compras">
-                    <!-- Ícone de Saco de Compras -->
-                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-shopping-bag"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path><line x1="3" y1="6" x2="21" y2="6"></line><path d="M16 10a4 4 0 0 1-8 0"></path></svg>
-                    <!-- Badge de Contagem (Simulado) -->
-                    <span class="absolute top-0 right-0 transform translate-x-1/2 -translate-y-1/2 bg-brand-accent-red text-white text-xs font-bold rounded-full w-5 h-5 flex items-center justify-center border-2 border-white">
-                        1
-                    </span>
-                </a>
+                <!-- Ícones de Carrinho e Favoritos -->
+                <div class="pl-4 flex space-x-4">
+                    <!-- Ícone Favoritos -->
+                    <button class="relative text-gray-700 hover:text-brand-accent-red transition-colors" onclick="alert('Funcionalidade Favoritos a implementar!')">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/></svg>
+                        <span id="fav-count" class="absolute -top-1 -right-2 bg-brand-accent-red text-white text-xs font-bold w-4 h-4 flex items-center justify-center rounded-full opacity-0 scale-0 transition-all duration-300">0</span>
+                    </button>
+                    <!-- Ícone Carrinho -->
+                    <button class="relative text-gray-700 hover:text-brand-accent-red transition-colors" onclick="alert('Funcionalidade Carrinho a implementar!')">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="8" cy="20" r="1"/><circle cx="17" cy="20" r="1"/><path d="M2.5 2.5h2l2 11h11l1-6h5.5"/><path d="m20.5 7-1.4 5.2a1 1 0 0 1-.95.8H7.5"/><path d="M8 8h9"/><path d="M17 17H7.5"/></svg>
+                        <span id="cart-count" class="absolute -top-1 -right-2 bg-brand-accent-red text-white text-xs font-bold w-4 h-4 flex items-center justify-center rounded-full opacity-0 scale-0 transition-all duration-300">0</span>
+                    </button>
+                </div>
             </div>
+            
+            <!-- Botão Menu Mobile -->
+            <button id="menu-button" class="md:hidden text-2xl text-brand-text focus:outline-none hover:text-brand-accent-red">
+                &#9776;
+            </button>
         </div>
     </nav>
-
-    <!-- Main Content: Detalhes do Produto -->
-    <main class="flex-grow py-16">
-        <div class="max-w-6xl mx-auto px-6">
-            <h1 class="font-serif text-4xl text-brand-accent-blue mb-10 border-b pb-3">Suma Teológica</h1>
+    
+    <!-- Menu Mobile Deslizante -->
+    <div id="mobile-menu" class="hidden fixed top-20 left-0 w-full bg-white shadow-xl z-40 md:hidden">
+        <div class="flex flex-col p-4 text-center space-y-3">
+            <a href="index.html#hero" class="py-2 text-gray-700 hover:bg-gray-100 hover:text-brand-accent-red transition-colors" onclick="toggleMenu()">INÍCIO</a>
+            <a href="catalogo-completo.html" class="py-2 text-gray-700 hover:bg-gray-100 hover:text-brand-accent-red transition-colors" onclick="toggleMenu()">CATÁLOGO</a>
+            <a href="index.html#sobre" class="py-2 text-gray-700 hover:bg-gray-100 hover:text-brand-accent-red transition-colors" onclick="toggleMenu()">SOBRE</a>
+            <a href="index.html#footer" class="py-2 text-gray-700 hover:bg-gray-100 hover:text-brand-accent-red transition-colors" onclick="toggleMenu()">CONTATO</a>
             
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-10">
-                
-                <!-- Coluna da Capa -->
-                <div class="md:col-span-1 flex justify-center">
-                    <img 
-                        src="suma_teologica.png" 
-                        alt="Capa do livro Suma Teológica" 
-                        class="w-72 h-[450px] book-shadow rounded-lg object-cover" 
-                        onerror="this.onerror=null;this.src='https://placehold.co/288x450/002147/cfaf5c?text=SUMA+TEOL%C3%93GICA';"
-                    />
-                </div>
-                
-                <!-- Coluna dos Detalhes -->
-                <div class="md:col-span-2 space-y-6">
-                    <p class="text-xl text-gray-700 italic">São Tomás de Aquino</p>
-                    
-                    <!-- Descrição Completa -->
-                    <div class="space-y-4 text-gray-600 pt-4">
-                        <h2 class="font-serif text-2xl text-gray-900 border-b pb-1">Descrição Completa</h2>
-                        <p>A "Suma Teológica" é, sem dúvida, o monumento da teologia e da filosofia ocidental. Nesta edição de luxo, procuramos honrar a profundidade do texto com uma apresentação física à altura. Essencial para teólogos, filósofos e todos aqueles que procuram compreender as grandes questões da existência, da fé e da razão.</p>
-                        <p>O texto está integralmente revisto, com notas de rodapé ampliadas e introduções que contextualizam a obra para o leitor moderno.</p>
-                    </div>
-                    
-                    <!-- Ficha Técnica (Detalhes) -->
-                    <div class="grid grid-cols-2 gap-4 text-sm font-medium">
-                        <div class="p-3 bg-white rounded-lg shadow-sm">
-                            <span class="text-brand-accent-red font-bold block">ISBN:</span>
-                            978-1234567890
-                        </div>
-                        <div class="p-3 bg-white rounded-lg shadow-sm">
-                            <span class="text-brand-accent-red font-bold block">Edição:</span>
-                            2ª Edição (2024)
-                        </div>
-                        <div class="p-3 bg-white rounded-lg shadow-sm">
-                            <span class="text-brand-accent-red font-bold block">Encadernação:</span>
-                            Capa Dura, costura à linha
-                        </div>
-                        <div class="p-3 bg-white rounded-lg shadow-sm">
-                            <span class="text-brand-accent-red font-bold block">Páginas:</span>
-                            ~1.500 (3 Volumes)
-                        </div>
-                    </div>
-
-                    <!-- Bloco de Ação (Preço, Carrinho e Favoritos) - NO FINAL -->
-                    <div class="pt-8 flex items-center space-x-6 border-t border-gray-200">
-                        <!-- APLICAÇÃO DA NOVA FONTE CLASSIC -->
-                        <span class="text-5xl font-classic font-black text-brand-accent-red">€ 95,00</span>
-                        
-                        <button onclick="addToCart()" class="bg-brand-gold text-brand-accent-blue px-8 py-4 font-extrabold text-sm tracking-widest shadow-xl hover:bg-brand-gold-dark transition-all duration-300 transform hover:scale-[1.02] rounded-lg">
-                            ADICIONAR AO CARRINHO
-                        </button>
-
-                        <button onclick="toggleWishlist()" class="text-gray-400 hover:text-brand-accent-red transition-colors duration-200 p-2 rounded-full border border-gray-300 hover:border-brand-accent-red" aria-label="Adicionar à Lista de Desejos">
-                            <!-- Ícone de Coração (Vazio) -->
-                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-heart"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path></svg>
-                        </button>
-                    </div>
-                </div>
+            <!-- Ícones no Menu Mobile -->
+            <div class="flex justify-center space-x-8 pt-4 border-t border-gray-100">
+                <!-- Ícone Favoritos Mobile -->
+                <button class="relative text-gray-700 hover:text-brand-accent-red transition-colors" onclick="alert('Funcionalidade Favoritos a implementar!')">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/></svg>
+                    <span id="fav-count-mobile" class="absolute -top-1 -right-2 bg-brand-accent-red text-white text-xs font-bold w-4 h-4 flex items-center justify-center rounded-full opacity-0 scale-0 transition-all duration-300">0</span>
+                </button>
+                <!-- Ícone Carrinho Mobile -->
+                <button class="relative text-gray-700 hover:text-brand-accent-red transition-colors" onclick="alert('Funcionalidade Carrinho a implementar!')">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="8" cy="20" r="1"/><circle cx="17" cy="20" r="1"/><path d="M2.5 2.5h2l2 11h11l1-6h5.5"/><path d="m20.5 7-1.4 5.2a1 1 0 0 1-.95.8H7.5"/><path d="M8 8h9"/><path d="M17 17H7.5"/></svg>
+                    <span id="cart-count-mobile" class="absolute -top-1 -right-2 bg-brand-accent-red text-white text-xs font-bold w-4 h-4 flex items-center justify-center rounded-full opacity-0 scale-0 transition-all duration-300">0</span>
+                </button>
             </div>
         </div>
+    </div>
+    
+    <main class="flex-grow pt-20">
+
+        <!-- Secção do Produto -->
+        <section id="produto" class="w-full bg-white py-12 md:py-16 fade-in">
+            <div class="max-w-6xl mx-auto px-6">
+                
+                <!-- Breadcrumbs -->
+                <div class="text-sm text-gray-500 mb-6">
+                    <a href="index.html" class="hover:text-brand-accent-blue">Início</a> > <a href="catalogo-completo.html" class="hover:text-brand-accent-blue">Catálogo</a> > <span class="font-medium text-brand-text">Suma Teológica</span>
+                </div>
+
+                <!-- Estrutura Principal: Imagem + Detalhes -->
+                <div class="grid grid-cols-1 md:grid-cols-5 gap-10 lg:gap-16">
+                    
+                    <!-- Coluna da Imagem (Colunas 1 e 2) -->
+                    <div class="md:col-span-2 flex justify-center">
+                        <img 
+                            src="suma_teologica.png" 
+                            alt="Capa do livro Suma Teológica" 
+                            class="w-64 md:w-full max-w-sm h-auto object-contain book-shadow rounded-lg"
+                            onerror="this.onerror=null;this.src='https://placehold.co/300x450/800000/cfaf5c?text=SUMA+TEOLÓGICA';"
+                        />
+                    </div>
+                    
+                    <!-- Coluna dos Detalhes (Colunas 3, 4 e 5) -->
+                    <div class="md:col-span-3">
+
+                        <!-- 2. DISPONIBILIDADE: MAIS CLÁSSICO E APELATIVO -->
+                        <div class="mb-3 text-sm font-semibold text-green-700 tracking-wide border-b border-green-100 pb-2">
+                             Em Stock (2 unidades)
+                        </div>
+
+                        <h1 class="font-serif text-4xl lg:text-5xl text-gray-900 mb-2 leading-tight">Suma Teológica</h1>
+                        <h2 class="font-serif text-2xl text-gray-500 italic mb-4 border-b border-gray-200 pb-2">São Tomás de Aquino</h2>
+                        
+                        <!-- NOVO: Classificação Média Geral (Overall Rating) - CLASSIFICAÇÃO 4.9 -->
+                        <div class="flex items-center space-x-2 mb-4">
+                            <div class="flex text-2xl">
+                                <!-- 5 Estrelas Douradas (Simulando 4.9) -->
+                                <span class="text-brand-gold">&#9733;</span>
+                                <span class="text-brand-gold">&#9733;</span>
+                                <span class="text-brand-gold">&#9733;</span>
+                                <span class="text-brand-gold">&#9733;</span>
+                                <span class="text-brand-gold">&#9733;</span>
+                            </div>
+                            <span class="text-xl font-bold text-gray-800">4.9</span>
+                            <!-- MANTER 12 OPINIÕES -->
+                            <!-- ALTERADO: Adicionado onclick para a função showTabAndScroll, em vez de apenas showTab -->
+                            <span class="text-sm text-gray-500 font-medium">| 12 Opiniões</span> 
+                            <button onclick="showTabAndScroll('opinioes')" class="text-sm font-medium text-brand-accent-blue hover:text-brand-accent-red underline transition-colors duration-200">Ver todas</button>
+                        </div>
+                        
+                        <!-- 2. BREVE RESUMO DO LIVRO -->
+                        <p class="text-lg italic text-gray-700 mb-6 border-b border-gray-200 pb-4">
+                            A obra-prima do Aquinate, concebida como um compêndio didático, que sintetiza de forma lógica e exaustiva toda a doutrina teológica e filosófica cristã, abordando Deus, a moralidade e os sacramentos.
+                        </p>
+                        
+                        <!-- 2. PREÇO MOVIDO PARA CIMA DO CARRINHO (AGORA AQUI) -->
+                        <div class="mb-6">
+                            <span class="font-classic text-4xl font-extrabold text-brand-accent-red">75,00€</span>
+                        </div>
+                        
+                        <!-- Opções e Ações -->
+                        <div class="flex flex-col sm:flex-row items-stretch sm:items-center space-y-4 sm:space-y-0 sm:space-x-4 mb-10">
+                            
+                            <!-- Botão Adicionar ao Carrinho -->
+                            <button 
+                                onclick="addToCart('Suma Teológica', 1)"
+                                class="flex-grow px-6 py-3 font-extrabold text-base tracking-widest bg-brand-accent-red text-white rounded-lg shadow-xl hover:bg-red-900 transition-colors duration-200 transform hover:scale-[1.01]"
+                            >
+                                ADICIONAR AO CARRINHO
+                            </button>
+
+                            <!-- Botão de Favorito (Coração) -->
+                            <button 
+                                id="fav-btn"
+                                onclick="toggleFavorite('suma-teologica', this)"
+                                class="flex-shrink-0 p-3 border border-gray-300 bg-white rounded-lg text-gray-400 hover:text-red-500 transition-colors duration-200"
+                                aria-label="Marcar como favorito"
+                            >
+                                <!-- SVG do Coração (preenchido se favorito, ou só contorno) -->
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 fill-transparent fav-icon" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/>
+                                </svg>
+                            </button>
+                        </div>
+                        
+                        <!-- Mensagem de Sucesso (invisível por padrão) -->
+                        <div id="cart-message" class="hidden p-3 bg-green-100 border border-green-400 text-green-700 rounded-lg font-medium">
+                            <!-- Mensagem é preenchida pelo JavaScript -->
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- Secção Detalhes e Opiniões -->
+        <!-- O ID 'info-extra' é o alvo para o scroll -->
+        <section id="info-extra" class="w-full bg-brand-bg py-16">
+            <div class="max-w-6xl mx-auto px-6">
+                
+                <!-- Navegação por Abas (Tabs) -->
+                <div class="border-b border-gray-200">
+                    <nav class="flex space-x-4 -mb-px">
+                        <button id="tab-detalhes" onclick="showTab('detalhes')" class="tab-button py-2 px-4 text-base font-medium border-b-2 border-brand-accent-blue text-brand-accent-blue transition-colors duration-200">
+                            Detalhes Completos
+                        </button>
+                        <button id="tab-ficha" onclick="showTab('ficha')" class="tab-button py-2 px-4 text-base font-medium border-b-2 border-transparent text-gray-500 hover:border-gray-300 hover:text-brand-text transition-colors duration-200">
+                            Ficha Técnica
+                        </button>
+                        <!-- CONTADOR CORRETO -->
+                        <button id="tab-opinioes" onclick="showTab('opinioes')" class="tab-button py-2 px-4 text-base font-medium border-b-2 border-transparent text-gray-500 hover:border-gray-300 hover:text-brand-text transition-colors duration-200">
+                            Opiniões (12)
+                        </button>
+                    </nav>
+                </div>
+                
+                <!-- Conteúdo das Abas -->
+                <div class="mt-8">
+                    
+                    <!-- Conteúdo 1: Detalhes Completos (Visível por Padrão) -->
+                    <div id="content-detalhes" class="tab-content text-gray-700 space-y-6 leading-relaxed">
+                        <h3 class="font-serif text-2xl text-gray-900 border-l-4 border-brand-accent-red pl-3">Conteúdo e Estrutura</h3>
+                        <p>A <strong>Suma Teológica</strong> é o trabalho mais famoso de São Tomás de Aquino, composto entre 1265 e 1274. Concebida como um manual para seminaristas, é uma síntese estruturada e enciclopédica de toda a doutrina cristã, organizada em três partes principais.</p>
+                        
+                        <div class="grid md:grid-cols-2 gap-6 pt-4 border-t border-gray-200">
+                            <div>
+                                <h4 class="font-bold text-lg text-brand-accent-blue mb-2">Prima Pars (Primeira Parte)</h4>
+                                <p>Foca-se em Deus, na criação, na natureza do homem, e nas provas da existência de Deus. É o alicerce filosófico e teológico da obra.</p>
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-lg text-brand-accent-blue mb-2">Secunda Pars (Segunda Parte)</h4>
+                                <p>Divide-se em *Prima Secundæ* e *Secunda Secundæ*, tratando da moralidade, dos atos humanos, dos vícios e virtudes, e dos diversos estados de vida.</p>
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-lg text-brand-accent-blue mb-2">Tertia Pars (Terceira Parte)</h4>
+                                <p>Dedica-se à Cristologia e aos Sacramentos. Foi deixada incompleta com a morte do autor, sendo complementada pelos seus discípulos.</p>
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-lg text-brand-accent-blue mb-2">Metodologia Exclusiva</h4>
+                                <p>Tomás utiliza o método escolástico, apresentando questões, objeções e a sua resposta (*Sed Contra*), seguida da resolução final (*Respondeo*), tornando a leitura um exercício de raciocínio rigoroso.</p>
+                            </div>
+                        </div>
+
+                    </div>
+                    
+                    <!-- Conteúdo 2: Ficha Técnica -->
+                    <div id="content-ficha" class="tab-content hidden">
+                        <h3 class="font-serif text-2xl text-gray-900 border-l-4 border-brand-accent-red pl-3 mb-6">Especificações da Edição</h3>
+                        
+                        <div class="bg-white p-6 rounded-xl shadow-lg border border-gray-100">
+                            <dl class="divide-y divide-gray-200">
+                                
+                                <div class="py-4 grid grid-cols-3 gap-4">
+                                    <dt class="font-medium text-gray-500">Autor</dt>
+                                    <dd class="col-span-2 text-brand-text font-bold">São Tomás de Aquino</dd>
+                                </div>
+                                
+                                <div class="py-4 grid grid-cols-3 gap-4">
+                                    <dt class="font-medium text-gray-500">Título Original</dt>
+                                    <dd class="col-span-2 text-brand-text italic">Summa Theologiae</dd>
+                                </div>
+                                <div class="py-4 grid grid-cols-3 gap-4">
+                                    <dt class="font-medium text-gray-500">Formato</dt>
+                                    <dd class="col-span-2 text-brand-text">Capa Dura, Luxo</dd>
+                                </div>
+                                <div class="py-4 grid grid-cols-3 gap-4">
+                                    <dt class="font-medium text-gray-500">Número de Páginas</dt>
+                                    <dd class="col-span-2 text-brand-text">4.500 (em 4 volumes)</dd>
+                                </div>
+                                <div class="py-4 grid grid-cols-3 gap-4">
+                                    <dt class="font-medium text-gray-500">Peso (Total)</dt>
+                                    <dd class="col-span-2 text-brand-text">4.8 kg</dd>
+                                </div>
+                                <div class="py-4 grid grid-cols-3 gap-4">
+                                    <dt class="font-medium text-gray-500">ISBN</dt>
+                                    <dd class="col-span-2 text-brand-text">978-989-123456-7</dd>
+                                </div>
+                                <div class="py-4 grid grid-cols-3 gap-4">
+                                    <dt class="font-medium text-gray-500">Dimensões</dt>
+                                    <dd class="col-span-2 text-brand-text">16 x 24 cm</dd>
+                                </div>
+                                <div class="py-4 grid grid-cols-3 gap-4">
+                                    <dt class="font-medium text-gray-500">Tradução</dt>
+                                    <dd class="col-span-2 text-brand-text">Revista e anotada por P. J. da Conceição</dd>
+                                </div>
+                                
+                                <div class="py-4 grid grid-cols-3 gap-4">
+                                    <dt class="font-medium text-gray-500">Edição</dt>
+                                    <dd class="col-span-2 text-brand-accent-red font-bold">Jerónimo Editora (1ª Edição de Luxo)</dd>
+                                </div>
+                            </dl>
+                        </div>
+                    </div>
+                    
+                    <!-- Conteúdo 3: Opiniões dos Leitores (Invisível por Padrão) -->
+                    <div id="content-opinioes" class="tab-content hidden">
+                        <h3 class="font-serif text-2xl text-gray-900 border-l-4 border-brand-accent-red pl-3 mb-6">Opiniões de Clientes</h3>
+
+                        <div id="initial-reviews" class="grid md:grid-cols-2 gap-8">
+                            <!-- Opinião 1 (5 estrelas) -->
+                            <div class="bg-white p-5 rounded-lg shadow-md border border-gray-100">
+                                <div class="flex items-center space-x-2 text-brand-gold mb-2">
+                                    <span class="text-xl">★★★★★</span>
+                                    <span class="text-sm font-semibold text-gray-700">| Por Miguel A.</span>
+                                </div>
+                                <p class="italic text-gray-700 mb-3">"Um trabalho editorial que faz jus à grandeza da obra. A encadernação é robusta e a tipografia facilita a leitura complexa. Essencial."</p>
+                                <p class="text-xs text-gray-400">Publicado a 05 de Dezembro de 2025</p>
+                            </div>
+                            
+                            <!-- Opinião 2 (4 estrelas) -->
+                            <div class="bg-white p-5 rounded-lg shadow-md border border-gray-100">
+                                <div class="flex items-center space-x-2 text-brand-gold mb-2">
+                                    <span class="text-xl">★★★★☆</span> 
+                                    <span class="text-sm font-semibold text-gray-700">| Por Mariana P.</span>
+                                </div>
+                                <p class="italic text-gray-700 mb-3">"A tradução é de qualidade. O conteúdo, claro, é insuperável. Excelente aquisição."</p>
+                                <p class="text-xs text-gray-400">Publicado a 28 de Novembro de 2025</p>
+                            </div>
+                        </div>
+
+                        <!-- Botão VER MAIS (AGORA DISCRETO) -->
+                        <div class="flex justify-center mt-6">
+                            <!-- ALTERADO: Classes para um botão mais discreto (texto e sublinhado) -->
+                            <button 
+                                id="load-more-btn"
+                                onclick="loadMoreReviews()"
+                                class="flex items-center space-x-2 text-brand-accent-blue font-medium hover:text-brand-accent-red underline transition-colors duration-200"
+                            >
+                                <span>Ver Mais 10 Opiniões</span>
+                                <!-- Ícone de Seta para Baixo -->
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg>
+                            </button>
+                        </div>
+
+
+                        <!-- CONTAINER DAS OPINIÕES ESCONDIDAS (10 Opiniões) -->
+                        <div id="hidden-reviews" class="grid md:grid-cols-2 gap-8 mt-8 hidden">
+                            
+                            <!-- Opinião 3 (5 estrelas) -->
+                            <div class="bg-white p-5 rounded-lg shadow-md border border-gray-100">
+                                <div class="flex items-center space-x-2 text-brand-gold mb-2">
+                                    <span class="text-xl">★★★★★</span>
+                                    <span class="text-sm font-semibold text-gray-700">| Por João S.</span>
+                                </div>
+                                <p class="italic text-gray-700 mb-3">"A melhor edição da Suma que alguma vez vi. A qualidade do papel e da impressão é notável. Uma joia para a biblioteca."</p>
+                                <p class="text-xs text-gray-400">Publicado a 12 de Dezembro de 2025</p>
+                            </div>
+
+                            <!-- Opinião 4 (5 estrelas) -->
+                            <div class="bg-white p-5 rounded-lg shadow-md border border-gray-100">
+                                <div class="flex items-center space-x-2 text-brand-gold mb-2">
+                                    <span class="text-xl">★★★★★</span>
+                                    <span class="text-sm font-semibold text-gray-700">| Por Sofia B.</span>
+                                </div>
+                                <p class="italic text-gray-700 mb-3">"Entrega rápida e embalagem segura. O livro superou as expectativas. Um investimento inestimável."</p>
+                                <p class="text-xs text-gray-400">Publicado a 01 de Novembro de 2025</p>
+                            </div>
+                            
+                            <!-- Opinião 5 (5 estrelas) -->
+                            <div class="bg-white p-5 rounded-lg shadow-md border border-gray-100">
+                                <div class="flex items-center space-x-2 text-brand-gold mb-2">
+                                    <span class="text-xl">★★★★★</span>
+                                    <span class="text-sm font-semibold text-gray-700">| Por Ricardo V.</span>
+                                </div>
+                                <p class="italic text-gray-700 mb-3">"A estrutura em capa dura é fundamental para a durabilidade de uma obra desta dimensão. Muito satisfeito com a compra."</p>
+                                <p class="text-xs text-gray-400">Publicado a 20 de Dezembro de 2025</p>
+                            </div>
+
+                            <!-- Opinião 6 (5 estrelas) -->
+                            <div class="bg-white p-5 rounded-lg shadow-md border border-gray-100">
+                                <div class="flex items-center space-x-2 text-brand-gold mb-2">
+                                    <span class="text-xl">★★★★★</span>
+                                    <span class="text-sm font-semibold text-gray-700">| Por Ana F.</span>
+                                </div>
+                                <p class="italic text-gray-700 mb-3">"A clareza da tradução é excelente, tornando a leitura deste clássico acessível. Recomendo vivamente a todos os estudantes de teologia."</p>
+                                <p class="text-xs text-gray-400">Publicado a 10 de Novembro de 2025</p>
+                            </div>
+
+                            <!-- Opinião 7 (4 estrelas) -->
+                            <div class="bg-white p-5 rounded-lg shadow-md border border-gray-100">
+                                <div class="flex items-center space-x-2 text-brand-gold mb-2">
+                                    <span class="text-xl">★★★★☆</span> 
+                                    <span class="text-sm font-semibold text-gray-700">| Por Pedro C.</span>
+                                </div>
+                                <p class="italic text-gray-700 mb-3">"Quatro volumes de sabedoria. As notas de rodapé são muito úteis. O único ponto é o peso, mas é compreensível dada a obra."</p>
+                                <p class="text-xs text-gray-400">Publicado a 22 de Novembro de 2025</p>
+                            </div>
+                            
+                            <!-- Opinião 8 (5 estrelas) -->
+                            <div class="bg-white p-5 rounded-lg shadow-md border border-gray-100">
+                                <div class="flex items-center space-x-2 text-brand-gold mb-2">
+                                    <span class="text-xl">★★★★★</span>
+                                    <span class="text-sm font-semibold text-gray-700">| Por Teresa L.</span>
+                                </div>
+                                <p class="italic text-gray-700 mb-3">"Compra fantástica. O design da capa é elegante e a Jerónimo Editora não desilude na qualidade de produção. Merece 5 estrelas."</p>
+                                <p class="text-xs text-gray-400">Publicado a 03 de Dezembro de 2025</p>
+                            </div>
+
+                            <!-- Opinião 9 (5 estrelas) -->
+                            <div class="bg-white p-5 rounded-lg shadow-md border border-gray-100">
+                                <div class="flex items-center space-x-2 text-brand-gold mb-2">
+                                    <span class="text-xl">★★★★★</span>
+                                    <span class="text-sm font-semibold text-gray-700">| Por Paulo G.</span>
+                                </div>
+                                <p class="italic text-gray-700 mb-3">"Um livro de referência com uma apresentação de luxo. A encadernação em capa dura é essencial para um clássico eterno como este."</p>
+                                <p class="text-xs text-gray-400">Publicado a 27 de Dezembro de 2025</p>
+                            </div>
+
+                            <!-- Opinião 10 (5 estrelas) -->
+                            <div class="bg-white p-5 rounded-lg shadow-md border border-gray-100">
+                                <div class="flex items-center space-x-2 text-brand-gold mb-2">
+                                    <span class="text-xl">★★★★★</span>
+                                    <span class="text-sm font-semibold text-gray-700">| Por Filipa C.</span>
+                                </div>
+                                <p class="italic text-gray-700 mb-3">"O método escolástico é desafiante, mas esta edição está muito bem organizada. Excelente material de estudo."</p>
+                                <p class="text-xs text-gray-400">Publicado a 08 de Novembro de 2025</p>
+                            </div>
+
+                            <!-- Opinião 11 (5 estrelas) -->
+                            <div class="bg-white p-5 rounded-lg shadow-md border border-gray-100">
+                                <div class="flex items-center space-x-2 text-brand-gold mb-2">
+                                    <span class="text-xl">★★★★★</span>
+                                    <span class="text-sm font-semibold text-gray-700">| Por Manuel D.</span>
+                                </div>
+                                <p class="italic text-gray-700 mb-3">"Chegou em perfeitas condições. A qualidade do produto é superior. Parabéns à editora pelo rigor."</p>
+                                <p class="text-xs text-gray-400">Publicado a 19 de Dezembro de 2025</p>
+                            </div>
+
+                            <!-- Opinião 12 (5 estrelas) -->
+                            <div class="bg-white p-5 rounded-lg shadow-md border border-gray-100">
+                                <div class="flex items-center space-x-2 text-brand-gold mb-2">
+                                    <span class="text-xl">★★★★★</span>
+                                    <span class="text-sm font-semibold text-gray-700">| Por Helena R.</span>
+                                </div>
+                                <p class="italic text-gray-700 mb-3">"Uma obra incontornável. A leitura é fluida e o índice é de grande ajuda para navegar pela complexidade do texto."</p>
+                                <p class="text-xs text-gray-400">Publicado a 24 de Novembro de 2025</p>
+                            </div>
+                        </div>
+
+                        <!-- FORMULÁRIO DE OPINIÃO ATUALIZADO: Ordem dos campos ajustada (Classificação, Opinião, Nome) -->
+                        <div class="md:col-span-2 mt-6 p-6 bg-white rounded-xl shadow-sm border border-gray-100">
+                            <h4 class="font-serif text-xl text-gray-900 mb-4 border-b pb-2 border-gray-100">Deixe a Sua Opinião</h4>
+                            <form id="review-form" onsubmit="handleReviewSubmit(event)" class="space-y-4">
+                                
+                                <!-- 1. Classificação por Estrelas Clicáveis -->
+                                <div class="flex flex-col">
+                                    <label class="block text-sm font-medium text-gray-700 mb-1">Classificação</label>
+                                    <div id="rating-container" class="flex space-x-1 text-2xl">
+                                        <!-- O valor é armazenado neste input escondido -->
+                                        <input type="hidden" id="review-rating-value" name="rating" value="0" required>
+                                        <span class="rating-star text-gray-300" data-value="1">&#9733;</span>
+                                        <span class="rating-star text-gray-300" data-value="2">&#9733;</span>
+                                        <span class="rating-star text-gray-300" data-value="3">&#9733;</span>
+                                        <span class="rating-star text-gray-300" data-value="4">&#9733;</span>
+                                        <span class="rating-star text-gray-300" data-value="5">&#9733;</span>
+                                    </div>
+                                </div>
+
+                                <!-- 2. Partilhe a Sua Opinião -->
+                                <div>
+                                    <label for="review-text" class="block text-sm font-medium text-gray-700">Partilhe a Sua Opinião</label>
+                                    <textarea id="review-text" name="review" rows="4" required class="mt-1 block w-full rounded-md bg-white border border-gray-300 p-3 focus:border-brand-accent-red focus:ring-brand-accent-red transition-colors duration-150"></textarea>
+                                </div>
+
+                                <!-- 3. O seu Nome -->
+                                <div>
+                                    <label for="review-name" class="block text-sm font-medium text-gray-700">O seu Nome</label>
+                                    <input type="text" id="review-name" name="name" required class="mt-1 block w-full rounded-md bg-white border border-gray-300 p-3 focus:border-brand-accent-red focus:ring-brand-accent-red transition-colors duration-150">
+                                </div>
+                                
+                                <button 
+                                    type="submit" 
+                                    id="review-button"
+                                    class="w-full bg-brand-accent-blue text-white py-3 font-bold text-sm tracking-wider shadow-md hover:bg-blue-900 transition-colors duration-200 rounded-lg"
+                                >
+                                    SUBMETER OPINIÃO
+                                </button>
+                                <p id="review-message" class="text-sm font-semibold hidden pt-2"></p>
+                            </form>
+                        </div>
+
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
     </main>
 
-    <!-- FOOTER (Simplificado) -->
-    <footer class="bg-gray-900 text-gray-300 py-6 px-6 border-t-4 border-brand-accent-red">
-        <div class="max-w-6xl mx-auto text-center">
-            <p class="text-xs text-gray-500">© 2024 Jerónimo Editora. Design por Gemini.</p>
+    <!-- Rodapé (Código do index.html copiado para consistência) -->
+    <footer id="footer" class="bg-gray-900 text-gray-300 py-16 px-6 border-t-8 border-brand-accent-red">
+        <div class="max-w-6xl mx-auto grid grid-cols-2 md:grid-cols-4 gap-10">
+
+            <div class="col-span-2 md:col-span-1 space-y-4">
+                <div class="flex items-center space-x-2">
+                    <img 
+                        src="Logo J Dourado.png" 
+                        alt="Logótipo Jerónimo Editora" 
+                        class="h-7 w-auto"
+                        onerror="this.onerror=null;this.src='https://placehold.co/40x40/cfaf5c/800000?text=J';"
+                    />
+                    <span class="font-serif text-xl font-bold text-white">Jerónimo Editora</span>
+                </div>
+                <p class="text-sm text-gray-400">Edições de rigor dos pilares do pensamento ocidental e da tradição católica.</p>
+            </div>
+
+            <div class="space-y-4">
+                <h4 class="font-bold text-lg text-brand-gold uppercase tracking-wider">Navegação</h4>
+                <ul class="space-y-2 text-sm">
+                    <li><a href="index.html#hero" class="hover:text-white transition">Início</a></li>
+                    <li><a href="catalogo-completo.html" class="hover:text-white transition">Catálogo</a></li>
+                    <li><a href="index.html#sobre" class="hover:text-white transition">Sobre Nós</a></li>
+                    <li><a href="index.html#footer" class="hover:text-white transition">Contato</a></li>
+                </ul>
+            </div>
+
+            <div class="space-y-4">
+                <h4 class="font-bold text-lg text-brand-gold uppercase tracking-wider">Sede & Contacto</h4>
+                <ul class="space-y-2 text-sm mb-4">
+                    <li><a href="mailto:editorajeronimo@gmail.com" class="hover:text-white transition">editorajeronimo@gmail.com</a></li>
+                    <li class="text-gray-400">Braga, Portugal</li>
+                    <li><a href="#" class="hover:text-white transition">Política de Privacidade</a></li>
+                </ul>
+                
+                <!-- Ícones de redes sociais (Facebook e Instagram) -->
+                <div class="flex space-x-4">
+                    <!-- Facebook SVG Icon -->
+                    <a href="#" class="text-gray-400 hover:text-white transition" aria-label="Facebook Jerónimo Editora">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg>
+                    </a>
+                    <!-- Instagram SVG Icon -->
+                    <a href="#" class="text-gray-400 hover:text-white transition" aria-label="Instagram Jerónimo Editora">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="20" x="2" y="2" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" x2="17.51" y1="6.5" y2="6.5"/></svg>
+                    </a>
+                </div>
+            </div>
+
+            <div class="col-span-2 md:col-span-1 space-y-4">
+                <h4 class="font-bold text-lg text-brand-gold uppercase tracking-wider">Subscrever Newsletter</h4>
+                <p class="text-sm text-gray-400">Receba as últimas novidades e ofertas exclusivas diretamente no seu email.</p>
+                
+                <form onsubmit="handleSubscribe(event)" class="flex flex-col space-y-3">
+                    <input 
+                        type="email" 
+                        id="newsletter-email"
+                        placeholder="O seu email" 
+                        required 
+                        class="p-2 rounded-md bg-gray-800 border border-gray-700 text-white focus:border-brand-gold focus:ring-1 focus:ring-brand-gold"
+                    >
+                    <button 
+                        type="submit" 
+                        id="subscribe-button"
+                        class="bg-brand-gold text-brand-accent-blue font-bold py-2 rounded-md shadow-lg hover:bg-yellow-600 transition-colors"
+                    >
+                        SUBSCREVER
+                    </button>
+                    <p id="subscribe-message" class="text-xs text-green-400 font-bold hidden"></p>
+                </form>
+            </div>
+
+        </div>
+
+        <div class="max-w-6xl mx-auto text-center pt-8 mt-10 border-t border-gray-800">
+            <p class="text-xs text-gray-500">© 2024 Jerónimo Editora. Edições de Clássicos.</p>
         </div>
     </footer>
 
+
     <script>
-        // Lógica de simulação de adição ao carrinho
-        function addToCart() {
-            const button = document.querySelector('.bg-brand-gold');
-            const originalText = button.textContent;
-            
-            button.disabled = true;
-            button.textContent = 'ADICIONADO (✓)';
-            button.classList.add('bg-green-600', 'hover:bg-green-700', 'text-white');
-            button.classList.remove('bg-brand-gold', 'hover:bg-brand-gold-dark', 'text-brand-accent-blue');
-            
-            setTimeout(() => {
-                button.disabled = false;
-                button.textContent = originalText;
-                button.classList.remove('bg-green-600', 'hover:bg-green-700', 'text-white');
-                button.classList.add('bg-brand-gold', 'hover:bg-brand-gold-dark', 'text-brand-accent-blue');
-            }, 2000); // 2 segundos para mostrar o sucesso
-        }
+        // --- FUNÇÕES DE UTILIDADE ---
+        // Função para atualizar os contadores de favoritos e carrinho (simulação com localStorage)
+        function updateUI() {
+            // Conta Favoritos
+            let favCount = 0;
+            for (let i = 0; i < localStorage.length; i++) {
+                const key = localStorage.key(i);
+                if (key.startsWith('fav-') && localStorage.getItem(key) === 'true') {
+                    favCount++;
+                }
+            }
+            document.querySelectorAll('#fav-count, #fav-count-mobile').forEach(el => {
+                el.textContent = favCount;
+                if (favCount > 0) {
+                    el.classList.remove('opacity-0', 'scale-0');
+                    el.classList.add('opacity-100', 'scale-100');
+                } else {
+                    el.classList.add('opacity-0', 'scale-0');
+                    el.classList.remove('opacity-100', 'scale-100');
+                }
+            });
 
-        // Lógica de simulação de favoritos
-        function toggleWishlist() {
-            const wishlistButton = document.querySelector('[aria-label="Adicionar à Lista de Desejos"]');
-            
-            // Alterna a classe de cor/estado
-            const isAdded = wishlistButton.classList.toggle('text-brand-accent-red');
-            wishlistButton.classList.toggle('border-brand-accent-red');
-            
-            const svg = wishlistButton.querySelector('svg');
+            // Conta Carrinho (Simulada)
+            const cartItems = JSON.parse(localStorage.getItem('cart') || '[]');
+            const cartTotal = cartItems.length; // Contamos apenas o número de itens
+            document.querySelectorAll('#cart-count, #cart-count-mobile').forEach(el => {
+                el.textContent = cartTotal;
+                if (cartTotal > 0) {
+                    el.classList.remove('opacity-0', 'scale-0');
+                    el.classList.add('opacity-100', 'scale-100');
+                } else {
+                    el.classList.add('opacity-0', 'scale-0');
+                    el.classList.remove('opacity-100', 'scale-100');
+                }
+            });
 
-            if (isAdded) {
-                // Preenche o coração quando adicionado (simula o estado "favorito")
-                svg.setAttribute('fill', 'currentColor');
-                console.log("Livro adicionado à Lista de Desejos!");
-            } else {
-                // Remove o preenchimento quando removido
-                svg.setAttribute('fill', 'none');
-                console.log("Livro removido da Lista de Desejos!");
+            // Atualiza o estado do botão de favorito na página
+            const favBtn = document.getElementById('fav-btn');
+            if (favBtn) {
+                const isFav = localStorage.getItem('fav-suma-teologica') === 'true';
+                const icon = favBtn.querySelector('.fav-icon');
+                if (isFav) {
+                    favBtn.classList.add('text-red-500');
+                    icon.classList.remove('fill-transparent');
+                    icon.classList.add('fill-red-500');
+                } else {
+                    favBtn.classList.remove('text-red-500');
+                    icon.classList.add('fill-transparent');
+                    icon.classList.remove('fill-red-500');
+                }
             }
         }
+
+        // Lógica do Menu Mobile (copiado do index.html)
+        function toggleMenu() {
+            document.getElementById('mobile-menu').classList.toggle('hidden');
+        }
+        document.getElementById('menu-button').addEventListener('click', toggleMenu);
+
+        // Lógica para simular o envio da subscrição (copiado do index.html)
+        function handleSubscribe(event) {
+            event.preventDefault(); 
+            const button = document.getElementById('subscribe-button');
+            const message = document.getElementById('subscribe-message');
+            const emailInput = document.getElementById('newsletter-email');
+            
+            button.disabled = true;
+            button.textContent = 'A processar...';
+            
+            setTimeout(() => {
+                emailInput.value = '';
+                message.classList.remove('hidden');
+                message.textContent = 'Subscrição confirmada! Obrigado.';
+                button.textContent = 'SUBSCRITO';
+                
+                setTimeout(() => {
+                    button.disabled = false;
+                    button.textContent = 'SUBSCREVER';
+                    message.classList.add('hidden');
+                }, 3000); 
+
+            }, 1000);
+        }
+        
+        // NOVO: Função que troca o tab E desliza para a seção de extra info (Opiniões)
+        function showTabAndScroll(tabName) {
+            // 1. Troca para a aba de opiniões
+            showTab(tabName);
+            
+            // 2. Desliza para a seção de informação extra
+            const infoExtraSection = document.getElementById('info-extra');
+            if (infoExtraSection) {
+                infoExtraSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }
+        }
+
+
+        // Lógica de Troca de Abas (Tabs)
+        function showTab(tabName) {
+            // Esconder todo o conteúdo
+            document.querySelectorAll('.tab-content').forEach(content => {
+                content.classList.add('hidden');
+            });
+
+            // Reverter o estilo de todos os botões
+            document.querySelectorAll('.tab-button').forEach(button => {
+                button.classList.remove('border-brand-accent-blue', 'text-brand-accent-blue');
+                button.classList.add('border-transparent', 'text-gray-500', 'hover:border-gray-300', 'hover:text-brand-text');
+            });
+
+            // Mostrar o conteúdo e aplicar o estilo ativo ao botão
+            document.getElementById(`content-${tabName}`).classList.remove('hidden');
+            document.getElementById(`tab-${tabName}`).classList.remove('border-transparent', 'text-gray-500', 'hover:border-gray-300', 'hover:text-brand-text');
+            document.getElementById(`tab-${tabName}`).classList.add('border-brand-accent-blue', 'text-brand-accent-blue');
+            
+            // Se for a aba de opiniões, garante que o botão "Ver Mais" está visível
+            if (tabName === 'opinioes') {
+                 const hiddenReviews = document.getElementById('hidden-reviews');
+                 const loadMoreBtn = document.getElementById('load-more-btn');
+                 // Se todas já estiverem visíveis, esconde o botão, caso contrário, mostra
+                 if (hiddenReviews.classList.contains('hidden')) {
+                     loadMoreBtn.classList.remove('hidden');
+                 } else {
+                     loadMoreBtn.classList.add('hidden');
+                 }
+            }
+        }
+        
+        // Função: Lógica para carregar o resto das opiniões
+        function loadMoreReviews() {
+            const hiddenReviews = document.getElementById('hidden-reviews');
+            const loadMoreBtn = document.getElementById('load-more-btn');
+            
+            // 1. Torna as opiniões escondidas visíveis
+            hiddenReviews.classList.remove('hidden');
+            
+            // 2. Esconde o botão "Ver Mais"
+            loadMoreBtn.classList.add('hidden');
+        }
+
+
+        // Lógica de Adicionar ao Carrinho (Simulação)
+        function addToCart(productName, quantity) {
+            const messageBox = document.getElementById('cart-message');
+            
+            // Lógica real de simulação do carrinho (usa localStorage)
+            const cartItems = JSON.parse(localStorage.getItem('cart') || '[]');
+            cartItems.push({ id: 'suma-teologica', name: productName, price: 75.00, quantity: quantity });
+            localStorage.setItem('cart', JSON.stringify(cartItems));
+            updateUI();
+            
+            messageBox.textContent = `"${productName}" adicionado ao carrinho!`;
+            messageBox.classList.remove('hidden');
+            messageBox.classList.remove('bg-red-100', 'border-red-400', 'text-red-700');
+            messageBox.classList.add('bg-green-100', 'border-green-400', 'text-green-700');
+
+
+            // Esconde a mensagem após 3 segundos
+            setTimeout(() => {
+                messageBox.classList.add('hidden');
+            }, 3000);
+        }
+
+        // Lógica para marcar/desmarcar Favorito
+        function toggleFavorite(productId, buttonElement) {
+            const key = `fav-${productId}`;
+            const isFav = localStorage.getItem(key) === 'true';
+            const icon = buttonElement.querySelector('.fav-icon');
+
+            if (isFav) {
+                // Remover favorito
+                localStorage.removeItem(key);
+            } else {
+                // Adicionar favorito
+                localStorage.setItem(key, 'true');
+            }
+            updateUI();
+        }
+        
+        // LÓGICA DE CLASSIFICAÇÃO POR ESTRELAS
+        let currentRating = 0;
+
+        function initializeRating() {
+            const stars = document.querySelectorAll('.rating-star');
+            const ratingValueInput = document.getElementById('review-rating-value');
+            
+            stars.forEach(star => {
+                star.addEventListener('mouseover', function() {
+                    highlightStars(this.dataset.value);
+                });
+
+                star.addEventListener('mouseout', function() {
+                    highlightStars(currentRating);
+                });
+
+                star.addEventListener('click', function() {
+                    currentRating = parseInt(this.dataset.value);
+                    ratingValueInput.value = currentRating;
+                    highlightStars(currentRating);
+                });
+            });
+            
+            // Garante que o estado inicial é 0 estrelas
+            highlightStars(0);
+        }
+
+        function highlightStars(count) {
+            const stars = document.querySelectorAll('.rating-star');
+            stars.forEach(star => {
+                const starValue = parseInt(star.dataset.value);
+                if (starValue <= count) {
+                    star.classList.remove('text-gray-300');
+                    star.classList.add('text-brand-gold');
+                } else {
+                    star.classList.remove('text-brand-gold');
+                    star.classList.add('text-gray-300');
+                }
+            });
+        }
+        
+        // Lógica para Simular a Submissão de Opinião
+        function handleReviewSubmit(event) {
+            event.preventDefault(); 
+            
+            const form = document.getElementById('review-form');
+            const button = document.getElementById('review-button');
+            const message = document.getElementById('review-message');
+            const ratingValue = document.getElementById('review-rating-value').value;
+
+            // Simulação de validação mínima (agora inclui a validação da classificação)
+            if (parseInt(ratingValue) === 0) {
+                message.textContent = 'Por favor, atribua uma classificação em estrelas.';
+                message.classList.remove('hidden');
+                message.classList.remove('text-green-700');
+                message.classList.add('text-red-600');
+                return;
+            }
+            
+            const reviewText = document.getElementById('review-text').value;
+            if (reviewText.length < 10) {
+                message.textContent = 'A sua opinião deve ter, pelo menos, 10 caracteres.';
+                message.classList.remove('hidden');
+                message.classList.remove('text-green-700');
+                message.classList.add('text-red-600');
+                return;
+            }
+
+            // 1. DESATIVA o botão e muda o texto
+            button.disabled = true;
+            // Mensagem em PT-PT
+            button.textContent = 'A Submeter...'; 
+            message.classList.add('hidden');
+            
+            // 2. Simula a chamada de API
+            setTimeout(() => {
+                // 3. MOSTRA a mensagem de sucesso
+                // Mensagem em PT-PT
+                message.textContent = 'A sua opinião foi submetida com sucesso! Obrigado.'; 
+                message.classList.remove('hidden');
+                message.classList.remove('text-red-600');
+                message.classList.add('text-green-700');
+                
+                // 4. LIMPA o formulário e reseta o rating
+                form.reset();
+                currentRating = 0;
+                highlightStars(0); // Reseta as estrelas visíveis
+                
+                // Mensagem em PT-PT
+                button.textContent = 'OPINIÃO SUBMETIDA'; 
+                
+                // 5. Reverte o texto do botão e esconde a mensagem
+                setTimeout(() => {
+                    button.disabled = false;
+                    // Mensagem em PT-PT
+                    button.textContent = 'SUBMETER OPINIÃO'; 
+                    message.classList.add('hidden');
+                }, 3000); 
+
+            }, 1500); // 1.5 segundos de atraso para simulação
+        }
+
+        // Inicializar a UI (favoritos e carrinho) e o sistema de rating ao carregar a página
+        window.onload = function() {
+            updateUI();
+            initializeRating();
+            // Garante que a primeira aba visível é "Detalhes Completos"
+            showTab('detalhes');
+        };
+
     </script>
 </body>
 </html>
