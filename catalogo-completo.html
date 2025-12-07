@@ -165,51 +165,80 @@
     </div>
 
 
-    <!-- Navigation (com Carrinho e Favoritos) -->
-    <nav class="w-full bg-white shadow-md border-b border-gray-100 py-4 px-6 sticky top-0 z-40">
-        <div class="max-w-6xl mx-auto flex justify-between items-center relative">
+     <!-- Navbar Fixa -->
+    <nav class="w-full bg-white shadow-md border-b border-gray-100 py-4 px-6 fixed top-0 z-50">
+        <div class="max-w-6xl mx-auto flex justify-between items-center">
             
-            <!-- 1. Voltar à Página Inicial -->
-            <a href="index.html" class="text-brand-accent-red font-bold hover:text-red-900 transition-colors flex items-center space-x-2 text-sm md:text-base">
-                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5"/><path d="m12 19-7-7 7-7"/></svg>
-                <span class="hidden sm:inline">Voltar à Página Inicial</span>
-                <span class="sm:hidden">Início</span>
+            <!-- Logótipo e Nome da Editora -->
+            <a href="index.html" class="flex items-center space-x-2">
+                <img 
+                    src="Logo J.png" 
+                    alt="Logótipo Jerónimo Editora" 
+                    class="h-9 w-auto"
+                    onerror="this.onerror=null;this.src='https://placehold.co/40x40/cfaf5c/800000?text=J';"
+                />
+                <span class="font-serif text-2xl font-extrabold text-brand-text hover:text-brand-accent-red transition-colors duration-200">Jerónimo Editora</span>
             </a>
+            
+            <!-- Menu Desktop -->
+            <div class="hidden md:flex items-center space-x-8 text-sm font-medium text-gray-700 tracking-wide">
+                <a href="index.html#hero" class="hover:text-brand-accent-red transition-colors duration-200">INÍCIO</a>
+                <a href="catalogo-completo.html" class="hover:text-brand-accent-red transition-colors duration-200">CATÁLOGO</a> 
+                <a href="index.html#sobre" class="hover:text-brand-accent-red transition-colors duration-200">SOBRE</a>
+                <a href="index.html#footer" class="hover:text-brand-accent-red transition-colors duration-200">CONTATO</a>
 
-            <!-- 2. Logo/Brand Name (Central) -->
-            <!-- Escondido em ecrãs muito pequenos para dar espaço aos ícones de ação -->
-            <span class="absolute left-1/2 transform -translate-x-1/2 font-serif text-2xl font-extrabold text-brand-text hidden sm:block">Jerónimo Editora</span>
+                <!-- Ícones de Carrinho e Favoritos -->
+                <div class="pl-4 flex space-x-4">
+                    <!-- Ícone Favoritos -->
+                    <button class="relative text-gray-700 hover:text-brand-accent-red transition-colors" onclick="openFavorites()">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/></svg>
+                        <span id="fav-count" class="absolute -top-1 -right-2 bg-brand-accent-red text-white text-xs font-bold w-4 h-4 flex items-center justify-center rounded-full opacity-0 scale-0 transition-all duration-300">0</span>
+                    </button>
+                    <!-- Ícone Carrinho -->
+                    <button class="relative text-gray-700 hover:text-brand-accent-red transition-colors" onclick="openCart()">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="8" cy="20" r="1"/><circle cx="17" cy="20" r="1"/><path d="M2.5 2.5h2l2 11h11l1-6h5.5"/><path d="m20.5 7-1.4 5.2a1 1 0 0 1-.95.8H7.5"/><path d="M8 8h9"/><path d="M17 17H7.5"/></svg>
+                        <span id="cart-count" class="absolute -top-1 -right-2 bg-brand-accent-red text-white text-xs font-bold w-4 h-4 flex items-center justify-center rounded-full opacity-0 scale-0 transition-all duration-300">0</span>
+                    </button>
+                </div>
+            </div>
 
-            <!-- 3. Ícones de Ação (Carrinho e Favoritos) -->
-            <div class="flex items-center space-x-2 sm:space-x-4">
-                
-                <!-- Ícone Favoritos -->
-                <button 
-                    title="Favoritos"
-                    onclick="openFavorites()"
-                    class="p-2 rounded-full text-brand-accent-blue hover:bg-red-50 hover:text-brand-accent-red transition-colors relative"
-                >
-                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/></svg>
-                    <!-- Small indicator for favorites count (dynamic) -->
-                    <span id="fav-count" class="absolute top-0 right-0 inline-flex items-center justify-center px-2 py-1 text-xs font-bold leading-none text-white transform translate-x-1/2 -translate-y-1/2 bg-brand-accent-red rounded-full shadow-md">0</span>
+
+            
+            <!-- Botão Menu Mobile -->
+            <button id="menu-button" class="md:hidden text-2xl text-brand-text focus:outline-none hover:text-brand-accent-red">
+                &#9776;
+            </button>
+        </div>
+    </nav>
+    
+    <!-- Menu Mobile Deslizante -->
+    <div id="mobile-menu" class="hidden fixed top-20 left-0 w-full bg-white shadow-xl z-40 md:hidden">
+        <div class="flex flex-col p-4 text-center space-y-3">
+            <a href="index.html#hero" class="py-2 text-gray-700 hover:bg-gray-100 hover:text-brand-accent-red transition-colors" onclick="toggleMenu()">INÍCIO</a>
+            <a href="catalogo-completo.html" class="py-2 text-gray-700 hover:bg-gray-100 hover:text-brand-accent-red transition-colors" onclick="toggleMenu()">CATÁLOGO</a>
+            <a href="index.html#sobre" class="py-2 text-gray-700 hover:bg-gray-100 hover:text-brand-accent-red transition-colors" onclick="toggleMenu()">SOBRE</a>
+            <a href="index.html#footer" class="py-2 text-gray-700 hover:bg-gray-100 hover:text-brand-accent-red transition-colors" onclick="toggleMenu()">CONTATO</a>
+            
+            <!-- Ícones no Menu Mobile -->
+            <div class="flex justify-center space-x-8 pt-4 border-t border-gray-100">
+                <!-- Ícone Favoritos Mobile -->
+                <button class="relative text-gray-700 hover:text-brand-accent-red transition-colors" onclick="openFavorites()">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/></svg>
+                    <span id="fav-count-mobile" class="absolute -top-1 -right-2 bg-brand-accent-red text-white text-xs font-bold w-4 h-4 flex items-center justify-center rounded-full opacity-0 scale-0 transition-all duration-300">0</span>
                 </button>
-                
-                <!-- Ícone Carrinho -->
-                <button 
-                    title="Carrinho de Compras"
-                    onclick="openCart()"
-                    class="p-2 rounded-full text-brand-accent-blue hover:bg-red-50 hover:text-brand-accent-red transition-colors relative"
-                >
-                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="8" cy="21" r="1"/><circle cx="19" cy="21" r="1"/><path d="M2.05 2.05h2l2.66 12.42a2 2 0 0 0 2 1.58h9.72a2 2 0 0 0 2-1.58L23 6H6"/></svg>
-                    <!-- Small indicator for cart count (dynamic) -->
-                    <span id="cart-count" class="absolute top-0 right-0 inline-flex items-center justify-center px-2 py-1 text-xs font-bold leading-none text-white transform translate-x-1/2 -translate-y-1/2 bg-brand-accent-red rounded-full shadow-md">0</span>
+                <!-- Ícone Carrinho Mobile -->
+                <button class="relative text-gray-700 hover:text-brand-accent-red transition-colors" onclick="openCart()">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="8" cy="20" r="1"/><circle cx="17" cy="20" r="1"/><path d="M2.5 2.5h2l2 11h11l1-6h5.5"/><path d="m20.5 7-1.4 5.2a1 1 0 0 1-.95.8H7.5"/><path d="M8 8h9"/><path d="M17 17H7.5"/></svg>
+                    <span id="cart-count-mobile" class="absolute -top-1 -right-2 bg-brand-accent-red text-white text-xs font-bold w-4 h-4 flex items-center justify-center rounded-full opacity-0 scale-0 transition-all duration-300">0</span>
                 </button>
             </div>
         </div>
-    </nav>
+    </div>
+
 
     <!-- Main Content: Catálogo Completo -->
-    <main class="flex-grow py-16">
+    <!-- Adicionado pt-24 (padding-top) para dar espaço ao navbar fixo -->
+    <main class="flex-grow pt-24"> 
         <div class="max-w-6xl mx-auto px-6">
             <!-- Título e Introdução -->
             <h1 class="font-serif text-4xl sm:text-5xl text-brand-accent-blue mb-4 border-b pb-3 text-center">Catálogo Completo</h1>
@@ -217,7 +246,19 @@
 
             <!-- Filtros e Pesquisa -->
             <div class="mb-10 flex flex-col md:flex-row gap-4 justify-between items-center bg-white p-4 rounded-xl shadow-lg border border-gray-100">
-                <input type="text" id="search-input" placeholder="Pesquisar por título ou autor..." class="w-full md:w-2/3 p-3 border border-gray-300 rounded-lg focus:ring-brand-accent-red focus:border-brand-accent-red transition duration-200 text-brand-text" onkeyup="filterBooks()">
+                
+                <!-- Pesquisa (APENAS INPUT) -->
+                <div class="w-full md:w-2/3 border border-gray-300 rounded-lg focus-within:ring-brand-accent-red focus-within:ring-2 focus-within:border-brand-accent-red transition duration-200">
+                    <input 
+                        type="text" 
+                        id="search-input" 
+                        placeholder="Pesquisar por título ou autor..." 
+                        class="w-full p-3 outline-none text-brand-text" 
+                        onkeyup="filterBooks()"
+                    >
+                </div>
+
+                <!-- Filtro de Categoria -->
                 <select id="category-filter" class="w-full md:w-1/3 p-3 border border-gray-300 rounded-lg bg-white appearance-none cursor-pointer focus:ring-brand-accent-red focus:border-brand-accent-red transition duration-200 text-brand-text" onchange="filterBooks()">
                     <option value="all">Todas as Categorias</option>
                     <option value="Teologia">Teologia</option>
@@ -227,10 +268,13 @@
                 </select>
             </div>
 
+            <!-- MENSAGEM DE ERRO (MOVIMENTO CRÍTICO PARA CORRIGIR O BUG) -->
+            <!-- O elemento no-results deve estar fora do contentor que é limpo pelo JS -->
+            <p id="no-results" class="col-span-full text-center text-xl text-gray-500 hidden py-10">Nenhum livro encontrado com os critérios de pesquisa.</p>
+
             <!-- Grid de Produtos -->
             <div id="book-list-container" class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-6">
                 <!-- Os cartões dos livros serão injetados aqui via JavaScript -->
-                <p id="no-results" class="col-span-full text-center text-xl text-gray-500 hidden py-10">Nenhum livro encontrado com os critérios de pesquisa.</p>
             </div>
             
         </div>
@@ -239,7 +283,7 @@
     <!-- FOOTER (Simplificado) -->
     <footer class="bg-gray-900 text-gray-300 py-6 px-6 border-t-4 border-brand-accent-red">
         <div class="max-w-6xl mx-auto text-center">
-            <p class="text-xs text-gray-500">© 2024 Jerónimo Editora. Design por Gemini.</p>
+            <p class="text-xs text-gray-500">© 2026 Jerónimo Editora.</p>
         </div>
     </footer>
 
@@ -278,7 +322,7 @@
                 title: "Convite aos Salmos",
                 author: "Rolf A. Jacobson & Karl N. Jacobson",
                 price: 28.50,
-                category: "Estudos Bíblicos",
+                category: "Teologia",
                 image: "Jacobson.png",
                 link: "detalhes.html"
             },
@@ -325,7 +369,7 @@
                 title: "A definir",
                 author: "A definir",
                 price: 0.00,
-                category: "Filosofia",
+                category: "História",
                 // Placeholder em cinzento claro
                 image: "https://placehold.co/128x192/D1D5DB/9CA3AF?text=INDISPON%C3%8DVEL",
                 link: "detalhes.html"
@@ -375,7 +419,7 @@
             document.getElementById('add-to-cart-modal').classList.remove('hidden');
         }
 
-        // --- NOVO: Funções de Checkout ---
+        // --- Funções de Checkout ---
 
         // Função para finalizar a compra (redireciona ou avisa se carrinho vazio)
         function checkout() {
@@ -403,8 +447,20 @@
         function updateCartUI() {
             const cartItems = JSON.parse(localStorage.getItem('cartItems') || '[]');
             const totalQuantity = cartItems.reduce((sum, item) => sum + item.quantity, 0);
+            
+            // Atualiza o contador de desktop
             document.getElementById('cart-count').textContent = totalQuantity;
-            document.getElementById('cart-count').classList.toggle('hidden', totalQuantity === 0);
+            document.getElementById('cart-count').classList.toggle('opacity-0', totalQuantity === 0);
+            document.getElementById('cart-count').classList.toggle('scale-0', totalQuantity === 0);
+            
+            // Atualiza o contador de mobile (novo id)
+            const cartCountMobile = document.getElementById('cart-count-mobile');
+            if (cartCountMobile) { // Verifica se o elemento existe (no caso de catalogo-completo.html ter sido carregado diretamente)
+                cartCountMobile.textContent = totalQuantity;
+                cartCountMobile.classList.toggle('opacity-0', totalQuantity === 0);
+                cartCountMobile.classList.toggle('scale-0', totalQuantity === 0);
+            }
+
             renderCartItems(cartItems); // Garante que o sidebar é atualizado
         }
 
@@ -414,6 +470,12 @@
             const existingItemIndex = cartItems.findIndex(item => item.id === bookId);
             const book = bookData.find(b => b.id === bookId);
             
+            if (!book) {
+                console.error(`Livro com ID ${bookId} não encontrado nos dados.`);
+                showCustomModal("Erro", "Não foi possível adicionar o livro ao carrinho.");
+                return;
+            }
+
             if (existingItemIndex > -1) {
                 cartItems[existingItemIndex].quantity += 1;
             } else {
@@ -445,15 +507,18 @@
         // Renderiza o conteúdo do carrinho (Lista de livros e total)
         function renderCartItems(cartItems) {
             const container = document.getElementById('cart-list');
+            const checkoutButton = document.querySelector('footer button[onclick="checkout()"]');
             let total = 0;
             let html = '';
+
+            if (!container || !checkoutButton) return; // Evita erros se o HTML não estiver completo
 
             if (cartItems.length === 0) {
                 html = '<p class="text-center text-gray-500 italic py-8">O seu carrinho está vazio. Adicione livros para começar a comprar!</p>';
                 // Desativa os botões do footer se o carrinho estiver vazio
-                document.querySelector('footer button[onclick="checkout()"]').disabled = true;
-                document.querySelector('footer button[onclick="checkout()"]').classList.replace('bg-brand-gold', 'bg-gray-300');
-                document.querySelector('footer button[onclick="checkout()"]').classList.replace('text-brand-accent-blue', 'text-gray-500');
+                checkoutButton.disabled = true;
+                checkoutButton.classList.replace('bg-brand-gold', 'bg-gray-300');
+                checkoutButton.classList.replace('text-brand-accent-blue', 'text-gray-500');
             } else {
                 cartItems.forEach(item => {
                     const itemTotal = item.price * item.quantity;
@@ -483,9 +548,9 @@
                     `;
                 });
                  // Reativa os botões do footer se houver itens
-                document.querySelector('footer button[onclick="checkout()"]').disabled = false;
-                document.querySelector('footer button[onclick="checkout()"]').classList.replace('bg-gray-300', 'bg-brand-gold');
-                document.querySelector('footer button[onclick="checkout()"]').classList.replace('text-gray-500', 'text-brand-accent-blue');
+                checkoutButton.disabled = false;
+                checkoutButton.classList.replace('bg-gray-300', 'bg-brand-gold');
+                checkoutButton.classList.replace('text-gray-500', 'text-brand-accent-blue');
             }
 
             container.innerHTML = html;
@@ -495,6 +560,7 @@
         // Abre o sidebar do carrinho
         function openCart() {
             const sidebar = document.getElementById('cart-sidebar');
+            if (!sidebar) return;
             // FIX: Removido 'hidden' para garantir que o elemento está no DOM e é visível
             sidebar.classList.remove('hidden'); 
             updateCartUI(); // Garante que a lista e o total estão frescos
@@ -508,6 +574,7 @@
         // Fecha o sidebar do carrinho (equivalente ao "Continuar a Comprar")
         function closeCart() {
             const sidebar = document.getElementById('cart-sidebar');
+            if (!sidebar) return;
             sidebar.classList.remove('cart-sidebar-open');
             // Esconde o elemento com 'hidden' APÓS o tempo da transição CSS (300ms) terminar.
             setTimeout(() => sidebar.classList.add('hidden'), 300); 
@@ -524,13 +591,26 @@
                     count++;
                 }
             });
-            document.getElementById('fav-count').textContent = count;
-            document.getElementById('fav-count').classList.toggle('hidden', count === 0);
+            
+            const favCount = document.getElementById('fav-count');
+            const favCountMobile = document.getElementById('fav-count-mobile');
+            
+            if (favCount) {
+                favCount.textContent = count;
+                favCount.classList.toggle('opacity-0', count === 0);
+                favCount.classList.toggle('scale-0', count === 0);
+            }
+            if (favCountMobile) {
+                favCountMobile.textContent = count;
+                favCountMobile.classList.toggle('opacity-0', count === 0);
+                favCountMobile.classList.toggle('scale-0', count === 0);
+            }
         }
 
         // Renderiza o conteúdo do modal de favoritos
         function renderFavoriteItems() {
             const container = document.getElementById('favorites-list');
+            if (!container) return;
             let html = '';
             let favoriteBooks = [];
 
@@ -574,13 +654,19 @@
 
         // Abre o modal de favoritos
         function openFavorites() {
-            document.getElementById('favorites-modal').classList.remove('hidden');
-            renderFavoriteItems();
+            const modal = document.getElementById('favorites-modal');
+            if (modal) {
+                modal.classList.remove('hidden');
+                renderFavoriteItems();
+            }
         }
 
         // Fecha o modal de favoritos
         function closeFavorites() {
-            document.getElementById('favorites-modal').classList.add('hidden');
+            const modal = document.getElementById('favorites-modal');
+            if (modal) {
+                modal.classList.add('hidden');
+            }
         }
 
         // Simulação de Favoritos (usa localStorage para persistir o estado)
@@ -595,6 +681,7 @@
                 if (btn) { // O botão pode não existir se estiver a remover do modal
                     btn.classList.add('text-gray-400');
                     btn.classList.remove('text-red-500', 'fill-red-500');
+                    btn.setAttribute('fill', 'none'); // Garante que o ícone fica sem preenchimento
                 }
                 showCustomModal("Removido", `O livro "${bookTitle}" foi removido dos seus Favoritos.`);
             } else {
@@ -603,28 +690,36 @@
                 if (btn) {
                     btn.classList.remove('text-gray-400');
                     btn.classList.add('text-red-500', 'fill-red-500');
+                    btn.setAttribute('fill', 'currentColor'); // Preenche o coração
                 }
                 showCustomModal("Adicionado aos Favoritos", `O livro "${bookTitle}" está agora nos seus Favoritos!`);
             }
             
             updateFavoritesCount();
             // Se o modal de favoritos estiver aberto, atualiza a lista
-            if (!document.getElementById('favorites-modal').classList.contains('hidden')) {
+            const favoritesModal = document.getElementById('favorites-modal');
+            if (favoritesModal && !favoritesModal.classList.contains('hidden')) {
                 renderFavoriteItems();
             }
         }
 
         // Função para renderizar os cartões dos livros no catálogo
         function renderBooks(books) {
+            // As variáveis são obtidas aqui, no início da função
             const container = document.getElementById('book-list-container');
             const noResults = document.getElementById('no-results');
-            container.innerHTML = '';
             
+            if (!container || !noResults) return; // Parar se os elementos não existirem
+
+            // 1. Limpa o contentor da lista de livros (mas não remove o 'no-results')
+            container.innerHTML = ''; 
+            
+            // 2. Controla a visibilidade da mensagem de "nenhum resultado"
             if (books.length === 0) {
-                noResults.classList.remove('hidden');
+                noResults.classList.remove('hidden'); 
                 return;
             } else {
-                noResults.classList.add('hidden');
+                noResults.classList.add('hidden'); 
             }
 
             books.forEach(book => {
@@ -659,7 +754,10 @@
                         </button>
                     `;
                 }
-
+                
+                // Determina o estado inicial do botão Favorito para o cartão
+                const isFav = localStorage.getItem(`fav-${book.id}`) === 'true';
+                const favClass = isFav ? 'text-red-500 fill-red-500' : 'text-gray-400 fill-none';
 
                 const cardHtml = `
                     <div class="text-center group book-shadow bg-white rounded-xl transition-all duration-300 hover:shadow-xl p-4 flex flex-col justify-between">
@@ -682,11 +780,12 @@
                             <!-- Botão de Favorito -->
                             <button 
                                 aria-label="Adicionar aos Favoritos" 
-                                class="text-gray-400 hover:text-red-500 transition-colors p-2 rounded-full hover:bg-red-50 focus:outline-none focus:ring-2 focus:ring-red-500"
+                                class="${favClass} hover:text-red-500 transition-colors p-2 rounded-full hover:bg-red-50 focus:outline-none focus:ring-2 focus:ring-red-500"
                                 onclick="toggleFavorite(${book.id}, '${book.title}')"
                                 id="fav-btn-${book.id}"
+                                fill="${isFav ? 'currentColor' : 'none'}"
                             >
-                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/></svg>
+                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="${isFav ? 'currentColor' : 'none'}" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/></svg>
                             </button>
                             <!-- Botão de Comprar/Indisponível (Variável) -->
                             ${buyButtonHtml}
@@ -694,28 +793,36 @@
                     </div>
                 `;
                 container.innerHTML += cardHtml;
-                
-                // Aplicar estado de favorito após a injeção do HTML
-                if (localStorage.getItem(`fav-${book.id}`) === 'true') {
-                    const favBtn = document.getElementById(`fav-btn-${book.id}`);
-                    if (favBtn) {
-                        favBtn.classList.add('text-red-500');
-                        favBtn.classList.add('fill-red-500'); // Preenche o coração
-                        favBtn.classList.remove('text-gray-400');
-                    }
-                }
             });
+            // O estado de favorito já é aplicado diretamente no HTML gerado, tornando a atualização posterior desnecessária.
         }
+        
+        // Função auxiliar para remover acentos/diacríticos (torna a pesquisa mais robusta)
+        function removeDiacritics(text) {
+            // Normaliza para separar os caracteres dos acentos e remove os acentos (combinando diacríticos)
+            return text.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+        }
+
 
         // Função principal de filtragem
         function filterBooks() {
+            // 1. Obtém e limpa o termo de pesquisa
             const searchTerm = document.getElementById('search-input').value.toLowerCase().trim();
+            // 2. Normaliza (remove acentos)
+            const normalizedSearchTerm = removeDiacritics(searchTerm); 
+
             const category = document.getElementById('category-filter').value;
 
             const filteredBooks = bookData.filter(book => {
-                const matchesSearch = book.title.toLowerCase().includes(searchTerm) || 
-                                      book.author.toLowerCase().includes(searchTerm);
+                // Normaliza o título e o autor do livro para comparação
+                const normalizedTitle = removeDiacritics(book.title.toLowerCase());
+                const normalizedAuthor = removeDiacritics(book.author.toLowerCase());
                 
+                // Lógica de pesquisa por correspondência parcial (título ou autor)
+                const matchesSearch = normalizedTitle.includes(normalizedSearchTerm) || 
+                                      normalizedAuthor.includes(normalizedSearchTerm);
+                
+                // Lógica de filtro por categoria
                 const matchesCategory = category === 'all' || book.category === category;
 
                 return matchesSearch && matchesCategory;
@@ -723,6 +830,18 @@
 
             renderBooks(filteredBooks);
         }
+        
+        // Função para alternar o menu mobile
+        function toggleMenu() {
+            const menu = document.getElementById('mobile-menu');
+            if (menu) {
+                menu.classList.toggle('hidden');
+            }
+        }
+        
+        // Listener para o botão do menu mobile
+        document.getElementById('menu-button').addEventListener('click', toggleMenu);
+
 
         // Inicializar a renderização dos livros e contadores quando a página carregar
         window.onload = () => {
