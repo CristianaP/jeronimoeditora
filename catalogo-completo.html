@@ -7,7 +7,7 @@
     <!-- Google Fonts: Playfair Display (Serif), Roboto (Sans) & Crimson Text (Classic) -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400;1,900&family=Roboto:wght@300;400;500;700;900&family=Crimson+Text:ital,wght@0,400;0,700;1,400;1,900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400;1,900&family=Roboto:wght@300;00;500;700;900&family=Crimson+Text:ital,wght@0,400;0,700;1,400;1,900&display=swap" rel="stylesheet">
     
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
@@ -71,6 +71,12 @@
         .gallery-image:hover {
             transform: scale(1.05);
         }
+        /* Botão de Coração sempre alinhado ao centro */
+        .fav-button-wrapper {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
     </style>
 </head>
 <body class="bg-brand-bg text-brand-text font-sans antialiased flex flex-col min-h-screen">
@@ -131,33 +137,35 @@
     </div>
 
     <!-- Modal para Detalhes (+Info) - NOVO ELEMENTO (2) -->
+    <!-- ALTERADO: max-w-4xl para max-w-full w-full mx-0 para mobile (ocupar toda a largura) e sm:mx-4 sm:max-w-xl para evitar ser demasiado grande no desktop/tablet -->
     <div id="info-modal" class="fixed inset-0 z-50 bg-black bg-opacity-50 flex items-center justify-center hidden">
-        <div class="bg-white p-6 rounded-xl shadow-2xl max-w-4xl w-full mx-4 transform transition-all duration-300 max-h-[95vh] flex flex-col" onclick="event.stopPropagation()">
+        <div class="bg-white p-4 sm:p-6 rounded-xl shadow-2xl max-w-full w-full mx-0 sm:mx-4 sm:max-w-xl md:max-w-3xl lg:max-w-4xl transform transition-all duration-300 max-h-[95vh] flex flex-col" onclick="event.stopPropagation()">
             <!-- Título do Livro na Modal -->
-            <h3 id="info-modal-title" class="text-3xl font-bold font-serif text-brand-accent-blue mb-4 border-b pb-3 text-center"></h3>
+            <h3 id="info-modal-title" class="text-xl sm:text-3xl font-bold font-serif text-brand-accent-blue mb-4 border-b pb-3 text-center"></h3>
             
             <div class="flex flex-col md:flex-row flex-grow overflow-hidden">
                 
                 <!-- Secção de Abas (Tabs) -->
-                <div class="md:w-1/3 p-4 flex flex-col items-center border-b md:border-b-0 md:border-r border-gray-100 flex-shrink-0">
+                <!-- No mobile, ocupa toda a largura (w-full). No desktop, 1/3 (md:w-1/3) -->
+                <div class="w-full md:w-1/3 p-2 sm:p-4 flex flex-col items-center border-b md:border-b-0 md:border-r border-gray-100 flex-shrink-0">
                     <!-- Imagem Principal (Capa) -->
-                    <img id="info-modal-image" src="" alt="Capa do Livro" class="w-40 h-auto object-contain mb-6 rounded-md shadow-lg" onerror="this.onerror=null;this.src='https://placehold.co/160x240/002147/cfaf5c?text=JERÓNIMO';" />
+                    <img id="info-modal-image" src="" alt="Capa do Livro" class="w-28 h-auto object-contain mb-4 rounded-md shadow-lg sm:w-40" onerror="this.onerror=null;this.src='https://placehold.co/160x240/002147/cfaf5c?text=JERÓNIMO';" />
                     
                     <!-- Botões de Navegação das Abas -->
-                    <nav class="flex flex-col space-y-2 w-full">
-                        <button class="tab-button p-3 text-left rounded-lg bg-brand-accent-red text-white hover:bg-red-900 transition-colors font-semibold" data-tab="resumo">
+                    <nav class="flex flex-col space-y-2 w-full text-sm">
+                        <button class="tab-button p-2 text-left rounded-lg bg-brand-accent-red text-white hover:bg-red-900 transition-colors font-semibold" data-tab="resumo">
                             <svg xmlns="http://www.w3.org/2000/svg" class="inline-block h-5 w-5 mr-2" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20V5H6.5A2.5 2.5 0 0 0 4 7.5v12z"/><path d="M12 11h4"/><path d="M12 15h4"/></svg>
                             Resumo & Galeria
                         </button>
-                        <button class="tab-button p-3 text-left rounded-lg bg-gray-100 text-brand-text hover:bg-gray-200 transition-colors font-semibold" data-tab="autor">
+                        <button class="tab-button p-2 text-left rounded-lg bg-gray-100 text-brand-text hover:bg-gray-200 transition-colors font-semibold" data-tab="autor">
                             <svg xmlns="http://www.w3.org/2000/svg" class="inline-block h-5 w-5 mr-2" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
                             Sobre o Autor
                         </button>
-                        <button class="tab-button p-3 text-left rounded-lg bg-gray-100 text-brand-text hover:bg-gray-200 transition-colors font-semibold" data-tab="tecnicos">
+                        <button class="tab-button p-2 text-left rounded-lg bg-gray-100 text-brand-text hover:bg-gray-200 transition-colors font-semibold" data-tab="tecnicos">
                             <svg xmlns="http://www.w3.org/2000/svg" class="inline-block h-5 w-5 mr-2" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="18" height="18" x="3" y="3" rx="2"/></svg>
                             Detalhes Técnicos
                         </button>
-                        <button class="tab-button p-3 text-left rounded-lg bg-gray-100 text-brand-text hover:bg-gray-200 transition-colors font-semibold" data-tab="opinioes">
+                        <button class="tab-button p-2 text-left rounded-lg bg-gray-100 text-brand-text hover:bg-gray-200 transition-colors font-semibold" data-tab="opinioes">
                             <svg xmlns="http://www.w3.org/2000/svg" class="inline-block h-5 w-5 mr-2" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/><path d="M8 15h.01"/><path d="M16 15h.01"/><path d="M12 15h.01"/><path d="M8 11h8"/></svg>
                             Opiniões & Avaliações
                         </button>
@@ -165,13 +173,14 @@
                 </div>
 
                 <!-- Conteúdo das Abas -->
-                <div id="info-modal-content" class="md:w-2/3 p-4 overflow-y-auto max-h-[70vh]">
+                <!-- Reduzido max-h para permitir mais espaço para o footer da modal -->
+                <div id="info-modal-content" class="md:w-2/3 p-2 sm:p-4 overflow-y-auto max-h-[60vh] sm:max-h-[70vh]">
                     <!-- Conteúdo dinâmico será injetado aqui -->
                 </div>
             </div>
 
             <!-- Botão de Fechar no rodapé da modal -->
-            <div class="mt-6 pt-4 border-t border-gray-100 flex justify-end">
+            <div class="mt-4 pt-3 border-t border-gray-100 flex justify-end">
                 <button onclick="closeInfoModal()" class="bg-brand-accent-red text-white py-2 px-6 rounded-md hover:bg-red-900 transition-colors shadow-lg">Fechar Detalhes</button>
             </div>
         </div>
@@ -303,26 +312,26 @@
             <h1 class="font-serif text-4xl sm:text-5xl text-brand-accent-blue mb-4 border-b pb-3 text-center">Catálogo Completo</h1>
             <p class="text-center text-lg text-gray-600 mb-8">Descubra todas as nossas publicações de pensamento clássico, filosofia e teologia.</p>
 
-            <!-- Filtros e Pesquisa (5) - NOVO LAYOUT -->
-            <div class="mb-10 flex flex-col gap-4 bg-white p-4 rounded-xl shadow-lg border border-gray-100">
+            <!-- Filtros e Pesquisa (AJUSTADO PARA UMA ÚNICA LINHA NO DESKTOP) -->
+            <div class="mb-10 flex flex-col gap-3 md:gap-4 bg-white p-4 rounded-xl shadow-lg border border-gray-100">
                 
-                <!-- Primeira linha: Pesquisa -->
-                <div class="w-full border border-gray-300 rounded-lg focus-within:ring-brand-accent-red focus-within:ring-2 focus-within:border-brand-accent-red transition duration-200">
-                    <input 
-                        type="text" 
-                        id="search-input" 
-                        placeholder="Pesquisar por título ou autor..." 
-                        class="w-full p-3 outline-none text-brand-text" 
-                        onkeyup="filterAndSortBooks()"
-                    >
-                </div>
-
-                <!-- Segunda linha (Desktop): Filtros/Ordenação e Botão Limpar -->
-                <!-- No mobile, ficará em formato de coluna -->
-                <div class="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-between items-center w-full">
+                <!-- Secção de Filtros Completa -->
+                <!-- No mobile: Coluna (flex-col). No desktop: Grid 4 colunas (md:grid-cols-4) para manter tudo na mesma linha. -->
+                <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-3 md:gap-4 items-center w-full">
                     
-                    <!-- Filtro de Categoria -->
-                    <select id="category-filter" class="w-full sm:w-auto flex-grow p-3 border border-gray-300 rounded-lg bg-white appearance-none cursor-pointer focus:ring-brand-accent-red focus:border-brand-accent-red transition duration-200 text-brand-text" onchange="filterAndSortBooks()">
+                    <!-- Coluna 1: Pesquisa -->
+                    <div class="md:col-span-1 border border-gray-300 rounded-lg focus-within:ring-brand-accent-red focus-within:ring-2 focus-within:border-brand-accent-red transition duration-200">
+                        <input 
+                            type="text" 
+                            id="search-input" 
+                            placeholder="Pesquisar..." 
+                            class="w-full py-2 px-3 text-sm outline-none text-brand-text" 
+                            onkeyup="filterAndSortBooks()"
+                        >
+                    </div>
+
+                    <!-- Coluna 2: Filtro de Categoria -->
+                    <select id="category-filter" class="w-full py-2 px-3 border border-gray-300 rounded-lg bg-white appearance-none cursor-pointer focus:ring-brand-accent-red focus:border-brand-accent-red transition duration-200 text-brand-text text-sm" onchange="filterAndSortBooks()">
                         <option value="all">Todas as Categorias</option>
                         <option value="Teologia">Teologia</option>
                         <option value="Filosofia">Filosofia Clássica</option>
@@ -330,8 +339,8 @@
                         <option value="Estudos Bíblicos">Estudos Bíblicos</option>
                     </select>
 
-                    <!-- Ordenação (Sort) -->
-                    <select id="sort-order" class="w-full sm:w-auto flex-grow p-3 border border-gray-300 rounded-lg bg-white appearance-none cursor-pointer focus:ring-brand-accent-red focus:border-brand-accent-red transition duration-200 text-brand-text" onchange="filterAndSortBooks()">
+                    <!-- Coluna 3: Ordenação (Sort) -->
+                    <select id="sort-order" class="w-full py-2 px-3 border border-gray-300 rounded-lg bg-white appearance-none cursor-pointer focus:ring-brand-accent-red focus:border-brand-accent-red transition duration-200 text-brand-text text-sm" onchange="filterAndSortBooks()">
                         <option value="default">Ordenar Por...</option>
                         <option value="az">Título (A-Z)</option>
                         <option value="za">Título (Z-A)</option>
@@ -340,12 +349,12 @@
                         <option value="rating-desc">Melhor Avaliado</option>
                     </select>
 
-                    <!-- Botão Limpar -->
+                    <!-- Coluna 4: Botão Limpar -->
                     <button 
                         onclick="clearFiltersAndSort()" 
-                        class="w-full sm:w-auto px-6 py-3 bg-brand-accent-blue text-white font-bold rounded-lg hover:bg-brand-accent-red transition-colors shadow-md flex-shrink-0"
+                        class="w-full py-2 px-3 bg-brand-accent-blue text-white font-bold rounded-lg hover:bg-brand-accent-red transition-colors shadow-md flex-shrink-0 text-sm"
                     >
-                        Limpar
+                        Limpar Filtros
                     </button>
                 </div>
             </div>
@@ -353,8 +362,8 @@
             <!-- MENSAGEM DE ERRO -->
             <p id="no-results" class="col-span-full text-center text-xl text-gray-500 hidden py-10">Nenhum livro encontrado com os critérios de pesquisa.</p>
 
-            <!-- Grid de Produtos -->
-            <div id="book-list-container" class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-6">
+            <!-- Grid de Produtos (REVERTIDO PARA 4 COLUNAS NO DESKTOP, mantendo 3 colunas no sm e 2 no base) -->
+            <div id="book-list-container" class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-4 gap-6">
                 <!-- Os cartões dos livros serão injetados aqui via JavaScript -->
             </div>
             
@@ -539,6 +548,7 @@
             }
             // Simula URLs baseadas no nome do ficheiro (para a mini-galeria)
             // Usamos um placeholder genérico que simula ser uma imagem secundária.
+            // Nota: Este é um placeholder usado apenas na galeria da modal +Info
             return `https://placehold.co/64x96/002147/cfaf5c?text=Foto+${imageName.split('_').pop().split('.')[0]}`;
         }
 
@@ -612,7 +622,7 @@
                         <div class="grid grid-cols-2 gap-4">
                             ${book.gallery.map(img => `
                                 <div class="overflow-hidden rounded-lg shadow-md">
-                                    <img src="${getBookImageUrl(img)}" alt="Foto detalhe do livro ${book.title}" class="gallery-image" />
+                                    <img src="${getBookImageUrl(img)}" alt="Foto detalhe do livro ${book.title}" class="gallery-image" onerror="this.onerror=null;this.src='https://placehold.co/64x96/002147/cfaf5c?text=FOTO';" />
                                 </div>
                             `).join('')}
                         </div>
@@ -644,6 +654,7 @@
                 case 'opinioes':
                     // Opiniões
                     const reviews = bookReviews[bookId] || [];
+                    // Ícone de estrela preenchida para o rating
                     const ratingStar = `<svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 fill-brand-gold text-brand-gold inline-block" viewBox="0 0 24 24" fill="currentColor" stroke="none"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>`;
                     const avgRating = book.rating > 0 ? `${book.rating.toFixed(1)}/5.0` : 'Sem Avaliação';
                     
@@ -829,7 +840,8 @@
         // Renderiza o conteúdo do carrinho (Lista de livros e total)
         function renderCartItems(cartItems) {
             const container = document.getElementById('cart-list');
-            const checkoutButton = document.querySelector('footer button[onclick="checkout()"]');
+            // Nota: O checkout button está no footer, por isso faz-se query global
+            const checkoutButton = document.querySelector('#cart-sidebar footer button[onclick="checkout()"]'); 
             let total = 0;
             let html = '';
 
@@ -1024,6 +1036,9 @@
             if (favoritesModal && !favoritesModal.classList.contains('hidden')) {
                 renderFavoriteItems();
             }
+            
+            // Se estiver na página de catálogo, re-renderiza o catálogo para atualizar o ícone do coração
+            renderBooks(filterAndSortBooks(false)); // Passa false para não renderizar duas vezes se a função for chamada no onload
         }
 
         // Função para renderizar os cartões dos livros no catálogo
@@ -1053,27 +1068,31 @@
 
                 // Define o HTML do botão Comprar/Indisponível
                 let buyButtonHtml;
+                
+                // --- DEFINIÇÃO DO BOTÃO COMPRAR (Comprar / Indisponível) ---
+                const cartIcon = `<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="8" cy="21" r="1"/><circle cx="19" cy="21" r="1"/><path d="M2.5 2.5h2l2 11h11l1-6h5.5"/><path d="m20.5 7-1.4 5.2a1 1 0 0 1-.95.8H7.5"/><path d="M8 8h9"/><path d="M17 17H7.5"/></svg>`;
+                const unavailableIcon = `<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m2 2 20 20"/><path d="M11 6h7l-1 4h-4"/><path d="M3 6h2l3 12h10l-1-4"/><circle cx="7" cy="20" r="1"/><circle cx="18" cy="20" r="1"/></svg>`; // Cesto riscado
 
                 if (isUnavailable) {
                     // Botão cinzento claro, desativado
                     buyButtonHtml = `
                         <button 
                             disabled 
-                            class="flex items-center space-x-1 bg-gray-300 text-gray-500 text-xs font-bold py-2 px-3 rounded-full cursor-not-allowed shadow-none"
+                            class="flex items-center justify-center space-x-1 bg-gray-300 text-gray-500 text-xs font-bold py-1 px-3 rounded-lg cursor-not-allowed shadow-none w-1/2 md:w-auto h-8"
                         >
-                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="8" cy="21" r="1"/><circle cx="19" cy="21" r="1"/><path d="M2.05 2.05h2l2.66 12.42a2 2 0 0 0 2 1.58h9.72a2 2 0 0 0 2-1.58L23 6H6"/></svg>
-                            <span>Indisponível</span>
+                            <span class="inline md:hidden">${unavailableIcon}</span>
+                            <span class="hidden md:inline">${cartIcon} Indisponível</span>
                         </button>
                     `;
                 } else {
-                    // Botão padrão vermelho/vinho
+                    // Botão de COMPRAR (Desktop: texto + carrinho, Mobile: só carrinho)
                     buyButtonHtml = `
                         <button 
-                            class="flex items-center space-x-1 bg-brand-accent-red text-white text-xs font-bold py-2 px-3 rounded-full hover:bg-red-900 transition-colors shadow-md focus:outline-none focus:ring-2 focus:ring-brand-accent-red"
+                            class="flex items-center justify-center space-x-1 bg-brand-accent-blue text-white text-sm font-bold py-1 px-3 rounded-lg hover:bg-brand-accent-red transition-colors shadow-md focus:outline-none focus:ring-2 focus:ring-brand-accent-blue w-1/2 md:w-auto h-8"
                             onclick="addToCart(${book.id}, '${book.title}')"
                         >
-                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="8" cy="21" r="1"/><circle cx="19" cy="21" r="1"/><path d="M2.05 2.05h2l2.66 12.42a2 2 0 0 0 2 1.58h9.72a2 2 0 0 0 2-1.58L23 6H6"/></svg>
-                            <span>Comprar</span>
+                            <span class="inline md:hidden text-lg">${cartIcon}</span>
+                            <span class="hidden md:inline">${cartIcon} Comprar</span>
                         </button>
                     `;
                 }
@@ -1082,22 +1101,36 @@
                 const isFav = localStorage.getItem(`fav-${book.id}`) === 'true';
                 const favClass = isFav ? 'text-red-500 fill-red-500' : 'text-gray-400 fill-none';
                 
-                // (1) Botão +Info Dourado
+                // --- DEFINIÇÃO DO BOTÃO + INFO ---
                 const infoButtonHtml = `
                     <button 
                         aria-label="Mais Informações" 
-                        class="text-brand-gold hover:text-yellow-600 transition-colors p-2 rounded-full hover:bg-brand-gold/10 focus:outline-none focus:ring-2 focus:ring-brand-gold"
+                        class="text-brand-gold hover:text-yellow-600 transition-colors text-xs font-bold py-1 px-3 rounded-lg border border-brand-gold hover:border-yellow-600 focus:outline-none focus:ring-2 focus:ring-brand-gold w-1/2 md:w-auto h-8 flex items-center justify-center"
                         onclick="openInfoModal(${book.id})"
                     >
-                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/></svg>
+                        <span class="hidden md:inline font-extrabold">+ INFO</span>
+                        <span class="inline md:hidden text-lg font-extrabold">+</span> 
+                    </button>
+                `;
+                
+                // --- DEFINIÇÃO DO BOTÃO FAVORITO ---
+                const favButtonHtml = `
+                    <button 
+                        aria-label="Adicionar aos Favoritos" 
+                        class="${favClass} hover:text-red-500 transition-colors p-1 rounded-full hover:bg-red-50 focus:outline-none focus:ring-2 focus:ring-red-500 flex-shrink-0 w-8 h-8 flex items-center justify-center"
+                        onclick="toggleFavorite(${book.id}, '${book.title}')"
+                        id="fav-btn-${book.id}"
+                        fill="${isFav ? 'currentColor' : 'none'}"
+                    >
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="${isFav ? 'currentColor' : 'none'}" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/></svg>
                     </button>
                 `;
 
 
                 const cardHtml = `
                     <div class="text-center group book-shadow bg-white rounded-xl transition-all duration-300 hover:shadow-xl p-4 flex flex-col justify-between">
-                        <!-- Link principal para a página de detalhes -->
-                        <a href="${book.link}" class="flex-grow block">
+                        <!-- Link principal: ALTERADO DE <a> PARA <div> e adicionado onclick -->
+                        <div class="flex-grow block cursor-pointer" onclick="openInfoModal(${book.id})">
                             <img 
                                 src="${book.image}" 
                                 alt="Capa do livro ${book.title}" 
@@ -1108,24 +1141,23 @@
                             <p class="text-xs text-gray-500 italic font-medium">${book.author}</p>
                             <!-- Preço mais proeminente - Aplicado font-classic (Crimson Text) -->
                             <span class="text-xl font-classic font-extrabold text-brand-accent-red mt-2 block">${priceFormatted}</span>
-                        </a>
+                        </div>
                         
                         <!-- Secção de Ação (Favorito, +Info e Comprar) -->
-                        <div class="flex items-center justify-between mt-4 border-t pt-3 border-gray-100">
-                            <!-- Botão de Favorito -->
-                            <button 
-                                aria-label="Adicionar aos Favoritos" 
-                                class="${favClass} hover:text-red-500 transition-colors p-2 rounded-full hover:bg-red-50 focus:outline-none focus:ring-2 focus:ring-red-500"
-                                onclick="toggleFavorite(${book.id}, '${book.title}')"
-                                id="fav-btn-${book.id}"
-                                fill="${isFav ? 'currentColor' : 'none'}"
-                            >
-                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="${isFav ? 'currentColor' : 'none'}" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/></svg>
-                            </button>
-                            <!-- Botão +Info (NOVO) -->
-                            ${infoButtonHtml}
-                            <!-- Botão de Comprar/Indisponível (Variável) -->
-                            ${buyButtonHtml}
+                        <div class="flex items-center justify-between mt-4 border-t pt-3 border-gray-100 space-x-1">
+                            
+                            <!-- Botão de Favorito (Fica na extrema esquerda) -->
+                            <div class="flex-shrink-0">
+                                ${favButtonHtml}
+                            </div>
+                            
+                            <!-- Botões +Info e Comprar (Ficam à direita) -->
+                            <div class="flex space-x-1 w-full md:w-auto justify-end flex-grow">
+                                <!-- Botão +Info -->
+                                ${infoButtonHtml}
+                                <!-- Botão de Comprar/Indisponível (Variável) -->
+                                ${buyButtonHtml}
+                            </div>
                         </div>
                     </div>
                 `;
@@ -1144,7 +1176,8 @@
         // Função de Ordenação (NOVA)
         function sortBooks(books, sortBy) {
             if (sortBy === 'default') {
-                return books; // Não ordena
+                // Mantém a ordem padrão definida no array (ou nenhuma ordenação explícita)
+                return books; 
             }
 
             return books.sort((a, b) => {
@@ -1168,16 +1201,17 @@
 
 
         // Função principal de filtragem E ordenação (filterAndSortBooks)
-        function filterAndSortBooks() {
+        // O parâmetro `render` controla se a função deve renderizar ou apenas retornar a lista
+        function filterAndSortBooks(shouldRender = true) {
             // 1. Obtém e limpa o termo de pesquisa
-            const searchTerm = document.getElementById('search-input').value.toLowerCase().trim();
+            const searchTerm = document.getElementById('search-input')?.value.toLowerCase().trim() || '';
             const normalizedSearchTerm = removeDiacritics(searchTerm); 
 
             // 2. Obtém o filtro de categoria
-            const category = document.getElementById('category-filter').value;
+            const category = document.getElementById('category-filter')?.value || 'all';
             
             // 3. Obtém a ordenação
-            const sortBy = document.getElementById('sort-order').value; 
+            const sortBy = document.getElementById('sort-order')?.value || 'default'; 
 
             // 4. Filtra
             const filtered = bookData.filter(book => {
@@ -1194,17 +1228,26 @@
             });
             
             // 5. Ordena
-            const sortedBooks = sortBooks(filtered, sortBy);
-
-            // 6. Renderiza
-            renderBooks(sortedBooks);
+            const sortedBooks = sortBooks([...filtered], sortBy); // Usa spread para criar uma cópia e evitar side effects no array original
+            
+            if (shouldRender) {
+                 // 6. Renderiza
+                renderBooks(sortedBooks);
+            }
+            
+            return sortedBooks;
         }
         
         // Função para limpar filtros e ordenação (NOVA)
         function clearFiltersAndSort() {
-            document.getElementById('search-input').value = '';
-            document.getElementById('category-filter').value = 'all';
-            document.getElementById('sort-order').value = 'default';
+            const searchInput = document.getElementById('search-input');
+            const categoryFilter = document.getElementById('category-filter');
+            const sortOrder = document.getElementById('sort-order');
+            
+            if (searchInput) searchInput.value = '';
+            if (categoryFilter) categoryFilter.value = 'all';
+            if (sortOrder) sortOrder.value = 'default';
+            
             filterAndSortBooks();
         }
 
